@@ -21,6 +21,8 @@ const {
 	BlockAlignmentToolbar, // For aligning the block.
 	AlignmentToolbar,      // For aligning the text.
 	RichText,              // For creating editable elements.
+	InspectorControls,     // For allowing to apply controls.
+	ColorPalette,		   // For use of the color palette picker.
 } = wp.editor;
 const { registerBlockType } = wp.blocks; // Registers the block
 const { __ } = wp.i18n; // Allows for strings to be localized
@@ -38,11 +40,9 @@ const blockAttributes = {
 	align: {
 		type: 'string',
 	},
-	alignment: {
-		type: 'string',
-	},
 	textAlign: {
 		type: 'string',
+		default: 'left',
     },
 
 	// First Image
@@ -55,10 +55,15 @@ const blockAttributes = {
 	firstImageText: {
 		type: 'string',
 		source: 'children',
-		selector: '.wp-block-double-image .image-block.left .overlay-container .overlay-text p'
+		selector: '.wp-block-double-image .image-block.left .overlay-container .overlay-text p',
 	},
 	firstImageTextColor: {
 		type: 'string',
+		default: '#fff',
+	},
+	firstImageTextPosition: {
+		type: 'string',
+		default: 'top',
 	},
 
 	// Second Image
@@ -71,10 +76,15 @@ const blockAttributes = {
 	secondImageText: {
 		type: 'string',
 		source: 'children',
-		selector: '.wp-block-double-image .image-block.right .overlay-container .overlay-text p'
+		selector: '.wp-block-double-image .image-block.right .overlay-container .overlay-text p',
 	},
 	secondImageTextColor: {
 		type: 'string',
+		default: '#fff',
+	},
+	secondImageTextPosition: {
+		type: 'string',
+		default: 'bottom',
 	},
 };
 
@@ -148,14 +158,15 @@ registerBlockType( 'double-image/double-image', {
 		const {
 			format,
 			align,
-			alignment,
 			textAlign,
 			firstImageURL,
 			firstImageText,
 			firstImageTextColor,
+			firstImageTextPosition,
 			secondImageURL,
 			secondImageText,
-			secondImageTextColor
+			secondImageTextColor,
+			secondImageTextPosition
 		} = attributes;
 
 		const styleFirstImage  = backgroundImageStyles( firstbackgroundImage );
@@ -175,7 +186,10 @@ registerBlockType( 'double-image/double-image', {
 					className={ 'image-block left show-overlay' } 
 					style={ styleFirstImage }
 					>
-						<div class="overlay-container top">
+						<div 
+							className={ 'overlay-container ' + {firstImageTextPosition}}
+							style={{ color: firstImageTextColor }}
+						>
     						<div class="overlay-text left">
 								<RichText.Content
 									tagName="p"
@@ -196,7 +210,10 @@ registerBlockType( 'double-image/double-image', {
 					className={ 'image-block right show-overlay' } 
 					style={ styleSecondImage }
 					>
-						<div class="overlay-container top">
+						<div 
+							className={ 'overlay-container ' + {secondImageTextPosition}}
+							style={{ color: secondImageTextColor }}
+						>
     						<div class="overlay-text right">
 								<RichText.Content
 									tagName="p"
