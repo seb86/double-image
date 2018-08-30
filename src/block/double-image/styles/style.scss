@@ -1,0 +1,106 @@
+/* WP Block */
+.wp-block-double-image {
+    display: block;
+    clear: both;
+    min-height: 320px;
+    width: 100%;
+    height: 100%;
+
+    /* Block Alignments */
+    &.alignwide {
+        margin-left: auto;
+        margin-right: auto;
+        max-width: calc(840px - 10px) !important;
+        width: calc(100% - 10px);
+    }
+
+    &.alignfull {
+        max-width: 100% !important;
+    }
+
+    /* Formats */
+    &.format-1-4 {
+        .image-block:first-child {
+            width: 39%;
+        }
+
+        .image-block:last-child {
+            width: 59%;
+        }
+    }
+
+    &.format-4-1 {
+        .image-block:first-child {
+            width: 59%;
+        }
+
+        .image-block:last-child {
+            width: 39%;
+        }
+    }
+
+    &.format-even .image-block {
+        width: 50%;
+    }
+
+    &.format-full-stack .image-block {
+        width: 100%;
+    }
+
+    @media (min-width: 600px) {
+        &.format-1-4 .image-block:first-child, 
+        &.format-1-4 .image-block:last-child, 
+        &.format-even .image-block {
+            width: 100%;
+        }
+    }
+
+    /* Image Block */
+    .image-block {
+        height: 100%;
+        display: block;
+        position: relative;
+        margin-bottom: 1em;
+        min-height: 320px;
+        background-color: #eee;
+        background-size: cover;
+        background-position: 50%;
+
+        &.show-overlay .overlay-container {
+            opacity: 1;
+        }
+    }
+
+    /* Overlay */
+    .overlay-container {
+        height: 100%;
+        width: 100%;
+        background-color: #ababab80;
+        position: absolute;
+        top: 0;
+        opacity: 0;
+
+        &.top .overlay-text {
+            margin-top: 0%;
+        }
+    
+        &.bottom .overlay-text {
+            margin-top: 46%;
+        }
+    
+        .overlay-text {
+            padding: 1em;
+            font-size: 16pt;
+            font-style: italic;
+            color: #fff;
+
+            &.left {
+                text-align: left;
+            }
+
+            &.right {
+                text-align: right;
+            }
+        }
+    }
+}

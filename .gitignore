@@ -1,0 +1,17 @@
+**/node_modules/**
+**/build/**
+dist/**
+**/dist/**
+*.sublime-project
+*.sublime-workspace
+*.cache
+.ftppass
+sftp.json
+.github/
+.github/issue_template.md
+
+dist/blocks.build.js
+
+dist/blocks.editor.build.css
+
+dist/blocks.style.build.css

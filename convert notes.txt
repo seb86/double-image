@@ -1,0 +1,14 @@
+# Convert Notes
+
+variables (var) are (const)
+
+type = input type
+
+ * number
+ * string = text
+ * raw
+ * array
+
+ source
+  * attribute
+  * children
