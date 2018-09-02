@@ -6,26 +6,16 @@ import classnames from 'classnames';
 /**
  * Internal dependencies
  */
-import './styles/style.scss';
 import './styles/editor.scss';
+import './styles/style.scss';
+import DoubleImage from './components/doubleimage';
 import Edit from './components/edit';
-import Inspector from './components/inspector';
 
 /**
  * WordPress dependencies
  */
-const {
-	MediaPlaceholder,      // For placing a placeholder until an media image has been set.
-	MediaUpload,           // For uploading media.
-	BlockControls,         // For controlling the block
-	BlockAlignmentToolbar, // For aligning the block.
-	AlignmentToolbar,      // For aligning the text.
-	RichText,              // For creating editable elements.
-	InspectorControls,     // For allowing to apply controls.
-	ColorPalette,		   // For use of the color palette picker.
-} = wp.editor;
-const { registerBlockType } = wp.blocks; // Registers the block
 const { __ } = wp.i18n; // Allows for strings to be localized
+const { registerBlockType } = wp.blocks; // Registers the block
 
 const validAlignments = [ 'left', 'center', 'right', 'wide', 'full' ];
 
@@ -43,9 +33,16 @@ const blockAttributes = {
 	textAlign: {
 		type: 'string',
 		default: 'left',
-    },
+	},
+	showOverlays: {
+		type: 'string',
+		default: false,
+	},
 
 	// First Image
+	firstImageID: {
+		type: 'number',
+	},
 	firstImageURL: {
 		type: 'string',
 		source: 'attribute',
@@ -56,6 +53,7 @@ const blockAttributes = {
 		type: 'string',
 		source: 'children',
 		selector: '.wp-block-double-image .image-block.left .overlay-container .overlay-text p',
+		default: __( 'Enter your text here!' ),
 	},
 	firstImageTextColor: {
 		type: 'string',
@@ -67,6 +65,9 @@ const blockAttributes = {
 	},
 
 	// Second Image
+	secondImageID: {
+		type: 'number',
+	},
 	secondImageURL: {
 		type: 'string',
 		source: 'attribute',
@@ -77,6 +78,7 @@ const blockAttributes = {
 		type: 'string',
 		source: 'children',
 		selector: '.wp-block-double-image .image-block.right .overlay-container .overlay-text p',
+		default: __( 'Enter your text here!' ),
 	},
 	secondImageTextColor: {
 		type: 'string',
@@ -94,10 +96,10 @@ const blockAttributes = {
 registerBlockType( 'double-image/double-image', {
 
 	// The title of the block.
-	title: __( 'Double Image', '@@textdomain' ),
+	title: __( 'Double Image' ),
 
 	// The description of the block.
-	description: __( 'Add two images side by side with optional overlay text.', '@@textdomain' ),
+	description: __( 'Add two images side by side with optional overlay text.' ),
 
 	// Dashicon icon for the block.
 	icon: 'image-flip-horizontal',
@@ -107,9 +109,9 @@ registerBlockType( 'double-image/double-image', {
 
 	// The keywords for the block in order to search for the block. Limit to 3 keywords / phrases only.
 	keywords: [
-		__( 'image', '@@textdomain' ),
-		__( 'column', '@@textdomain' ),
-		__( 'double', '@@textdomain' ),
+		__( 'image' ),
+		__( 'column' ),
+		__( 'double' ),
 	],
 
 	// Necessary for saving block content.
@@ -121,67 +123,74 @@ registerBlockType( 'double-image/double-image', {
         anchor: true,
     },
 	
-	/*transforms: {
+	transforms: {
 		from: [
 			{
-				type: 'block',
-				blocks: [ 'core/heading' ],
-				transform: ( { title } ) => (
-					createBlock( 'core/heading', { content: title } )
-				),
+				type: 'raw',
+				selector: 'div.wp-block-double-image-double-image',
+				schema: {
+					div: {
+						classes: [ 'wp-block-double-image-double-image' ],
+					},
+				},
 			},
 		],
-		to: [
-			{
-				type: 'block',
-				blocks: [ 'core/heading' ],
-				transform: ( { content } ) => (
-					createBlock( 'core/cover-image', { title: content } )
-				),
-			},
-		],
-	},*/
-
-	getEditWrapperProps( attributes ) {
-		const { align } = attributes;
-		if ( -1 !== validAlignments.indexOf( align ) ) {
-			return { 'data-align': align };
-		}
 	},
 
 	// Determines what is displayed in the editor.
 	edit: Edit,
 
+	/*edit( props ) {
+		return (
+			<div className={ className }>
+
+				<div class="image-block left">
+				</div>
+
+				<div class="image-block right">
+				</div>
+
+			</div>
+		)
+	},*/
+
 	// Determines what is displayed on the frontend.
-	save: function( attributes, className ) {
+	save: function( props ) {
 
 		const {
 			format,
 			align,
 			textAlign,
+			showOverlays,
+			firstImageID,
 			firstImageURL,
 			firstImageText,
 			firstImageTextColor,
 			firstImageTextPosition,
+			secondImageID,
 			secondImageURL,
 			secondImageText,
 			secondImageTextColor,
 			secondImageTextPosition
-		} = attributes;
+		} = props.attributes;
 
-		const styleFirstImage  = backgroundImageStyles( firstbackgroundImage );
-		const styleSecondImage = backgroundImageStyles( secondbackgroundImage );
+		const styleFirstImage  = backgroundImageStyles( firstImageURL );
+		const styleSecondImage = backgroundImageStyles( secondImageURL );
 
 		const classes = classnames(
 			className,
-			'wp-blocks-double-image',
-			format ? `format-${ format }` : '-1-4',
+			format ? `format-${ format }` : 'format-1-4',
 			align ? `align-${ align }` : null,
+			firstImageTextPosition ? `text-${ firstImageTextPosition }` : 'text-top',
+			secondImageTextPosition ? `text-${secondImageTextPosition }` : 'text-bottom',
 		);
 
+		const firstShowOverlay = firstImageText.length > 0 ? true : false;
+		const secondShowOverlay = secondImageText.length > 0 ? true : false;
+
 		return (
-			<div className={ classes }>
-				{ firstImageText && firstImageText.length > 0 && (
+			<DoubleImage { ...props }>
+				{ firstShowOverlay && showOverlays ? (
 					<div 
 					className={ 'image-block left show-overlay' } 
 					style={ styleFirstImage }
@@ -198,14 +207,14 @@ registerBlockType( 'double-image/double-image', {
 							</div>
   						</div>
 					</div>
-				 ) } : (
+				) : (
 					<div 
 						className={ 'image-block left' } 
 						style={ styleFirstImage }
 					></div>
-				 ) }
+				) }
 
-				{ secondImageText && secondImageText.length > 0 && (
+				{ secondShowOverlay && showOverlays ? (
 					<div 
 					className={ 'image-block right show-overlay' } 
 					style={ styleSecondImage }
@@ -222,14 +231,14 @@ registerBlockType( 'double-image/double-image', {
 							</div>
   						</div>
 					</div>
-				 ) } : (
+				 ) : (
 					<div 
 						className={ 'image-block right' } 
 						style={ styleSecondImage }
 					></div>
 				 ) }
 
-			</div>
+			</DoubleImage>
 		  );
 
 		return null;
@@ -237,7 +246,9 @@ registerBlockType( 'double-image/double-image', {
 } );
 
 function backgroundImageStyles( url ) {
-	return url ?
-		{ backgroundImage: `url(${ url })` } :
-		undefined;
+	return url ? {
+		backgroundImage: `url(${ url })`,
+		backgroundSize: 'cover',
+		backgroundPosition: 'center'
+	} : undefined;
 }

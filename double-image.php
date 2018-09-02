@@ -119,7 +119,7 @@ class Double_Image {
 		$this->dir     = untrailingslashit( plugin_dir_path( '/', __FILE__ ) );
 		$this->url     = untrailingslashit( plugins_url( '/', __FILE__ ) );
 
-		add_action( 'init', array( $this, 'register_blocks' ) );
+		add_action( 'init', array( $this, 'register_block' ) );
 		add_action( 'init', array( $this, 'block_assets' ) );
 		add_action( 'init', array( $this, 'editor_assets' ) );
 		//add_action( 'plugins_loaded', array( $this, 'load_dynamic_blocks' ) );
@@ -143,7 +143,7 @@ class Double_Image {
 	 *
 	 * @access public
 	 */
-	public function register_blocks() {
+	public function register_block() {
 		// Return early if this function does not exist.
 		if ( ! function_exists( 'register_block_type' ) ) {
 			return;
