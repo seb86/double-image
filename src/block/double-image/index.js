@@ -43,7 +43,7 @@ const blockAttributes = {
 	firstImageText: {
 		type: 'array',
 		source: 'children',
-		selector: '.wp-block-double-image-double-image .image-block.left .overlay-container .overlay-text p',
+		selector: '.overlay-text.left',
 	},
 	firstImageTextColor: {
 		type: 'string',
@@ -63,7 +63,7 @@ const blockAttributes = {
 	secondImageText: {
 		type: 'array',
 		source: 'children',
-		selector: '.wp-block-double-image-double-image .image-block.right .overlay-container .overlay-text p',
+		selector: '.overlay-text.right',
 	},
 	secondImageTextColor: {
 		type: 'string',
