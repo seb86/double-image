@@ -140,20 +140,6 @@ registerBlockType( 'double-image/double-image', {
 	// Determines what is displayed in the editor.
 	edit: Edit,
 
-	/*edit( props ) {
-		return (
-			<div className={ className }>
-
-				<div class="image-block left">
-				</div>
-
-				<div class="image-block right">
-				</div>
-
-			</div>
-		)
-	},*/
-
 	// Determines what is displayed on the frontend.
 	save: function( props ) {
 
@@ -178,7 +164,6 @@ registerBlockType( 'double-image/double-image', {
 		const styleSecondImage = backgroundImageStyles( secondImageURL );
 
 		const classes = classnames(
-			className,
 			format ? `format-${ format }` : 'format-1-4',
 			align ? `align-${ align }` : null,
 			firstImageTextPosition ? `text-${ firstImageTextPosition }` : 'text-top',
