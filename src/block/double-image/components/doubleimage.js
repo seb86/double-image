@@ -24,22 +24,17 @@ export default class DoubleImage extends Component {
 		const {
 			format,
 			align,
-			textAlign,
 		} = attributes;
 
 		const classes = classnames(
 			className,
-			'wp-blocks-double-image',
-			format ? `format-${ format }` : '-1-4',
+			format ? `format-${ format }` : '1-4',
 			align ? `align-${ align }` : null,
 		);
 
 		return (
 			<Fragment>
-				<div
-					className={ classes }
-					style={ { textAlign: textAlign } }
-				>
+				<div className={ classes }>
 					{ this.props.children }
 				</div>
 			</Fragment>
