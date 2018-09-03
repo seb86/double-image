@@ -3,7 +3,7 @@
  */
 const { __ } = wp.i18n;
 const { Component, Fragment } = wp.element;
-const { AlignmentToolbar, BlockControls, MediaUpload } = wp.editor;
+const { BlockControls, MediaUpload } = wp.editor;
 const { Toolbar, IconButton } = wp.components;
 
 export default class Controls extends Component {
@@ -16,11 +16,11 @@ export default class Controls extends Component {
 
 		const {
 			attributes,
+			isSelected,
 			setAttributes,
 		} = this.props;
 
 		const {
-			textAlign,
 			firstImageID,
 			firstImageURL,
 			secondImageID,
@@ -33,11 +33,7 @@ export default class Controls extends Component {
 		return (
 			<Fragment>
 				<BlockControls>
-					<AlignmentToolbar
-						value={ textAlign }
-						onChange={ ( textAlign ) => setAttributes( { textAlign: textAlign } ) }
-					/>
-					{ firstImageURL &&
+					{ isSelected && firstImageURL &&
 						<Toolbar>
 							<MediaUpload
 								onSelect={ onSelectImageOne }
@@ -46,21 +42,21 @@ export default class Controls extends Component {
 								render={ ( { open } ) => (
 									<IconButton
 										className="components-toolbar__control"
-										label={ __( 'Edit image' ) }
-										icon="edit"
+										label={ __( 'Edit first image' ) }
+										icon="format-image"
 										onClick={ open }
 									/>
 								) }
 							/>
 							<IconButton
 								className="components-toolbar__control"
-								label={ __( 'Remove image' ) }
+								label={ __( 'Remove first image' ) }
 								icon="trash"
 								onClick={ () => setAttributes( { firstImageURL: '', firstImageID: '' } ) }
 							/>
 						</Toolbar>
 					}
-					{ secondImageURL &&
+					{ isSelected && secondImageURL &&
 						<Toolbar>
 							<MediaUpload
 								onSelect={ onSelectImageTwo }
@@ -69,15 +65,15 @@ export default class Controls extends Component {
 								render={ ( { open } ) => (
 									<IconButton
 										className="components-toolbar__control"
-										label={ __( 'Edit image' ) }
-										icon="edit"
+										label={ __( 'Edit second image' ) }
+										icon="format-image"
 										onClick={ open }
 									/>
 								) }
 							/>
 							<IconButton
 								className="components-toolbar__control"
-								label={ __( 'Remove image' ) }
+								label={ __( 'Remove second image' ) }
 								icon="trash"
 								onClick={ () => setAttributes( { secondImageURL: '', secondImageID: '' } ) }
 							/>
