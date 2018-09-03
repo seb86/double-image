@@ -28,7 +28,7 @@ export default class DoubleImage extends Component {
 
 		const classes = classnames(
 			className,
-			format ? `format-${ format }` : '1-4',
+			format ? `format-${ format }` : 'format-1-4',
 			align ? `align-${ align }` : null,
 		);
 

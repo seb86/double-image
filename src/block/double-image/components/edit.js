@@ -1,9 +1,4 @@
 /**
- * External dependencies
- */
-//import classnames from 'classnames';
-
-/**
  * Internal dependencies
  */
 import Colors from './colors';
@@ -84,6 +79,7 @@ export default compose( Colors ) ( class Edit extends Component {
 			mergeBlocks,
 			onReplace,
 			setAttributes,
+			setState,
 		} = this.props;
 
 		const {
@@ -162,7 +158,6 @@ export default compose( Colors ) ( class Edit extends Component {
 										tagName="p"
 										placeholder={ __( 'Optional overlay text...' ) }
 										value={ firstImageText }
-										className={ `${ className }__first-overlay-text` }
 										style={{ color: firstImageTextColor }}
 										onMerge={ mergeBlocks }
 										onChange={ ( value ) => setAttributes( { firstImageText: value } ) }
@@ -199,7 +194,6 @@ export default compose( Colors ) ( class Edit extends Component {
 										tagName="p"
 										placeholder={ __( 'Optional overlay text...' ) }
 										value={ secondImageText }
-										className={ `${ className }__second-overlay-text` }
 										style={{ color: secondImageTextColor }}
 										onMerge={ mergeBlocks }
 										onChange={ ( value ) => setAttributes( { secondImageText: value } ) }
