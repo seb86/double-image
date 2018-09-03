@@ -17,8 +17,6 @@ import Edit from './components/edit';
 const { __ } = wp.i18n; // Allows for strings to be localized
 const { registerBlockType } = wp.blocks; // Registers the block
 
-const validAlignments = [ 'left', 'center', 'right', 'wide', 'full' ];
-
 /**
  * Block attributes. Attributes set for each piece of dynamic data used in the block.
  */
@@ -30,13 +28,9 @@ const blockAttributes = {
 	align: {
 		type: 'string',
 	},
-	textAlign: {
-		type: 'string',
-		default: 'left',
-	},
 	showOverlays: {
-		type: 'string',
-		default: false,
+		type: 'boolean',
+		default: true,
 	},
 
 	// First Image
@@ -45,23 +39,18 @@ const blockAttributes = {
 	},
 	firstImageURL: {
 		type: 'string',
-		source: 'attribute',
-		attribute: 'src',
-		selector: 'img',
 	},
 	firstImageText: {
-		type: 'string',
+		type: 'array',
 		source: 'children',
-		selector: '.wp-block-double-image .image-block.left .overlay-container .overlay-text p',
-		default: __( 'Enter your text here!' ),
+		selector: '.wp-block-double-image-double-image .image-block.left .overlay-container .overlay-text p',
 	},
 	firstImageTextColor: {
 		type: 'string',
-		default: '#fff',
 	},
 	firstImageTextPosition: {
 		type: 'string',
-		default: 'top',
+		default: 'top'
 	},
 
 	// Second Image
@@ -70,23 +59,18 @@ const blockAttributes = {
 	},
 	secondImageURL: {
 		type: 'string',
-		source: 'attribute',
-		attribute: 'src',
-		selector: 'img',
 	},
 	secondImageText: {
-		type: 'string',
+		type: 'array',
 		source: 'children',
-		selector: '.wp-block-double-image .image-block.right .overlay-container .overlay-text p',
-		default: __( 'Enter your text here!' ),
+		selector: '.wp-block-double-image-double-image .image-block.right .overlay-container .overlay-text p',
 	},
 	secondImageTextColor: {
 		type: 'string',
-		default: '#fff',
 	},
 	secondImageTextPosition: {
 		type: 'string',
-		default: 'bottom',
+		default: 'bottom'
 	},
 };
 
@@ -119,11 +103,10 @@ registerBlockType( 'double-image/double-image', {
 
 	// Enable or disable support for features in is block.
 	supports: {
-		align: validAlignments,
-        anchor: true,
+		align: [ 'wide', 'full', 'center' ],
     },
 	
-	transforms: {
+	/*transforms: {
 		from: [
 			{
 				type: 'raw',
@@ -135,7 +118,7 @@ registerBlockType( 'double-image/double-image', {
 				},
 			},
 		],
-	},
+	},*/
 
 	// Determines what is displayed in the editor.
 	edit: Edit,
@@ -146,7 +129,6 @@ registerBlockType( 'double-image/double-image', {
 		const {
 			format,
 			align,
-			textAlign,
 			showOverlays,
 			firstImageID,
 			firstImageURL,
@@ -160,28 +142,24 @@ registerBlockType( 'double-image/double-image', {
 			secondImageTextPosition
 		} = props.attributes;
 
-		const styleFirstImage  = backgroundImageStyles( firstImageURL );
-		const styleSecondImage = backgroundImageStyles( secondImageURL );
-
 		const classes = classnames(
-			format ? `format-${ format }` : 'format-1-4',
-			align ? `align-${ align }` : null,
 			firstImageTextPosition ? `text-${ firstImageTextPosition }` : 'text-top',
 			secondImageTextPosition ? `text-${secondImageTextPosition }` : 'text-bottom',
 		);
 
-		const firstShowOverlay = firstImageText.length > 0 ? true : false;
+		const firstShowOverlay  = firstImageText.length > 0 ? true : false;
 		const secondShowOverlay = secondImageText.length > 0 ? true : false;
+		const showOverlay       = showOverlays.value ? showOverlays.value : showOverlays.default;
 
 		return (
 			<DoubleImage { ...props }>
-				{ firstShowOverlay && showOverlays ? (
-					<div 
-					className={ 'image-block left show-overlay' } 
-					style={ styleFirstImage }
-					>
+				<div 
+				className={ 'image-block left' + `${ showOverlay ? ' show-overlay' : '' }` }
+				style={ backgroundImageStyles( firstImageURL ) }
+				>
+					{ ( firstShowOverlay && showOverlay ) && (
 						<div 
-							className={ 'overlay-container ' + {firstImageTextPosition}}
+							className={ 'overlay-container ' + `${ firstImageTextPosition }`}
 							style={{ color: firstImageTextColor }}
 						>
     						<div class="overlay-text left">
@@ -191,21 +169,16 @@ registerBlockType( 'double-image/double-image', {
 								/>
 							</div>
   						</div>
-					</div>
-				) : (
-					<div 
-						className={ 'image-block left' } 
-						style={ styleFirstImage }
-					></div>
-				) }
+					) }
+				</div>
 
-				{ secondShowOverlay && showOverlays ? (
-					<div 
-					className={ 'image-block right show-overlay' } 
-					style={ styleSecondImage }
-					>
+				<div 
+				className={ 'image-block right' + `${ showOverlay ? ' show-overlay' : '' }` }
+				style={ backgroundImageStyles( secondImageURL ) }
+				>
+					{ ( secondShowOverlay && showOverlay ) && (
 						<div 
-							className={ 'overlay-container ' + {secondImageTextPosition}}
+							className={ 'overlay-container ' + `${ secondImageTextPosition }` }
 							style={{ color: secondImageTextColor }}
 						>
     						<div class="overlay-text right">
@@ -215,14 +188,8 @@ registerBlockType( 'double-image/double-image', {
 								/>
 							</div>
   						</div>
+					) }
 					</div>
-				 ) : (
-					<div 
-						className={ 'image-block right' } 
-						style={ styleSecondImage }
-					></div>
-				 ) }
-
 			</DoubleImage>
 		  );
 
@@ -231,9 +198,5 @@ registerBlockType( 'double-image/double-image', {
 } );
 
 function backgroundImageStyles( url ) {
-	return url ? {
-		backgroundImage: `url(${ url })`,
-		backgroundSize: 'cover',
-		backgroundPosition: 'center'
-	} : undefined;
+	return url ? { backgroundImage: `url(${ url })` } : undefined;
 }
