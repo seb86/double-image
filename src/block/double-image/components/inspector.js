@@ -1,10 +1,16 @@
 /**
+ * Internal dependencies
+ */
+import Colors from './colors';
+
+/**
  * WordPress dependencies
  */
 const { __ } = wp.i18n;
 const { Component } = wp.element;
+const { compose } = wp.compose;
 const { InspectorControls, ColorPalette } = wp.blocks;
-const { PanelBody, PanelColor, PanelRow, SelectControl } = wp.components;
+const { PanelBody, PanelColor, PanelRow, ToggleControl, SelectControl } = wp.components;
 
 /**
  * Inspector controls
@@ -24,6 +30,9 @@ export default compose( Colors ) ( class Inspector extends Component {
 
 		const {
 			format,
+			showOverlays,
+			firstImageTextColor,
+			secondImageTextColor
 		} = attributes;
 
 		return (
@@ -32,8 +41,8 @@ export default compose( Colors ) ( class Inspector extends Component {
 				<SelectControl
 					key={ 'format-selector' }
 					label={ __( 'Format' ) }
-					value={ props.attributes.format ? props.attributes.format : '1-4' }
-					onChange={ props.setAttributes({ format: value }) }
+					value={ format ? format : '1-4' }
+					onChange={ ( value ) => setAttributes({ format: value }) }
 					options={ [
 						{
 							label: __( '1-4' ),
@@ -56,48 +65,28 @@ export default compose( Colors ) ( class Inspector extends Component {
 
 				<ToggleControl
 					label={ __( 'Show Overlays' ) }
-					checked={ props.attributes.showOverlays }
-					onChange={ ( value ) => setAttributes( { showOverlays: value } ) }
+					checked={ !! showOverlays }
+					onChange={ () => setAttributes( { showOverlays: showOverlays } ) }
 				/>
 
-				<PanelBody
-					title={ __( 'First Image Settings' ) } 
-					className="double-image__inspector-block-settings-panel-body"
-					initialOpen={ false }
-				>
-
-					<PanelColor 
-						title={ __( 'First Text Color' ) } 
-						colorValue={ firstImageTextColor } 
-						initialOpen={ false }
-					>
+				<PanelBody title={ __( 'First Image Settings' ) } className="double-image__inspector-block-settings-panel-body">
+					<PanelColor title={ __( 'First Text Color' ) } colorValue={ firstImageTextColor }>
 						<ColorPalette
 							label={ __( 'First Text Color' ) }
 							value={ firstImageTextColor }
-							onChange={ ( value ) => setAttributes( { firstImageTextColor: value } ) }
+							onChange={ ( colorValue ) => setAttributes( { firstImageTextColor: colorValue } ) }
 						/>
 					</PanelColor>
-
 				</PanelBody>
 
-				<PanelBody
-					title={ __( 'Second Image Settings' ) } 
-					className="double-image__inspector-block-settings-panel-body"
-					initialOpen={ false }
-				>
-
-					<PanelColor 
-						title={ __( 'Second Text Color' ) } 
-						colorValue={ secondImageTextColor } 
-						initialOpen={ false }
-					>
+				<PanelBody title={ __( 'Second Image Settings' ) } className="double-image__inspector-block-settings-panel-body">
+					<PanelColor title={ __( 'Second Text Color' ) } colorValue={ secondImageTextColor }>
 						<ColorPalette
 							label={ __( 'Second Text Color' ) }
 							value={ secondImageTextColor }
-							onChange={ ( value ) => setAttributes( { secondImageTextColor: value } ) }
+							onChange={ ( colorValue ) => setAttributes( { secondImageTextColor: colorValue } ) }
 						/>
 					</PanelColor>
-
 				</PanelBody>
 
 			</InspectorControls>
