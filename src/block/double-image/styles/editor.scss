@@ -68,8 +68,11 @@
             opacity: 1;
         }
 
-		button {
-			border-radius: 100%;
+        &.has-image-set button {
+            z-index: 0;
+        }
+
+        button {
 			height: 100%;
 			left: 0;
 			padding: 0;
@@ -104,25 +107,27 @@
         opacity: 0;
 
         &.text-top .overlay-text {
-            margin-top: 0%;
+            top: 0;
         }
     
         &.text-bottom .overlay-text {
-            margin-top: 46%;
+            bottom: 0;
         }
     
         .overlay-text {
             padding: 1em;
             font-size: 16pt;
             font-style: italic;
-            color: #fff;
+            position: absolute;
 
             &.left {
                 text-align: left;
+                left: 0;
             }
 
             &.right {
                 text-align: right;
+                right: 0;
             }
         }
     }
