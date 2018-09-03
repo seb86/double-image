@@ -41,6 +41,7 @@
     }
 
     &.format-full-stack .image-block {
+        margin-bottom: 0;
         width: 100%;
     }
 
@@ -101,7 +102,7 @@
     .overlay-container {
         height: 100%;
         width: 100%;
-        background-color: #ababab4f;
+        background-color: #0000004a;
         position: absolute;
         top: 0;
         opacity: 0;
