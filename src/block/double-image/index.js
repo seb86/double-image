@@ -164,7 +164,7 @@ registerBlockType( 'double-image/double-image', {
 			return null;
 
 		return (
-			<div { ...props }>
+			<DoubleImage { ...props }>
 				<div
 				className={ 'image-block left' + hasParallax( hasFirstImageParallax ) + `${ showFirstOverlay ? ' show-overlay' : '' }` }
 				style={ backgroundImageStyles( firstImageURL ) }
@@ -194,7 +194,7 @@ registerBlockType( 'double-image/double-image', {
 						</div>
 					) }
 					</div>
-			</div>
+			</DoubleImage>
 		);
 	},
 } );
