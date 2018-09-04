@@ -45,6 +45,7 @@ const blockAttributes = {
 		type: 'array',
 		source: 'children',
 		selector: 'div.overlay-text.left',
+		default: [],
 	},
 	firstImageTextColor: {
 		type: 'string',
@@ -77,6 +78,7 @@ const blockAttributes = {
 		type: 'array',
 		source: 'children',
 		selector: 'div.overlay-text.right',
+		default: [],
 	},
 	secondImageTextColor: {
 		type: 'string',
@@ -126,7 +128,7 @@ registerBlockType( 'double-image/double-image', {
 	supports: {
 		align: [ 'wide', 'full', 'center' ],
 	},
-	
+
 	/*transforms: {
 		from: [
 			{
@@ -164,45 +166,38 @@ registerBlockType( 'double-image/double-image', {
 			secondImageTextPosition
 		} = props.attributes;
 
+		if(!firstImageURL && !secondImageURL)
+			return null;
+
 		return (
-			<DoubleImage { ...props }>
-				<div 
+			<div { ...props }>
+				<div
 				className={ 'image-block left' + hasParallax( hasFirstImageParallax ) + `${ showFirstOverlay ? ' show-overlay' : '' }` }
 				style={ backgroundImageStyles( firstImageURL ) }
 				>
 					{ ( firstImageText.length > 0 && showFirstOverlay ) && (
 						<div className={ 'overlay-container' + dimRatioToClass( dimFirstImageRatio ) + ' ' + textPosition( firstImageTextPosition )}>
-							<div class="overlay-text left">
-								<RichText.Content
-									tagName="div"
-									value={ firstImageText }
-									style={{ color: firstImageTextColor }}
-								/>
+							<div class="overlay-text left" style={{ color: firstImageTextColor }}>
+								{ firstImageText }
 							</div>
 						</div>
 					) }
 				</div>
 
-				<div 
+				<div
 				className={ 'image-block right' + hasParallax( hasSecondImageParallax ) + `${ showSecondOverlay ? ' show-overlay' : '' }` }
 				style={ backgroundImageStyles( secondImageURL ) }
 				>
 					{ ( secondImageText.length > 0 && showSecondOverlay ) && (
 						<div className={ 'overlay-container' + dimRatioToClass( dimSecondImageRatio ) + ' ' + textPosition( secondImageTextPosition ) }>
-							<div class="overlay-text right">
-								<RichText.Content
-									tagName="div"
-									value={ secondImageText }
-									style={{ color: secondImageTextColor }}
-								/>
+							<div class="overlay-text right" style={{ color: secondImageTextColor }}>
+								{ secondImageText }
 							</div>
 						</div>
 					) }
 					</div>
-			</DoubleImage>
+			</div>
 		);
-
-		return null;
 	},
 } );
 
