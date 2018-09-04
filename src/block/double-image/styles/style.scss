@@ -8,8 +8,8 @@
     &.alignwide {
         margin-left: auto;
         margin-right: auto;
-        max-width: calc(840px - 10px) !important;
-        width: calc(100% - 10px);
+        max-width: calc(900px - 20px) !important;
+        width: calc(100% - 20px);
     }
 
     &.alignfull {
@@ -96,9 +96,11 @@
         }
     
         .overlay-text {
-            padding: 1em;
-            font-size: 16pt;
+            font-family: serif;
+            font-size: 22pt;
             font-style: italic;
+            line-height: 1.2;
+            padding: 0.6em 0.8em;
             position: absolute;
             width: 100%;
 
@@ -110,6 +112,10 @@
             &.right {
                 text-align: right;
                 right: 0;
+            }
+
+            p {
+                margin: 0;
             }
         }
     }
