@@ -78,28 +78,28 @@
         }
 
         button {
-			height: 100%;
-			left: 0;
-			padding: 0;
-			position: absolute;
-			width: 100%;
-			z-index: 50;
+            height: 100%;
+            left: 0;
+            padding: 0;
+            position: absolute;
+            width: 100%;
+            z-index: 50;
 
-			&:focus {
-				background: none;
-				border: none;
-				box-shadow: none;
-				outline: none;
-			}
+            &:focus {
+                background: none;
+                border: none;
+                box-shadow: none;
+                outline: none;
+            }
 
-			svg {
-				fill: #444;
-				margin: 0 auto;
-				pointer-events: none;
-				transform: translate3d(0, 0, 0);
-				transition: transform 100ms cubic-bezier(0.645, 0.045, 0.355, 1);
-			}
-		}
+            svg {
+                fill: #444;
+                margin: 0 auto;
+                pointer-events: none;
+                transform: translate3d(0, 0, 0);
+                transition: transform 100ms cubic-bezier(0.645, 0.045, 0.355, 1);
+            }
+        }
 
     }
 
@@ -110,11 +110,11 @@
         top: 0;
         opacity: 0;
 
-	    @for $i from 1 through 10 {
-		    &.has-background-dim-#{ $i * 10 } {
-			    background-color: rgba($black, $i * 0.1);
-		    }
-	    }
+        @for $i from 1 through 10 {
+            &.has-background-dim-#{ $i * 10 } {
+                background-color: rgba($black, $i * 0.1);
+            }
+        }
 
         &.text-top .overlay-text {
             top: 0;

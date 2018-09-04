@@ -125,7 +125,7 @@ registerBlockType( 'double-image/double-image', {
 	// Enable or disable support for features in is block.
 	supports: {
 		align: [ 'wide', 'full', 'center' ],
-    },
+	},
 	
 	/*transforms: {
 		from: [
@@ -164,15 +164,6 @@ registerBlockType( 'double-image/double-image', {
 			secondImageTextPosition
 		} = props.attributes;
 
-		const classes = classnames(
-			firstImageTextPosition ? `text-${ firstImageTextPosition }` : 'text-top',
-			secondImageTextPosition ? `text-${secondImageTextPosition }` : 'text-bottom',
-		);
-
-		const firstShowOverlay  = firstImageText.length > 0 ? true : false;
-		const secondShowOverlay = secondImageText.length > 0 ? true : false;
-		const showOverlay       = showOverlays.value ? showOverlays.value : showOverlays.default;
-
 		return (
 			<DoubleImage { ...props }>
 				<div 
@@ -181,14 +172,14 @@ registerBlockType( 'double-image/double-image', {
 				>
 					{ ( firstImageText.length > 0 && showFirstOverlay ) && (
 						<div className={ 'overlay-container' + dimRatioToClass( dimFirstImageRatio ) + ' ' + textPosition( firstImageTextPosition )}>
-    						<div class="overlay-text left">
+							<div class="overlay-text left">
 								<RichText.Content
 									tagName="div"
 									value={ firstImageText }
 									style={{ color: firstImageTextColor }}
 								/>
 							</div>
-  						</div>
+						</div>
 					) }
 				</div>
 
@@ -198,18 +189,18 @@ registerBlockType( 'double-image/double-image', {
 				>
 					{ ( secondImageText.length > 0 && showSecondOverlay ) && (
 						<div className={ 'overlay-container' + dimRatioToClass( dimSecondImageRatio ) + ' ' + textPosition( secondImageTextPosition ) }>
-    						<div class="overlay-text right">
+							<div class="overlay-text right">
 								<RichText.Content
 									tagName="div"
 									value={ secondImageText }
 									style={{ color: secondImageTextColor }}
 								/>
 							</div>
-  						</div>
+						</div>
 					) }
 					</div>
 			</DoubleImage>
-		  );
+		);
 
 		return null;
 	},
