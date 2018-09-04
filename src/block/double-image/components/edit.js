@@ -1,7 +1,11 @@
 /**
+ * External dependencies
+ */
+import classnames from 'classnames';
+
+/**
  * Internal dependencies
  */
-import Colors from './colors';
 import Controls from './controls';
 import DoubleImage from './doubleimage';
 import Inspector from './inspector';
@@ -11,14 +15,13 @@ import Inspector from './inspector';
  */
 const { __ } = wp.i18n;
 const { Component, Fragment } = wp.element;
-const { compose } = wp.compose;
 const { RichText, MediaUpload, mediaUpload } = wp.editor;
 const { Button, Dashicon, DropZone } = wp.components;
 
 /**
  * Block edit function
  */
-export default compose( Colors ) ( class Edit extends Component {
+export default class Edit extends Component {
 
 	constructor() {
 		super( ...arguments );
@@ -74,16 +77,12 @@ export default compose( Colors ) ( class Edit extends Component {
 
 		const {
 			attributes,
-			className,
 			isSelected,
-			mergeBlocks,
 			setAttributes,
 			setState,
 		} = this.props;
 
 		const {
-			format,
-			align,
 			showFirstOverlay,
 			showSecondOverlay,
 			firstImageID,
@@ -121,9 +120,6 @@ export default compose( Colors ) ( class Edit extends Component {
 		const styleFirstImage  = backgroundImageStyles( firstImageURL );
 		const styleSecondImage = backgroundImageStyles( secondImageURL );
 
-		const firstTextOverlay = ( firstImageText ) => setAttributes( { firstImageText: firstImageText } );
-		const secondTextOverlay = ( secondImageText ) => setAttributes( { secondImageText: secondImageText } );
-
 		const firstTextPosition = textPosition( firstImageTextPosition );
 		const secondTextPosition = textPosition( secondImageTextPosition );
 
@@ -141,8 +137,13 @@ export default compose( Colors ) ( class Edit extends Component {
 				) }
 				<DoubleImage { ...this.props }>
 					<div 
-					className={ 'image-block left' + hasParallax( hasFirstImageParallax ) + `${ showFirstOverlay ? ' show-overlay' : '' }` + `${ firstImageURL ? ' has-image-set' : '' }`} 
-					style={ styleFirstImage }
+						className={ classnames(
+							'image-block left', 
+							hasParallax( hasFirstImageParallax ),
+							`${ showFirstOverlay ? ' show-overlay' : '' }`,
+							`${ firstImageURL ? ' has-image-set' : '' }`
+						) }
+						style={ styleFirstImage }
 					>
 						{ dropZoneOne }
 						<MediaUpload
@@ -158,7 +159,11 @@ export default compose( Colors ) ( class Edit extends Component {
 						</MediaUpload>
 						{ ! firstImageID ? '' :
 							<div
-								className={ 'overlay-container' + dimRatioToClass( dimFirstImageRatio ) + ' ' + `${firstTextPosition}` }
+								className={ classnames(
+									'overlay-container',
+									dimRatioToClass( dimFirstImageRatio ),
+									`${firstTextPosition}`
+								) }
 							>
 								<div className={ 'overlay-text left' + blockSelected( isSelected ) }>
 									<RichText
@@ -168,8 +173,7 @@ export default compose( Colors ) ( class Edit extends Component {
 										value={ firstImageText }
 										className={ 'overlay-text-editor' }
 										style={{ color: firstImageTextColor }}
-										onChange={ firstTextOverlay }
-										onMerge={ mergeBlocks }
+										onChange={ ( value ) => setAttributes( { firstImageText: value } ) }
 										unstableOnFocus={ this.offFocusImage }
 										formattingControls={ [] }
 										keepPlaceholderOnFocus
@@ -179,8 +183,13 @@ export default compose( Colors ) ( class Edit extends Component {
 						}
 					</div>
 					<div 
-					className={ 'image-block right' + hasParallax( hasSecondImageParallax ) + `${ showSecondOverlay ? ' show-overlay' : '' }` + `${ secondImageURL ? ' has-image-set' : '' }`} 
-					style={ styleSecondImage }
+						className={ classnames(
+							'image-block right', 
+							hasParallax( hasSecondImageParallax ),
+							`${ showSecondOverlay ? ' show-overlay' : '' }`,
+							`${ secondImageURL ? ' has-image-set' : '' }`
+						) }
+						style={ styleSecondImage }
 					>
 						{ dropZoneTwo }
 						<MediaUpload
@@ -195,17 +204,22 @@ export default compose( Colors ) ( class Edit extends Component {
 						>
 						</MediaUpload>
 						{ ! secondImageID ? '' :
-							<div className={ 'overlay-container' + dimRatioToClass( dimSecondImageRatio ) + ' ' + `${secondTextPosition}`}>
+							<div
+								className={ classnames(
+									'overlay-container',
+									dimRatioToClass( dimSecondImageRatio ),
+									`${secondTextPosition}`
+								) }
+							>
 								<div className={ 'overlay-text right' + blockSelected( isSelected ) }>
 									<RichText
-									tagName="div"
-									multiline="p"
+										tagName="div"
+										multiline="p"
 										placeholder={ __( 'Enter optional overlay text...' ) }
 										value={ secondImageText }
 										className={ 'overlay-text-editor' }
 										style={{ color: secondImageTextColor }}
-										onChange={ secondTextOverlay }
-										onMerge={ mergeBlocks }
+										onChange={ ( value ) => setAttributes( { secondImageText: value } ) }
 										unstableOnFocus={ this.offFocusImage }
 										formattingControls={ [] }
 										keepPlaceholderOnFocus
@@ -218,7 +232,7 @@ export default compose( Colors ) ( class Edit extends Component {
 			</Fragment>
 		];
 	}
-} );
+}
 
 function backgroundImageStyles( url ) {
 	return url ? { backgroundImage: `url(${ url })` } : undefined;
