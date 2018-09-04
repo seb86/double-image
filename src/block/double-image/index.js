@@ -122,7 +122,7 @@ registerBlockType( 'double-image/double-image', {
 	supports: {
 		align: [ 'wide', 'full', 'center' ],
 	},
-	
+
 	/*transforms: {
 		from: [
 			{
@@ -160,9 +160,12 @@ registerBlockType( 'double-image/double-image', {
 			secondImageTextPosition
 		} = props.attributes;
 
+		if(!firstImageURL && !secondImageURL)
+			return null;
+
 		return (
-			<DoubleImage { ...props }>
-				<div 
+			<div { ...props }>
+				<div
 				className={ 'image-block left' + hasParallax( hasFirstImageParallax ) + `${ showFirstOverlay ? ' show-overlay' : '' }` }
 				style={ backgroundImageStyles( firstImageURL ) }
 				>
@@ -177,7 +180,7 @@ registerBlockType( 'double-image/double-image', {
 					) }
 				</div>
 
-				<div 
+				<div
 				className={ 'image-block right' + hasParallax( hasSecondImageParallax ) + `${ showSecondOverlay ? ' show-overlay' : '' }` }
 				style={ backgroundImageStyles( secondImageURL ) }
 				>
@@ -191,9 +194,8 @@ registerBlockType( 'double-image/double-image', {
 						</div>
 					) }
 					</div>
-			</DoubleImage>
+			</div>
 		);
-
 	},
 } );
 
