@@ -1,9 +1,4 @@
 /**
- * External dependencies
- */
-import classnames from 'classnames';
-
-/**
  * Internal dependencies
  */
 import './styles/editor.scss';
@@ -16,7 +11,6 @@ import Edit from './components/edit';
  */
 const { __ } = wp.i18n; // Allows for strings to be localized
 const { registerBlockType } = wp.blocks; // Registers the block
-const { RichText } = wp.editor;
 
 /**
  * Block attributes. Attributes set for each piece of dynamic data used in the block.
@@ -45,6 +39,7 @@ const blockAttributes = {
 		type: 'array',
 		source: 'children',
 		selector: 'div.overlay-text.left',
+		default: [],
 	},
 	firstImageTextColor: {
 		type: 'string',
@@ -71,12 +66,13 @@ const blockAttributes = {
 	},
 	showSecondOverlay: {
 		type: 'boolean',
-		default: true,
+		default: false,
 	},
 	secondImageText: {
 		type: 'array',
 		source: 'children',
 		selector: 'div.overlay-text.right',
+		default: [],
 	},
 	secondImageTextColor: {
 		type: 'string',
@@ -170,15 +166,13 @@ registerBlockType( 'double-image/double-image', {
 				className={ 'image-block left' + hasParallax( hasFirstImageParallax ) + `${ showFirstOverlay ? ' show-overlay' : '' }` }
 				style={ backgroundImageStyles( firstImageURL ) }
 				>
-					{ ( firstImageText.length > 0 && showFirstOverlay ) && (
+					{ ( showFirstOverlay ) && (
 						<div className={ 'overlay-container' + dimRatioToClass( dimFirstImageRatio ) + ' ' + textPosition( firstImageTextPosition )}>
-							<div class="overlay-text left">
-								<RichText.Content
-									tagName="div"
-									value={ firstImageText }
-									style={{ color: firstImageTextColor }}
-								/>
+							{ ( firstImageText.length > 0 ) && (
+							<div class="overlay-text left" style={{ color: firstImageTextColor }}>
+								{ firstImageText }
 							</div>
+							) }
 						</div>
 					) }
 				</div>
@@ -187,22 +181,19 @@ registerBlockType( 'double-image/double-image', {
 				className={ 'image-block right' + hasParallax( hasSecondImageParallax ) + `${ showSecondOverlay ? ' show-overlay' : '' }` }
 				style={ backgroundImageStyles( secondImageURL ) }
 				>
-					{ ( secondImageText.length > 0 && showSecondOverlay ) && (
+					{ ( showSecondOverlay ) && (
 						<div className={ 'overlay-container' + dimRatioToClass( dimSecondImageRatio ) + ' ' + textPosition( secondImageTextPosition ) }>
-							<div class="overlay-text right">
-								<RichText.Content
-									tagName="div"
-									value={ secondImageText }
-									style={{ color: secondImageTextColor }}
-								/>
+							{ ( secondImageText.length > 0 ) && (
+							<div class="overlay-text right" style={{ color: secondImageTextColor }}>
+								{ secondImageText }
 							</div>
+							) }
 						</div>
 					) }
 					</div>
 			</DoubleImage>
 		);
 
-		return null;
 	},
 } );
 

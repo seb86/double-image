@@ -23,18 +23,16 @@ export default class DoubleImage extends Component {
 
 		const {
 			format,
-			align,
 		} = attributes;
-
-		const classes = classnames(
-			className,
-			format ? `format-${ format }` : 'format-1-4',
-			align ? `align-${ align }` : null,
-		);
 
 		return (
 			<Fragment>
-				<div className={ classes }>
+				<div
+					className={ classnames(
+						className,
+						format ? `format-${ format }` : 'format-1-4',
+					) }
+				>
 					{ this.props.children }
 				</div>
 			</Fragment>
