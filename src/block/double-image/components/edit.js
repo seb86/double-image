@@ -77,7 +77,6 @@ export default compose( Colors ) ( class Edit extends Component {
 			className,
 			isSelected,
 			mergeBlocks,
-			onReplace,
 			setAttributes,
 			setState,
 		} = this.props;
@@ -85,7 +84,8 @@ export default compose( Colors ) ( class Edit extends Component {
 		const {
 			format,
 			align,
-			showOverlays,
+			showFirstOverlay,
+			showSecondOverlay,
 			firstImageID,
 			firstImageURL,
 			firstImageText,
@@ -121,6 +121,9 @@ export default compose( Colors ) ( class Edit extends Component {
 		const styleFirstImage  = backgroundImageStyles( firstImageURL );
 		const styleSecondImage = backgroundImageStyles( secondImageURL );
 
+		const firstTextOverlay = ( firstImageText ) => setAttributes( { firstImageText: firstImageText } );
+		const secondTextOverlay = ( secondImageText ) => setAttributes( { secondImageText: secondImageText } );
+
 		const firstTextPosition = textPosition( firstImageTextPosition );
 		const secondTextPosition = textPosition( secondImageTextPosition );
 
@@ -138,7 +141,7 @@ export default compose( Colors ) ( class Edit extends Component {
 				) }
 				<DoubleImage { ...this.props }>
 					<div 
-					className={ 'image-block left' + `${ showOverlays ? ' show-overlay' : '' }` + `${ firstImageURL ? ' has-image-set' : '' }`} 
+					className={ 'image-block left' + hasParallax( hasFirstImageParallax ) + `${ showFirstOverlay ? ' show-overlay' : '' }` + `${ firstImageURL ? ' has-image-set' : '' }`} 
 					style={ styleFirstImage }
 					>
 						{ dropZoneOne }
@@ -157,8 +160,7 @@ export default compose( Colors ) ( class Edit extends Component {
 							<div
 								className={ 'overlay-container' + dimRatioToClass( dimFirstImageRatio ) + ' ' + `${firstTextPosition}` }
 							>
-								{ ( ( showFirstOverlay && showOverlays ) || isSelected ) && (
-									<div className={ 'overlay-text left' + blockSelected( isSelected ) }>
+								<div className={ 'overlay-text left' + blockSelected( isSelected ) }>
 									<RichText
 										tagName="div"
 										multiline="p"
@@ -172,13 +174,12 @@ export default compose( Colors ) ( class Edit extends Component {
 										formattingControls={ [] }
 										keepPlaceholderOnFocus
 									/>
-									</div>
-								) }
+								</div>
 							</div>
 						}
 					</div>
 					<div 
-					className={ 'image-block right' + hasParallax( hasSecondImageParallax ) + `${ showOverlays ? ' show-overlay' : '' }` + `${ secondImageURL ? ' has-image-set' : '' }`} 
+					className={ 'image-block right' + hasParallax( hasSecondImageParallax ) + `${ showSecondOverlay ? ' show-overlay' : '' }` + `${ secondImageURL ? ' has-image-set' : '' }`} 
 					style={ styleSecondImage }
 					>
 						{ dropZoneTwo }
@@ -195,11 +196,10 @@ export default compose( Colors ) ( class Edit extends Component {
 						</MediaUpload>
 						{ ! secondImageID ? '' :
 							<div className={ 'overlay-container' + dimRatioToClass( dimSecondImageRatio ) + ' ' + `${secondTextPosition}`}>
-								{ ( ( showSecondOverlay && showOverlays ) || isSelected ) && (
-									<div className={ 'overlay-text right' + blockSelected( isSelected ) }>
+								<div className={ 'overlay-text right' + blockSelected( isSelected ) }>
 									<RichText
-										tagName="div"
-										multiline="p"
+									tagName="div"
+									multiline="p"
 										placeholder={ __( 'Enter optional overlay text...' ) }
 										value={ secondImageText }
 										className={ 'overlay-text-editor' }
@@ -210,8 +210,7 @@ export default compose( Colors ) ( class Edit extends Component {
 										formattingControls={ [] }
 										keepPlaceholderOnFocus
 									/>
-									</div>
-								) }
+								</div>
 							</div>
 						}
 					</div>
@@ -239,10 +238,4 @@ function hasParallax( hasParallax ) {
 
 function blockSelected( isSelected ) {
 	return isSelected ? ' selected' : ''
-}
-
-function textPosition( position ) {
-	return position ? 'text-' + `${ position }` : 'text-top';
-}
-	return position ? 'text-' + `${position}` : 'text-top';
 }
