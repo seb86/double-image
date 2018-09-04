@@ -23,11 +23,11 @@ export default compose( Colors ) ( class Edit extends Component {
 	constructor() {
 		super( ...arguments );
 
-		this.addImageOne      = this.addImageOne.bind( this );
-		this.addImageTwo      = this.addImageTwo.bind( this );
+		this.offFocusImage    = this.offFocusImage.bind( this );
 		this.onSelectImageOne = this.onSelectImageOne.bind( this );
 		this.onSelectImageTwo = this.onSelectImageTwo.bind( this );
-		this.offFocusImage    = this.offFocusImage.bind( this );
+		this.addImageOne      = this.addImageOne.bind( this );
+		this.addImageTwo      = this.addImageTwo.bind( this );
 
 		this.state = {
 			imageFocused: false,
@@ -90,11 +90,15 @@ export default compose( Colors ) ( class Edit extends Component {
 			firstImageURL,
 			firstImageText,
 			firstImageTextColor,
+			hasFirstImageParallax,
+			dimFirstImageRatio,
 			firstImageTextPosition,
 			secondImageID,
 			secondImageURL,
 			secondImageText,
 			secondImageTextColor,
+			hasSecondImageParallax,
+			dimSecondImageRatio,
 			secondImageTextPosition
 		} = attributes;
 
@@ -150,18 +154,22 @@ export default compose( Colors ) ( class Edit extends Component {
 						>
 						</MediaUpload>
 						{ ! firstImageID ? '' :
-							<div className={ 'overlay-container ' + `${firstTextPosition}`}>
-								{ ( ( firstImageText && firstImageText.length > 0 ) || isSelected ) && (
-									<div class="overlay-text left">
+							<div
+								className={ 'overlay-container' + dimRatioToClass( dimFirstImageRatio ) + ' ' + `${firstTextPosition}` }
+							>
+								{ ( ( showFirstOverlay && showOverlays ) || isSelected ) && (
+									<div className={ 'overlay-text left' + blockSelected( isSelected ) }>
 									<RichText
+										tagName="div"
 										multiline="p"
-										tagName="p"
-										placeholder={ __( 'Optional overlay text...' ) }
+										placeholder={ __( 'Enter optional overlay text...' ) }
 										value={ firstImageText }
+										className={ 'overlay-text-editor' }
 										style={{ color: firstImageTextColor }}
+										onChange={ firstTextOverlay }
 										onMerge={ mergeBlocks }
-										onChange={ ( value ) => setAttributes( { firstImageText: value } ) }
 										unstableOnFocus={ this.offFocusImage }
+										formattingControls={ [] }
 										keepPlaceholderOnFocus
 									/>
 									</div>
@@ -170,7 +178,7 @@ export default compose( Colors ) ( class Edit extends Component {
 						}
 					</div>
 					<div 
-					className={ 'image-block right' + `${ showOverlays ? ' show-overlay' : '' }` + `${ secondImageURL ? ' has-image-set' : '' }`} 
+					className={ 'image-block right' + hasParallax( hasSecondImageParallax ) + `${ showOverlays ? ' show-overlay' : '' }` + `${ secondImageURL ? ' has-image-set' : '' }`} 
 					style={ styleSecondImage }
 					>
 						{ dropZoneTwo }
@@ -186,18 +194,20 @@ export default compose( Colors ) ( class Edit extends Component {
 						>
 						</MediaUpload>
 						{ ! secondImageID ? '' :
-							<div className={ 'overlay-container ' + `${secondTextPosition}`}>
-								{ ( ( secondImageText && secondImageText.length > 0 ) || isSelected ) && (
-									<div class="overlay-text right">
+							<div className={ 'overlay-container' + dimRatioToClass( dimSecondImageRatio ) + ' ' + `${secondTextPosition}`}>
+								{ ( ( showSecondOverlay && showOverlays ) || isSelected ) && (
+									<div className={ 'overlay-text right' + blockSelected( isSelected ) }>
 									<RichText
+										tagName="div"
 										multiline="p"
-										tagName="p"
-										placeholder={ __( 'Optional overlay text...' ) }
+										placeholder={ __( 'Enter optional overlay text...' ) }
 										value={ secondImageText }
+										className={ 'overlay-text-editor' }
 										style={{ color: secondImageTextColor }}
+										onChange={ secondTextOverlay }
 										onMerge={ mergeBlocks }
-										onChange={ ( value ) => setAttributes( { secondImageText: value } ) }
 										unstableOnFocus={ this.offFocusImage }
+										formattingControls={ [] }
 										keepPlaceholderOnFocus
 									/>
 									</div>
@@ -216,5 +226,23 @@ function backgroundImageStyles( url ) {
 }
 
 function textPosition( position ) {
+	return position ? 'text-' + `${ position }` : 'text-top';
+}
+
+function dimRatioToClass( dimRatio ) {
+	return dimRatio ? ' has-background-dim-' + dimRatio : ''
+}
+
+function hasParallax( hasParallax ) {
+	return hasParallax ? ' has-parallax': ''
+}
+
+function blockSelected( isSelected ) {
+	return isSelected ? ' selected' : ''
+}
+
+function textPosition( position ) {
+	return position ? 'text-' + `${ position }` : 'text-top';
+}
 	return position ? 'text-' + `${position}` : 'text-top';
 }

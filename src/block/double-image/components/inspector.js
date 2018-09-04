@@ -10,7 +10,7 @@ const { __ } = wp.i18n;
 const { Component, Fragment } = wp.element;
 const { compose } = wp.compose;
 const { InspectorControls, ColorPalette } = wp.editor;
-const { PanelBody, PanelColor, Toolbar, ToggleControl, SelectControl } = wp.components;
+const { PanelBody, ToggleControl, SelectControl, RangeControl } = wp.components;
 
 /**
  * Inspector controls
@@ -30,12 +30,22 @@ export default compose( Colors ) ( class Inspector extends Component {
 
 		const {
 			format,
-			showOverlays,
+			showFirstOverlay,
+			showSecondOverlay,
 			firstImageTextColor,
+			hasFirstImageParallax,
+			dimFirstImageRatio,
 			firstImageTextPosition,
 			secondImageTextColor,
+			hasSecondImageParallax,
+			dimSecondImageRatio,
 			secondImageTextPosition
 		} = attributes;
+
+		const toggleFirstParallax  = () => setAttributes( { hasFirstImageParallax: ! hasFirstImageParallax } );
+		const toggleSecondParallax = () => setAttributes( { hasSecondImageParallax: ! hasSecondImageParallax } );
+		const setFirstDimRatio     = ( ratio ) => setAttributes( { dimFirstImageRatio: ratio } );
+		const setSecondDimRatio    = ( ratio ) => setAttributes( { dimSecondImageRatio: ratio } );
 
 		return (
 			<Fragment>
@@ -65,10 +75,39 @@ export default compose( Colors ) ( class Inspector extends Component {
 								}
 							]}
 						/>
+					</PanelBody>
+
+					<PanelBody title={ __( 'First Image Settings' ) } initialOpen={ false }>
+						<ToggleControl
+							label={ __( 'Fixed Background' ) }
+							checked={ !! hasFirstImageParallax }
+							onChange={ toggleFirstParallax }
+						/>
+
+						<ToggleControl
+							label={ __( 'Show Overlay' ) }
+							checked={ !! showFirstOverlay }
+							onChange={ () => setAttributes( { showFirstOverlay: ! showFirstOverlay } ) }
+						/>
+
+						<RangeControl
+							label={ __( 'Background Opacity' ) }
+							value={ dimFirstImageRatio }
+							onChange={ setFirstDimRatio }
+							min={ 0 }
+							max={ 100 }
+							step={ 10 }
+						/>
+
+						<ColorPalette
+							label={ __( 'Overlay Text Color' ) }
+							value={ firstImageTextColor }
+							onChange={ ( colorValue ) => setAttributes( { firstImageTextColor: colorValue } ) }
+						/>
 
 						<SelectControl
 							key={ 'overlay-text-postition-selector' }
-							label={ __( 'First Image Overlay Text Position' ) }
+							label={ __( 'Overlay Text Position' ) }
 							value={ firstImageTextPosition ? firstImageTextPosition : 'text-top' }
 							onChange={ ( value ) => setAttributes({ firstImageTextPosition: value }) }
 							options={ [
@@ -83,10 +122,39 @@ export default compose( Colors ) ( class Inspector extends Component {
 							] }
 							default={ 'top' }
 						/>
+					</PanelBody>
+
+					<PanelBody title={ __( 'Second Image Settings' ) } initialOpen={ false }>
+						<ToggleControl
+							label={ __( 'Fixed Background' ) }
+							checked={ !! hasSecondImageParallax }
+							onChange={ toggleSecondParallax }
+						/>
+
+						<ToggleControl
+							label={ __( 'Show Overlay' ) }
+							checked={ !! showSecondOverlay }
+							onChange={ () => setAttributes( { showSecondOverlay: ! showSecondOverlay } ) }
+						/>
+
+						<RangeControl
+							label={ __( 'Background Opacity' ) }
+							value={ dimSecondImageRatio }
+							onChange={ setSecondDimRatio }
+							min={ 0 }
+							max={ 100 }
+							step={ 10 }
+						/>
+
+						<ColorPalette
+							label={ __( 'Overlay Text Color' ) }
+							value={ secondImageTextColor }
+							onChange={ ( colorValue ) => setAttributes( { secondImageTextColor: colorValue } ) }
+						/>
 
 						<SelectControl
 							key={ 'overlay-text-postition-selector' }
-							label={ __( 'Second Image Overlay Text Position' ) }
+							label={ __( 'Overlay Text Position' ) }
 							value={ secondImageTextPosition ? secondImageTextPosition : 'text-top' }
 							onChange={ ( value ) => setAttributes({ secondImageTextPosition: value }) }
 							options={ [
@@ -101,39 +169,8 @@ export default compose( Colors ) ( class Inspector extends Component {
 							] }
 							default={ 'bottom' }
 						/>
-
-						<ToggleControl
-							label={ __( 'Show Overlays' ) }
-							checked={ !! showOverlays }
-							onChange={ () => setAttributes( { showOverlays: ! showOverlays } ) }
-						/>
 					</PanelBody>
 
-					<PanelColor 
-						title={ __( 'First Image Overlay Text Color' ) } 
-						colorValue={ firstImageTextColor }
-						onChange={ ( colorValue ) => setAttributes( { firstImageTextColor: colorValue } ) } 
-						initialOpen={ false }
-					>
-						<ColorPalette
-							label={ __( 'First Image Overlay Text Color' ) }
-							value={ firstImageTextColor }
-							onChange={ ( colorValue ) => setAttributes( { firstImageTextColor: colorValue } ) }
-						/>
-					</PanelColor>
-
-					<PanelColor 
-						title={ __( 'Second Image Overlay Text Color' ) } 
-						colorValue={ secondImageTextColor } 
-						onChange={ ( colorValue ) => setAttributes( { secondImageTextColor: colorValue } ) } 
-						initialOpen={ false }
-						>
-						<ColorPalette
-							label={ __( 'Second Image Overlay Text Color' ) }
-							value={ secondImageTextColor }
-							onChange={ ( colorValue ) => setAttributes( { secondImageTextColor: colorValue } ) }
-						/>
-					</PanelColor>
 				</InspectorControls>
 			</Fragment>
 		);

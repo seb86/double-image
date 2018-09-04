@@ -16,6 +16,7 @@ import Edit from './components/edit';
  */
 const { __ } = wp.i18n; // Allows for strings to be localized
 const { registerBlockType } = wp.blocks; // Registers the block
+const { RichText } = wp.editor;
 
 /**
  * Block attributes. Attributes set for each piece of dynamic data used in the block.
@@ -28,10 +29,6 @@ const blockAttributes = {
 	align: {
 		type: 'string',
 	},
-	showOverlays: {
-		type: 'boolean',
-		default: true,
-	},
 
 	// First Image
 	firstImageID: {
@@ -40,13 +37,25 @@ const blockAttributes = {
 	firstImageURL: {
 		type: 'string',
 	},
+	showFirstOverlay: {
+		type: 'boolean',
+		default: true,
+	},
 	firstImageText: {
 		type: 'array',
 		source: 'children',
-		selector: '.overlay-text.left',
+		selector: 'div.overlay-text.left',
 	},
 	firstImageTextColor: {
 		type: 'string',
+	},
+	hasFirstImageParallax: {
+		type: 'boolean',
+		default: false,
+	},
+	dimFirstImageRatio: {
+		type: 'number',
+		default: 30,
 	},
 	firstImageTextPosition: {
 		type: 'string',
@@ -60,13 +69,25 @@ const blockAttributes = {
 	secondImageURL: {
 		type: 'string',
 	},
+	showSecondOverlay: {
+		type: 'boolean',
+		default: true,
+	},
 	secondImageText: {
 		type: 'array',
 		source: 'children',
-		selector: '.overlay-text.right',
+		selector: 'div.overlay-text.right',
 	},
 	secondImageTextColor: {
 		type: 'string',
+	},
+	hasSecondImageParallax: {
+		type: 'boolean',
+		default: false,
+	},
+	dimSecondImageRatio: {
+		type: 'number',
+		default: 30,
 	},
 	secondImageTextPosition: {
 		type: 'string',
@@ -127,18 +148,19 @@ registerBlockType( 'double-image/double-image', {
 	save: function( props ) {
 
 		const {
-			format,
-			align,
-			showOverlays,
-			firstImageID,
+			showFirstOverlay,
+			showSecondOverlay,
 			firstImageURL,
 			firstImageText,
 			firstImageTextColor,
+			hasFirstImageParallax,
+			dimFirstImageRatio,
 			firstImageTextPosition,
-			secondImageID,
 			secondImageURL,
 			secondImageText,
 			secondImageTextColor,
+			hasSecondImageParallax,
+			dimSecondImageRatio,
 			secondImageTextPosition
 		} = props.attributes;
 
@@ -154,18 +176,16 @@ registerBlockType( 'double-image/double-image', {
 		return (
 			<DoubleImage { ...props }>
 				<div 
-				className={ 'image-block left' + `${ showOverlay ? ' show-overlay' : '' }` }
+				className={ 'image-block left' + hasParallax( hasFirstImageParallax ) + `${ showFirstOverlay ? ' show-overlay' : '' }` }
 				style={ backgroundImageStyles( firstImageURL ) }
 				>
-					{ ( firstShowOverlay && showOverlay ) && (
-						<div 
-							className={ 'overlay-container ' + `${ firstImageTextPosition }`}
-							style={{ color: firstImageTextColor }}
-						>
+					{ ( firstImageText.length > 0 && showFirstOverlay ) && (
+						<div className={ 'overlay-container' + dimRatioToClass( dimFirstImageRatio ) + ' ' + textPosition( firstImageTextPosition )}>
     						<div class="overlay-text left">
 								<RichText.Content
-									tagName="p"
+									tagName="div"
 									value={ firstImageText }
+									style={{ color: firstImageTextColor }}
 								/>
 							</div>
   						</div>
@@ -173,18 +193,16 @@ registerBlockType( 'double-image/double-image', {
 				</div>
 
 				<div 
-				className={ 'image-block right' + `${ showOverlay ? ' show-overlay' : '' }` }
+				className={ 'image-block right' + hasParallax( hasSecondImageParallax ) + `${ showSecondOverlay ? ' show-overlay' : '' }` }
 				style={ backgroundImageStyles( secondImageURL ) }
 				>
-					{ ( secondShowOverlay && showOverlay ) && (
-						<div 
-							className={ 'overlay-container ' + `${ secondImageTextPosition }` }
-							style={{ color: secondImageTextColor }}
-						>
+					{ ( secondImageText.length > 0 && showSecondOverlay ) && (
+						<div className={ 'overlay-container' + dimRatioToClass( dimSecondImageRatio ) + ' ' + textPosition( secondImageTextPosition ) }>
     						<div class="overlay-text right">
 								<RichText.Content
-									tagName="p"
+									tagName="div"
 									value={ secondImageText }
+									style={{ color: secondImageTextColor }}
 								/>
 							</div>
   						</div>
@@ -199,4 +217,16 @@ registerBlockType( 'double-image/double-image', {
 
 function backgroundImageStyles( url ) {
 	return url ? { backgroundImage: `url(${ url })` } : undefined;
+}
+
+function dimRatioToClass( dimRatio ) {
+	return dimRatio ? ' has-background-dim-' + dimRatio : ''
+}
+
+function hasParallax( hasParallax ) {
+	return hasParallax ? ' has-parallax': ''
+}
+
+function textPosition( position ) {
+	return position ? 'text-' + `${ position }` : 'text-top';
 }
