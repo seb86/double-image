@@ -1,13 +1,13 @@
 <?php
 /**
  * Plugin Name: Double Image
- * Plugin URI: https://github.com/seb86/double-image
+ * Plugin URI: @@pkg.repository_uri
  * Description: @@pkg.description
- * Author: Sébastien Dumont
- * Author URI: https://github.com/seb86/double-image
+ * Author: @@pkg.author
+ * Author URI: @@pkg.author_uri
  * Tags: gutenberg, editor, block, layout, image
- * Version: 1.0.0
- * Text Domain: '@@pkg.name'
+ * Version: @@pkg.version
+ * Text Domain: @@pkg.name
  * Domain Path: languages
  * Tested up to: @@pkg.tested_up_to
  *
@@ -31,8 +31,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 /**
  * Main @@pkg.title Class
- *
- * @since 1.0.0
  */
 class Double_Image {
 
@@ -96,18 +94,17 @@ class Double_Image {
 	 */
 	public function __clone() {
 		// Cloning instances of the class is forbidden
-		_doing_it_wrong( __FUNCTION__, __( 'Cloning this object is forbidden.', 'auto-load-next-post' ), self::$version );
+		_doing_it_wrong( __FUNCTION__, __( 'Cloning this object is forbidden.', '@@pkg.name' ), self::$version );
 	} // END __clone()
 
 	/**
 	 * Unserializing instances of this class is forbidden.
 	 *
 	 * @access public
-	 * @since  1.0.0
 	 * @return void
 	 */
 	public function __wakeup() {
-		_doing_it_wrong( __FUNCTION__, __( 'Unserializing instances of this class is forbidden.', 'auto-load-next-post' ), self::$version );
+		_doing_it_wrong( __FUNCTION__, __( 'Unserializing instances of this class is forbidden.', '@@pkg.name' ), self::$version );
 	} // END __wakeup()
 
 	/**
@@ -131,7 +128,6 @@ class Double_Image {
 	 * Include required files.
 	 *
 	 * @access private
-	 * @since 1.0.0
 	 * @return void
 	 */
 	private function includes() {
@@ -153,7 +149,7 @@ class Double_Image {
 		$slug = self::$slug;
 
 		register_block_type(
-			$slug . '/double-image', array(
+			$slug . '/' . $slug, array(
 				'editor_script' => $slug . '-editor',
 				'editor_style'  => $slug . '-editor',
 				'style'         => $slug . '-frontend',
@@ -216,7 +212,6 @@ class Double_Image {
 	 * @access public
 	 */
 	public function localization() {
-
 		// Check if this function exists.
 		if ( ! function_exists( 'gutenberg_get_jed_locale_data' ) ) {
 			return;
@@ -232,7 +227,6 @@ class Double_Image {
 	 * Loads the plugin language files.
 	 *
 	 * @access public
-	 * @since 1.0.0
 	 * @return void
 	 */
 	public function load_textdomain() {

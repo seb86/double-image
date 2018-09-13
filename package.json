@@ -6,11 +6,11 @@
   "author": "Sébastien Dumont",
   "author_shop": "Sébastien Dumont",
   "author_uri": "https://sebastiendumont.com",
+  "repository_uri": "https://github.com/seb86/double-image",
   "requires": "4.9",
   "tested_up_to": "4.9.8",
   "license": "GPL-3.0",
   "copyright": "Copyright (c) 2018, Sébastien Dumont",
-  "downloadid": "",
   "description": "A double image Gutenberg block with optional overlay text.",
   "tags": "",
   "scripts": {

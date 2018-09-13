@@ -107,8 +107,16 @@ gulp.task( 'variables', function(done) {
 			replacement: pkg.version
 		},
 		{
+			match: 'pkg.author_uri',
+			replacement: pkg.author_uri
+		},
+		{
 			match: 'pkg.author',
 			replacement: pkg.author
+		},
+		{
+			match: 'pkg.repository_uri',
+			replacement: pkg.repository_uri
 		},
 		{
 			match: 'pkg.license',
@@ -121,10 +129,6 @@ gulp.task( 'variables', function(done) {
 		{
 			match: 'textdomain',
 			replacement: pkg.name
-		},
-		{
-			match: 'pkg.downloadid',
-			replacement: pkg.downloadid
 		},
 		{
 			match: 'pkg.description',

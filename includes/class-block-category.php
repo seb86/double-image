@@ -40,7 +40,7 @@ class Double_Image_Block_Category {
 			array(
 				array(
 					'slug'  => 'double_image',
-					'title' => __( 'Double Image', '@@textdomain' ),
+					'title' => __( 'Double Image', '@@pkg.name' ),
 				),
 			)
 		);
