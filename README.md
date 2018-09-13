@@ -3,7 +3,13 @@
 [![License](https://img.shields.io/badge/license-GPL--3.0%2B-red.svg)](https://github.com/seb86/double-image/blob/master/license.txt)
 [![GitHub forks](https://img.shields.io/github/forks/seb86/double-image.svg?style=flat)](https://github.com/seb86/double-image/network)
 
-Allows you to add two images side by side with optional overlay text. There are 4 image layout options. "1-4", "4-1", "Even" and "Full Stack". The first two are ratio layouts. "Even" provides the same size images with no spacing in between and Full Stack sets each image full width on top of one another.
+Allows you to add two images side by side with optional overlay text.
+
+![Double Image - Format 1-4 with Optional Text Overlay](https://raw.githubusercontent.com/seb86/double-image/master/screenshot-double-image-filled-format-1-4-optional-text-overlay.png)
+
+## Overview 🔔
+
+Double Image provides 4 image layout options. "1-4", "4-1", "Even" and "Full Stack". The first two are ratio layouts. "Even" provides the same size images with no spacing in between and Full Stack sets each image full width on top of one another.
 
 Each image has it's own set of settings. You have the option to change the text overlay position, the text colour, the background opacity and set the block to a fixed background for a paralex effect. You don't have to set a text overlay so you can switch it off or leave it on with no text to use the background opacity.
 
@@ -13,7 +19,6 @@ You can also set the alignment to Wide Width, Full width or Center.
 
 The choice is up to you and I hope you like it.
 
-![Double Image - Format 1-4 with Optional Text Overlay](https://raw.githubusercontent.com/seb86/double-image/master/screenshot-double-image-filled-format-1-4-optional-text-overlay.png)
 
 ### Is This Free?
 
@@ -21,8 +26,6 @@ Yes, it's free. But here's what you should _really_ care about:
 
 * The code adheres to the [WordPress Coding Standards](https://codex.wordpress.org/WordPress_Coding_Standards) and follows best practices and conventions.
 * This is my first Gutenberg block.
-
-<!-- List other good things about this project. -->
 
 
 #### Requirements ✅
@@ -63,7 +66,7 @@ If you want to do a one-time donation, you can donate to:
 Thank you for your support! 🙌
 
 
-## Development
+## Development 💻
 
 1. Clone the GitHub repository: `https://github.com/seb86/double-image.git`
 2. Browse to the folder in the command line.
