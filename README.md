@@ -5,7 +5,9 @@
 
 Allows you to add two images side by side with optional overlay text.
 
-![Double Image - Format 1-4 with Optional Text Overlay](https://raw.githubusercontent.com/seb86/double-image/master/screenshot-double-image-filled-format-1-4-optional-text-overlay.png)
+<p align="center">
+![Double Image Demo](https://raw.githubusercontent.com/seb86/double-image/master/demo.gif)
+</p>
 
 ## Overview 🔔
 
