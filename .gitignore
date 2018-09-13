@@ -9,6 +9,7 @@ dist/**
 sftp.json
 .github/
 .github/issue_template.md
+.vscode/
 
 dist/blocks.build.js
 
