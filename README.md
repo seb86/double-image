@@ -6,7 +6,7 @@
 Allows you to add two images side by side with optional overlay text.
 
 <p align="center">
-![Double Image Demo](https://raw.githubusercontent.com/seb86/double-image/master/demo.gif)
+	<img src="https://raw.githubusercontent.com/seb86/double-image/master/demo.gif" alt="Double Image Demo" />
 </p>
 
 ## Overview 🔔
