@@ -9,6 +9,7 @@
  * Version: @@pkg.version
  * Text Domain: @@pkg.name
  * Domain Path: languages
+ * Requires at least: @@pkg.requires
  * Tested up to: @@pkg.tested_up_to
  *
  * @@pkg.title is distributed in the hope that it will be useful,
@@ -19,9 +20,9 @@
  * You should have received a copy of the GNU General Public License
  * along with @@pkg.title. If not, see <http://www.gnu.org/licenses/>.
  *
- * @package   @@pkg.title
- * @author    @@pkg.author
- * @license   @@pkg.license
+ * @package @@pkg.title
+ * @author  @@pkg.author
+ * @license @@pkg.license
  */
 
 // Exit if accessed directly.
