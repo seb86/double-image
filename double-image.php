@@ -83,7 +83,6 @@ class Double_Image {
 	public static function instance() {
 		if ( null === self::$_instance ) {
 			self::$_instance = new self();
-			self::$_instance->includes();
 		}
 	}
 
@@ -114,19 +113,21 @@ class Double_Image {
 	 * @access private
 	 */
 	private function __construct() {
-		$this->dir     = untrailingslashit( plugin_dir_path( '/', __FILE__ ) );
-		$this->url     = untrailingslashit( plugins_url( '/', __FILE__ ) );
+		$this->dir = untrailingslashit( plugin_dir_path( '/', __FILE__ ) );
+		$this->url = untrailingslashit( plugins_url( '/', __FILE__ ) );
 
+		// Register block and assets.
 		add_action( 'init', array( $this, 'register_block' ) );
 		add_action( 'init', array( $this, 'block_assets' ) );
 		add_action( 'init', array( $this, 'editor_assets' ) );
 		//add_action( 'plugins_loaded', array( $this, 'load_dynamic_blocks' ) );
 		add_action( 'plugins_loaded', array( $this, 'load_textdomain' ) );
-		add_action( 'enqueue_block_editor_assets', array( $this, 'localization' ) );
+	} // END __construct()
+
 	}
 
 	/**
-	 * Include required files.
+	 * Run these actions once Gutenberg is installed and active.
 	 *
 	 * @access private
 	 * @return void
@@ -159,23 +160,11 @@ class Double_Image {
 	}
 
 	/**
-	 * Register server-side code for individual blocks.
-	 *
-	 * @access public
-	 */
-	public function load_dynamic_blocks() {
-		foreach ( glob( dirname( __FILE__ ) . '/src/block/*/index.php' ) as $block_logic ) {
-			require $block_logic;
-		}
-	}
-
-	/**
-	 * Enqueue block assets for use within Gutenberg.
+	 * Enqueue block assets for use to display Gutenberg block.
 	 *
 	 * @access public
 	 */
 	public function block_assets() {
-		// Styles.
 		wp_register_style(
 			self::$slug . '-frontend',
 			$this->url . '/dist/blocks.style.build.css',
@@ -185,12 +174,12 @@ class Double_Image {
 	}
 
 	/**
-	 * Enqueue block assets for use within Gutenberg.
+	 * Enqueue editor assets for use within Gutenberg editor.
 	 *
 	 * @access public
 	 */
 	public function editor_assets() {
-		// Styles.
+		// Style.
 		wp_register_style(
 			self::$slug . '-editor',
 			$this->url . '/dist/blocks.editor.build.css',
@@ -198,7 +187,7 @@ class Double_Image {
 			self::$version
 		);
 
-		// Scripts.
+		// Script.
 		wp_register_script(
 			self::$slug . '-editor',
 			$this->url . '/dist/blocks.build.js',
