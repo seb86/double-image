@@ -120,21 +120,47 @@ class Double_Image {
 		add_action( 'init', array( $this, 'register_block' ) );
 		add_action( 'init', array( $this, 'block_assets' ) );
 		add_action( 'init', array( $this, 'editor_assets' ) );
-		//add_action( 'plugins_loaded', array( $this, 'load_dynamic_blocks' ) );
+
+		// Check if Gutenberg is installed and load text domain.
+		add_action( 'plugins_loaded', array( $this, 'check_gutenberg_installed' ) );
 		add_action( 'plugins_loaded', array( $this, 'load_textdomain' ) );
 	} // END __construct()
 
-	}
+	/**
+	 * Checks if Gutenberg is installed before running filters for the WordPress updater.
+	 *
+	 * @access public
+	 * @return bool|void
+	 */
+	public function check_gutenberg_installed() {
+		if ( ! defined( 'GUTENBERG_VERSION' ) ) {
+			add_action( 'admin_notices', array( $this, 'gutenberg_not_installed' ) );
+			return false;
+		}
+
+		// Gutenberg is active.
+		self::gutenberg_active();
+	} // END check_gutenberg_installed()
+
+	/**
+	 * Gutenberg is Not Installed Notice.
+	 *
+	 * @access public
+	 * @return void
+	 */
+	public function gutenberg_not_installed() {
+		echo '<div class="error"><p>' . sprintf( __( '@@pkg.title requires %s to be installed and activated.', 'gutenberg-prototype' ), '<a href="https://wordpress.org/plugins/gutenberg/" target="_blank">Gutenberg</a>' ) . '</p></div>';
+	} // END gutenberg_not_installed()
 
 	/**
 	 * Run these actions once Gutenberg is installed and active.
 	 *
-	 * @access private
+	 * @access public
 	 * @return void
 	 */
-	private function includes() {
-		require_once( $this->dir . 'includes/class-block-category.php' );
-	}
+	public function gutenberg_active() {
+		add_action( 'enqueue_block_editor_assets', array( $this, 'localization' ) );
+	} // END gutenberg_active()
 
 	/**
 	 * Add actions to enqueue assets.
