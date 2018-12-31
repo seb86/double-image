@@ -1,76 +1,10 @@
 .wp-block-double-image-double-image {
-    display: block;
-    clear: both;
-    min-height: 320px;
-    width: 100%;
-    height: 100%;
-
-    &.alignwide {
-        margin-left: auto;
-        margin-right: auto;
-        max-width: calc(900px - 20px) !important;
-        width: calc(100% - 20px);
-    }
-
-    &.alignfull {
-        max-width: 100% !important;
-    }
-
-    &.format-1-4 {
-        .image-block:first-child {
-            width: 39%;
-        }
-
-        .image-block:last-child {
-            width: 59%;
-        }
-    }
-
-    &.format-4-1 {
-        .image-block:first-child {
-            width: 59%;
-        }
-
-        .image-block:last-child {
-            width: 39%;
-        }
-    }
-
-    &.format-even .image-block {
-        width: 50%;
-    }
-
-    &.format-full-stack .image-block {
-        margin-bottom: 0;
-        width: 100%;
-    }
-
-    @media (max-width: 600px) {
-        &.format-1-4 .image-block:first-child, 
-        &.format-1-4 .image-block:last-child, 
-        &.format-4-1 .image-block:first-child, 
-        &.format-4-1 .image-block:last-child, 
-        &.format-even .image-block {
-            width: 100%;
-        }
-    }
 
     .image-block {
-        height: 100%;
-        display: block;
-        position: relative;
-        margin-bottom: 1em;
-        min-height: 320px;
-        background-color: #eee;
-        background-size: cover;
-        background-position: 50%;
 
-        &.has-parallax {
-            background-attachment: fixed;
-        }
-
-        &.show-overlay .overlay-container {
-            opacity: 1;
+        &.uploading .components-placeholder {
+            opacity: 0;
+            visibility: hidden;
         }
 
         &.has-image-set button {
@@ -78,6 +12,7 @@
         }
 
         button {
+            display: block;
             height: 100%;
             left: 0;
             padding: 0;
@@ -94,7 +29,6 @@
 
             svg {
                 fill: #444;
-                margin: 0 auto;
                 pointer-events: none;
                 transform: translate3d(0, 0, 0);
                 transition: transform 100ms cubic-bezier(0.645, 0.045, 0.355, 1);
@@ -104,42 +38,8 @@
     }
 
     .overlay-container {
-        height: 100%;
-        width: 100%;
-        position: absolute;
-        top: 0;
-        opacity: 0;
-
-        @for $i from 1 through 10 {
-            &.has-background-dim-#{ $i * 10 } {
-                background-color: rgba($black, $i * 0.1);
-            }
-        }
-
-        &.text-top .overlay-text {
-            top: 0;
-        }
-    
-        &.text-bottom .overlay-text {
-            bottom: 0;
-        }
     
         .overlay-text {
-            font-size: 22pt;
-            font-style: italic;
-            padding: 0.6em 0.8em;
-            position: absolute;
-            width: 100%;
-
-            &.left {
-                text-align: left;
-                left: 0;
-            }
-
-            &.right {
-                text-align: right;
-                right: 0;
-            }
 
             &.selected .overlay-text-editor {
                 background-color: $white;
@@ -149,12 +49,36 @@
                 padding: 0 0.4em;
             }
 
-            p {
-                color: inherit;
-                font-size: 22pt;
-                line-height: 1.2;
-                margin: 0;
-            }
         }
     }
+
+    .components-button:hover .components-placeholder {
+        border: 6px solid #ccc;
+        padding: 6px;
+    }
+
+    .uploading-image {
+        background-color: rgba($black, 1 * 0.1);
+        color: #fff;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+        font-weight: 700;
+        height: 100%;
+        position: absolute;
+        text-align: center;
+        text-shadow: 1px 2px #000;
+        top: 0;
+        width: 100%;
+
+        .components-spinner {
+            background-color: #fff;
+            float: none;
+            opacity: 0.8;
+    
+            &::before {
+                background-color: #7fdbb6;
+            }
+        }
+
+    }
+
 }

@@ -7,7 +7,6 @@ import classnames from 'classnames';
  * Internal dependencies
  */
 import Controls from './controls';
-import DoubleImage from './doubleimage';
 import Inspector from './inspector';
 
 /**
@@ -15,22 +14,22 @@ import Inspector from './inspector';
  */
 const { __ } = wp.i18n;
 const { Component, Fragment } = wp.element;
-const { RichText, MediaUpload, mediaUpload } = wp.editor;
-const { Button, Dashicon, DropZone } = wp.components;
+const { RichText, MediaUpload, MediaUploadCheck, mediaUpload } = wp.editor;
+const { Button, Dashicon, DropZone, Placeholder, Spinner } = wp.components;
+const { isBlobURL } = wp.blob;
 
 /**
  * Block edit function
  */
-export default class Edit extends Component {
-
-	constructor() {
+class Edit extends Component {
+	constructor( props ) {
 		super( ...arguments );
 
-		this.offFocusImage    = this.offFocusImage.bind( this );
+		this.addImageOne = this.addImageOne.bind( this );
+		this.addImageTwo = this.addImageTwo.bind( this );
 		this.onSelectImageOne = this.onSelectImageOne.bind( this );
 		this.onSelectImageTwo = this.onSelectImageTwo.bind( this );
-		this.addImageOne      = this.addImageOne.bind( this );
-		this.addImageTwo      = this.addImageTwo.bind( this );
+		this.offFocusImage = this.offFocusImage.bind( this );
 
 		this.state = {
 			imageFocused: false,
@@ -59,7 +58,7 @@ export default class Edit extends Component {
 
 	addImageOne( files ) {
 		mediaUpload( {
-			allowedType: 'image',
+			allowedTypes: [ 'image' ],
 			filesList: files,
 			onFileChange: ( [ media ] ) => this.onSelectImageOne( media ),
 		} );
@@ -67,24 +66,25 @@ export default class Edit extends Component {
 
 	addImageTwo( files ) {
 		mediaUpload( {
-			allowedType: 'image',
+			allowedTypes: [ 'image' ],
 			filesList: files,
 			onFileChange: ( [ media ] ) => this.onSelectImageTwo( media ),
 		} );
 	}
 
 	render() {
-
 		const {
 			attributes,
+			className,
 			isSelected,
+			notices,
 			setAttributes,
 			setState,
 		} = this.props;
 
 		const {
+			format,
 			showFirstOverlay,
-			showSecondOverlay,
 			firstImageID,
 			firstImageURL,
 			firstImageText,
@@ -92,13 +92,14 @@ export default class Edit extends Component {
 			hasFirstImageParallax,
 			dimFirstImageRatio,
 			firstImageTextPosition,
+			showSecondOverlay,
 			secondImageID,
 			secondImageURL,
 			secondImageText,
 			secondImageTextColor,
 			hasSecondImageParallax,
 			dimSecondImageRatio,
-			secondImageTextPosition
+			secondImageTextPosition,
 		} = attributes;
 
 		const dropZoneOne = (
@@ -107,6 +108,7 @@ export default class Edit extends Component {
 				label={ __( 'Add image' ) }
 			/>
 		);
+
 		const dropZoneTwo = (
 			<DropZone
 				onFilesDrop={ this.addImageTwo }
@@ -114,16 +116,34 @@ export default class Edit extends Component {
 			/>
 		);
 
+		const uploadPlaceholder = (
+			<Placeholder
+				icon={ <Dashicon icon="format-image" /> }
+				label={ __( 'Double Image' ) }
+				instructions={ __( 'Drag an image, upload a new one or select a file from your library.' ) }
+				className={ classnames( 'editor-media-placeholder', className ) }
+				notices={ notices }
+			/>
+		);
+
+		const uploading = (
+			<div className={ 'uploading-image' }>
+				{ __( 'Uploading image' ) }
+				<Spinner />
+			</div>
+		);
+
 		const onUploadImageOne = ( media ) => setAttributes( { firstImageURL: media.sizes.full.url, firstImageID: media.id } );
 		const onUploadImageTwo = ( media ) => setAttributes( { secondImageURL: media.sizes.full.url, secondImageID: media.id } );
 
-		const styleFirstImage  = backgroundImageStyles( firstImageURL );
+		const styleFirstImage = backgroundImageStyles( firstImageURL );
 		const styleSecondImage = backgroundImageStyles( secondImageURL );
 
 		const firstTextPosition = textPosition( firstImageTextPosition );
 		const secondTextPosition = textPosition( secondImageTextPosition );
 
 		return [
+			// eslint-disable-next-line react/jsx-key
 			<Fragment>
 				{ isSelected && (
 					<Controls
@@ -135,44 +155,54 @@ export default class Edit extends Component {
 						{ ...this.props }
 					/>
 				) }
-				<DoubleImage { ...this.props }>
-					<div 
+				<div
+					className={ classnames(
+						className,
+						format ? `format-${ format }` : 'format-1-4',
+					) }
+				>
+					<div
 						className={ classnames(
-							'image-block left', 
-							hasParallax( hasFirstImageParallax ),
+							'image-block left',
+							parallax( hasFirstImageParallax ),
 							`${ showFirstOverlay ? ' show-overlay' : '' }`,
-							`${ firstImageURL ? ' has-image-set' : '' }`
+							`${ firstImageURL ? ' has-image-set' : '' }`,
+							`${ isBlobURL( firstImageURL ) ? 'uploading' : '' }`
 						) }
 						style={ styleFirstImage }
 					>
-						{ dropZoneOne }
-						<MediaUpload
-							onSelect={ onUploadImageOne }
-							type="image"
-							value={ firstImageID }
-							render={ ( { open } ) => (
-								<Button onClick={ open }>
-								{ ! firstImageID ? <Dashicon icon="format-image" /> : '' }
-								</Button>
-							) }
-						>
-						</MediaUpload>
-						{ ! firstImageID ? '' :
-							<div
-								className={ classnames(
-									'overlay-container',
-									dimRatioToClass( dimFirstImageRatio ),
-									`${firstTextPosition}`
+						<MediaUploadCheck>
+							{ dropZoneOne }
+							<MediaUpload
+								onSelect={ onUploadImageOne }
+								allowedTypes={ [ 'image' ] }
+								value={ firstImageID }
+								render={ ( { open } ) => (
+									<Button onClick={ open }>
+										{ firstImageID ? '' : uploadPlaceholder }
+									</Button>
 								) }
+							/>
+						</MediaUploadCheck>
+
+						{ isBlobURL( firstImageURL ) && uploading }
+
+						{ ! firstImageID ? '' :
+							<div className={ classnames(
+								className,
+								'overlay-container',
+								dimRatioToClass( dimFirstImageRatio ),
+								`${ firstTextPosition }`
+							) }
 							>
-								<div className={ 'overlay-text left' + blockSelected( isSelected ) }>
+								<div className={ 'overlay-text right' + blockSelected( isSelected ) }>
 									<RichText
 										tagName="div"
 										multiline="p"
 										placeholder={ __( 'Enter optional overlay text...' ) }
 										value={ firstImageText }
 										className={ 'overlay-text-editor' }
-										style={{ color: firstImageTextColor }}
+										style={ { color: firstImageTextColor } }
 										onChange={ ( value ) => setAttributes( { firstImageText: value } ) }
 										unstableOnFocus={ this.offFocusImage }
 										formattingControls={ [] }
@@ -182,34 +212,39 @@ export default class Edit extends Component {
 							</div>
 						}
 					</div>
-					<div 
+					<div
 						className={ classnames(
-							'image-block right', 
-							hasParallax( hasSecondImageParallax ),
+							'image-block right',
+							parallax( hasSecondImageParallax ),
 							`${ showSecondOverlay ? ' show-overlay' : '' }`,
-							`${ secondImageURL ? ' has-image-set' : '' }`
+							`${ secondImageURL ? ' has-image-set' : '' }`,
+							`${ isBlobURL( secondImageURL ) ? 'uploading' : '' }`
 						) }
 						style={ styleSecondImage }
 					>
-						{ dropZoneTwo }
-						<MediaUpload
-							onSelect={ onUploadImageTwo }
-							type="image"
-							value={ secondImageID }
-							render={ ( { open } ) => (
-								<Button onClick={ open }>
-								{ ! secondImageID ? <Dashicon icon="format-image" /> : '' }
-								</Button>
-							) }
-						>
-						</MediaUpload>
-						{ ! secondImageID ? '' :
-							<div
-								className={ classnames(
-									'overlay-container',
-									dimRatioToClass( dimSecondImageRatio ),
-									`${secondTextPosition}`
+						<MediaUploadCheck>
+							{ dropZoneTwo }
+							<MediaUpload
+								onSelect={ onUploadImageTwo }
+								allowedTypes={ [ 'image' ] }
+								value={ secondImageID }
+								render={ ( { open } ) => (
+									<Button onClick={ open }>
+										{ secondImageID ? '' : uploadPlaceholder }
+									</Button>
 								) }
+							/>
+						</MediaUploadCheck>
+
+						{ isBlobURL( secondImageURL ) && uploading }
+
+						{ ! secondImageID ? '' :
+							<div className={ classnames(
+								className,
+								'overlay-container',
+								dimRatioToClass( dimSecondImageRatio ),
+								`${ secondTextPosition }`
+							) }
 							>
 								<div className={ 'overlay-text right' + blockSelected( isSelected ) }>
 									<RichText
@@ -218,7 +253,7 @@ export default class Edit extends Component {
 										placeholder={ __( 'Enter optional overlay text...' ) }
 										value={ secondImageText }
 										className={ 'overlay-text-editor' }
-										style={{ color: secondImageTextColor }}
+										style={ { color: secondImageTextColor } }
 										onChange={ ( value ) => setAttributes( { secondImageText: value } ) }
 										unstableOnFocus={ this.offFocusImage }
 										formattingControls={ [] }
@@ -228,11 +263,13 @@ export default class Edit extends Component {
 							</div>
 						}
 					</div>
-				</DoubleImage>
-			</Fragment>
+				</div>
+			</Fragment>,
 		];
 	}
 }
+
+export default Edit;
 
 function backgroundImageStyles( url ) {
 	return url ? { backgroundImage: `url(${ url })` } : undefined;
@@ -243,13 +280,13 @@ function textPosition( position ) {
 }
 
 function dimRatioToClass( dimRatio ) {
-	return dimRatio ? ' has-background-dim-' + dimRatio : ''
+	return dimRatio ? ' has-background-dim-' + dimRatio : '';
 }
 
-function hasParallax( hasParallax ) {
-	return hasParallax ? ' has-parallax': ''
+function parallax( hasParallax ) {
+	return hasParallax ? ' has-parallax' : '';
 }
 
 function blockSelected( isSelected ) {
-	return isSelected ? ' selected' : ''
+	return isSelected ? ' selected' : '';
 }

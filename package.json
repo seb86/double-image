@@ -1,14 +1,14 @@
 {
   "name": "double-image",
   "title": "Double Image",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "private": true,
   "author": "Sébastien Dumont",
   "author_shop": "Sébastien Dumont",
   "author_uri": "https://sebastiendumont.com",
   "repository_uri": "https://github.com/seb86/double-image",
   "requires": "4.9",
-  "tested_up_to": "4.9.8",
+  "tested_up_to": "5.0.2",
   "license": "GPL-3.0",
   "copyright": "Copyright (c) 2018, Sébastien Dumont",
   "description": "A double image Gutenberg block with optional overlay text.",
@@ -19,8 +19,9 @@
     "eject": "cgb-scripts eject"
   },
   "dependencies": {
-    "cgb-scripts": "1.9.6",
+    "cgb-scripts": "1.14.0",
     "classnames": "2.2.5",
+    "memize": "^1.0.5",
     "lodash": "4.17.4",
     "md5": "^2.2.1",
     "moment": "2.21.0",
@@ -35,6 +36,12 @@
     "stylelint-config-wordpress": "^13.0.0"
   },
   "devDependencies": {
+    "@wordpress/babel-plugin-makepot": "^2.1.2",
+    "@wordpress/babel-preset-default": "^1.1.2",
+    "@wordpress/i18n": "^1.2.3",
+    "babel-cli": "^6.26.0",
+    "babel-core": "^6.25.0",
+    "babel-loader": "^7.1.4",
     "del": "^3.0.0",
     "gulp": "^4.0.0",
     "gulp-cache": "^1.0.2",
@@ -53,7 +60,8 @@
   "stylelint": {
     "extends": "stylelint-config-wordpress/scss",
     "rules": {
-      "at-rule-empty-line-before": null
+      "at-rule-empty-line-before": null,
+      "no-descending-specificity": null
     }
   }
 }

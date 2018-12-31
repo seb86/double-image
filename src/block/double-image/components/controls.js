@@ -1,19 +1,19 @@
+/* eslint-disable no-unused-vars */
+/* eslint-disable no-useless-constructor */
 /**
  * WordPress dependencies
  */
 const { __ } = wp.i18n;
 const { Component, Fragment } = wp.element;
-const { BlockControls, MediaUpload } = wp.editor;
+const { BlockControls, MediaUpload, MediaUploadCheck } = wp.editor;
 const { Toolbar, IconButton } = wp.components;
 
 export default class Controls extends Component {
-
 	constructor( props ) {
 		super( ...arguments );
 	}
 
 	render() {
-
 		const {
 			attributes,
 			isSelected,
@@ -35,19 +35,22 @@ export default class Controls extends Component {
 				<BlockControls>
 					{ isSelected && firstImageURL &&
 						<Toolbar>
-							<MediaUpload
-								onSelect={ onSelectImageOne }
-								type="image"
-								value={ firstImageID }
-								render={ ( { open } ) => (
-									<IconButton
-										className="components-toolbar__control"
-										label={ __( 'Edit first image' ) }
-										icon="format-image"
-										onClick={ open }
-									/>
-								) }
-							/>
+							<MediaUploadCheck>
+								<MediaUpload
+									onSelect={ onSelectImageOne }
+									type="image"
+									value={ firstImageID }
+									render={ ( { open } ) => (
+										<IconButton
+											className="components-toolbar__control"
+											label={ __( 'Edit first image' ) }
+											icon="format-image"
+											onClick={ open }
+										/>
+									) }
+								/>
+							</MediaUploadCheck>
+
 							<IconButton
 								className="components-toolbar__control"
 								label={ __( 'Remove first image' ) }
@@ -58,19 +61,22 @@ export default class Controls extends Component {
 					}
 					{ isSelected && secondImageURL &&
 						<Toolbar>
-							<MediaUpload
-								onSelect={ onSelectImageTwo }
-								type="image"
-								value={ secondImageID }
-								render={ ( { open } ) => (
-									<IconButton
-										className="components-toolbar__control"
-										label={ __( 'Edit second image' ) }
-										icon="format-image"
-										onClick={ open }
-									/>
-								) }
-							/>
+							<MediaUploadCheck>
+								<MediaUpload
+									onSelect={ onSelectImageTwo }
+									type="image"
+									value={ secondImageID }
+									render={ ( { open } ) => (
+										<IconButton
+											className="components-toolbar__control"
+											label={ __( 'Edit second image' ) }
+											icon="format-image"
+											onClick={ open }
+										/>
+									) }
+								/>
+							</MediaUploadCheck>
+
 							<IconButton
 								className="components-toolbar__control"
 								label={ __( 'Remove second image' ) }

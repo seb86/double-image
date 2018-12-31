@@ -12,6 +12,11 @@
  * Requires at least: @@pkg.requires
  * Tested up to: @@pkg.tested_up_to
  *
+ * @@pkg.title is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 2 of the License, or
+ * any later version.
+ * 
  * @@pkg.title is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
@@ -30,251 +35,301 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-/**
- * Main @@pkg.title Class
- */
-class Double_Image {
-
+if ( ! class_exists( 'Double_Image' ) ) {
 	/**
-	 * This plugin's instance.
+	 * Main @@pkg.title Class
 	 *
-	 * @access private
-	 * @var Double_Image
+	 * @since 1.0.0
 	 */
-	private static $_instance = null;
+	final class Double_Image {
 
-	/**
-	 * The base directory path (without trailing slash).
-	 *
-	 * @access private
-	 * @var string $url
-	 */
-	private $dir;
+		/**
+		 * This plugin's instance.
+		 *
+		 * @access private
+		 * @static
+		 * @var Double_Image
+		 */
+		private static $_instance = null;
 
-	/**
-	 * The base URL path (without trailing slash).
-	 *
-	 * @access private
-	 * @var string $url
-	 */
-	private $url;
+		/**
+		 * The base directory path (without trailing slash).
+		 *
+		 * @access private
+		 * @var string $url
+		 */
+		private $dir;
 
-	/**
-	 * The Plugin version.
-	 *
-	 * @access private
-	 * @var string $version
-	 */
-	private static $version = '@@pkg.version';
+		/**
+		 * The base URL path (without trailing slash).
+		 *
+		 * @access private
+		 * @var string $url
+		 */
+		private $url;
 
-	/**
-	 * The Plugin version.
-	 *
-	 * @access private
-	 * @var string $slug
-	 */
-	private static $slug = 'double-image';
+		/**
+		 * The Plugin version.
+		 *
+		 * @access private
+		 * @var string $version
+		 */
+		private $version;
 
-	/**
-	 * Registers the plugin.
-	 * 
-	 * @access public
-	 */
-	public static function instance() {
-		if ( null === self::$_instance ) {
-			self::$_instance = new self();
-		}
-	}
+		/**
+		 * The Plugin slug.
+		 *
+		 * @access private
+		 * @var string $slug
+		 */
+		private $slug;
 
-	/**
-	 * Cloning is forbidden.
-	 *
-	 * @access public
-	 * @return void
-	 */
-	public function __clone() {
-		// Cloning instances of the class is forbidden
-		_doing_it_wrong( __FUNCTION__, __( 'Cloning this object is forbidden.', '@@pkg.name' ), self::$version );
-	} // END __clone()
+		/**
+		 * Registers the plugin.
+		 * 
+		 * @access public
+		 * @static
+		 */
+		public static function instance() {
+			if ( null === self::$_instance ) {
+				self::$_instance = new self();
+			}
+		} // END instance()
 
-	/**
-	 * Unserializing instances of this class is forbidden.
-	 *
-	 * @access public
-	 * @return void
-	 */
-	public function __wakeup() {
-		_doing_it_wrong( __FUNCTION__, __( 'Unserializing instances of this class is forbidden.', '@@pkg.name' ), self::$version );
-	} // END __wakeup()
+		/**
+		 * Cloning is forbidden.
+		 *
+		 * @access public
+		 * @return void
+		 */
+		public function __clone() {
+			// Cloning instances of the class is forbidden
+			_doing_it_wrong( __FUNCTION__, __( 'Cloning this object is forbidden.', '@@pkg.name' ), self::$version );
+		} // END __clone()
 
-	/**
-	 * The Constructor.
-	 * 
-	 * @access private
-	 */
-	private function __construct() {
-		$this->dir = untrailingslashit( plugin_dir_path( '/', __FILE__ ) );
-		$this->url = untrailingslashit( plugins_url( '/', __FILE__ ) );
+		/**
+		 * Unserializing instances of this class is forbidden.
+		 *
+		 * @access public
+		 * @return void
+		 */
+		public function __wakeup() {
+			_doing_it_wrong( __FUNCTION__, __( 'Unserializing instances of this class is forbidden.', '@@pkg.name' ), self::$version );
+		} // END __wakeup()
 
-		// Register block and assets.
-		add_action( 'init', array( $this, 'register_block' ) );
-		add_action( 'init', array( $this, 'block_assets' ) );
-		add_action( 'init', array( $this, 'editor_assets' ) );
+		/**
+		 * The Constructor.
+		 * 
+		 * @access  private
+		 * @since   1.0.0
+		 * @version 1.1.0
+		 */
+		private function __construct() {
+			$this->version = '@@pkg.version';
+			$this->slug    = 'double-image';
+			$this->dir     = untrailingslashit( plugin_dir_path( '/', __FILE__ ) );
+			$this->url     = untrailingslashit( plugins_url( '/', __FILE__ ) );
 
-		// Check if Gutenberg is installed and load text domain.
-		add_action( 'plugins_loaded', array( $this, 'check_gutenberg_installed' ) );
-		add_action( 'plugins_loaded', array( $this, 'load_textdomain' ) );
-	} // END __construct()
+			// Register block.
+			add_action( 'init', array( $this, 'register_block' ), 99 );
 
-	/**
-	 * Checks if Gutenberg is installed before running filters for the WordPress updater.
-	 *
-	 * @access public
-	 * @return bool|void
-	 */
-	public function check_gutenberg_installed() {
-		if ( ! defined( 'GUTENBERG_VERSION' ) ) {
-			add_action( 'admin_notices', array( $this, 'gutenberg_not_installed' ) );
-			return false;
-		}
+			// Check if Gutenberg is installed or have WordPress version 5.
+			add_action( 'plugins_loaded', array( $this, 'check_wp_version' ) );
 
-		// Gutenberg is active.
-		self::gutenberg_active();
-	} // END check_gutenberg_installed()
+			// Load textdomain.
+			add_action( 'plugins_loaded', array( $this, 'load_textdomain' ) );
+		} // END __construct()
 
-	/**
-	 * Gutenberg is Not Installed Notice.
-	 *
-	 * @access public
-	 * @return void
-	 */
-	public function gutenberg_not_installed() {
-		echo '<div class="notice notice-error">';
+		/**
+		 * Check we're running the required version of WordPress or Gutenberg is installed.
+		 *
+		 * @access public
+		 * @since  1.1.0
+		 * @global $wp_version string
+		 * @return bool|void
+		 */
+		public function check_wp_version() {
+			global $wp_version;
 
-			echo '<p>' . sprintf( __( '%1$s requires %2$sGutenberg%3$s to be installed and activated.', '@@textdomain' ), esc_html( '@@pkg.title', '@@textdomain' ), '<strong>', '</strong>' ) . '</p>';
+			if ( ! defined( 'GUTENBERG_VERSION' ) && version_compare( $wp_version, '5.0', '<' ) ) {
+				add_action( 'admin_notices', array( $this, 'gutenberg_not_installed' ) );
+				return false;
+			}
 
-			echo '<p>';
+			// Gutenberg is active.
+			self::gutenberg_active();
+		} // END check_wp_version()
 
-			if ( ! is_plugin_active( 'gutenberg/gutenberg.php' ) && current_user_can( 'activate_plugin', 'gutenberg/gutenberg.php' ) ) :
+		/**
+		 * Gutenberg is Not Installed Notice.
+		 *
+		 * @access  public
+		 * @since   1.0.0
+		 * @version 1.1.0
+		 * @global  $wp_version string
+		 * @return  void
+		 */
+		public function gutenberg_not_installed() {
+			global $wp_version;
 
-				echo '<a href="' . esc_url( wp_nonce_url( self_admin_url( 'plugins.php?action=activate&plugin=gutenberg/gutenberg.php&plugin_status=active' ), 'activate-plugin_gutenberg/gutenberg.php' ) ) . '" class="button button-primary">' . esc_html__( 'Activate Gutenberg', '@@textdomain' ) . '</a>';
+			echo '<div class="notice notice-error">';
 
-			else:
+				echo '<p>' . sprintf( __( '%1$s requires the %2$sGutenberg%3$s editor. Either install and activate Gutenberg or upgrade WordPress to version 5.', '@@textdomain' ), esc_html( '@@pkg.title', '@@textdomain' ), '<strong>', '</strong>' ) . '</p>';
 
-				if ( current_user_can( 'install_plugins' ) ) {
-					$url = wp_nonce_url( self_admin_url( 'update.php?action=install-plugin&plugin=gutenberg' ), 'install-plugin_gutenberg' );
-				} else {
-					$url = 'https://wordpress.org/plugins/gutenberg/';
-				}
+				echo '<p>';
 
-				echo '<a href="' . esc_url( $url ) . '" class="button button-primary">' . esc_html__( 'Install Gutenberg', '@@textdomain' ) . '</a>';
+				if ( ! is_plugin_active( 'gutenberg/gutenberg.php' ) && current_user_can( 'activate_plugin', 'gutenberg/gutenberg.php' ) ) :
 
-			endif;
+					echo '<a href="' . esc_url( wp_nonce_url( self_admin_url( 'plugins.php?action=activate&plugin=gutenberg/gutenberg.php&plugin_status=active' ), 'activate-plugin_gutenberg/gutenberg.php' ) ) . '" class="button button-primary">' . esc_html__( 'Activate Gutenberg', '@@textdomain' ) . '</a>';
 
-			echo '</p>';
+				else:
 
-		echo '</div>';
+					if ( current_user_can( 'install_plugins' ) ) {
+						$url = wp_nonce_url( self_admin_url( 'update.php?action=install-plugin&plugin=gutenberg' ), 'install-plugin_gutenberg' );
+					} else {
+						$url = 'https://wordpress.org/plugins/gutenberg/';
+					}
 
-		echo '<div class="error"><p>' . sprintf( __( '@@pkg.title requires %s to be installed and activated.', 'gutenberg-prototype' ), '<a href="https://wordpress.org/plugins/gutenberg/" target="_blank">Gutenberg</a>' ) . '</p></div>';
-	} // END gutenberg_not_installed()
+					$primary_button_used = false;
+					$button_class = "";
 
-	/**
-	 * Run these actions once Gutenberg is installed and active.
-	 *
-	 * @access public
-	 * @return void
-	 */
-	public function gutenberg_active() {
-		add_action( 'enqueue_block_editor_assets', array( $this, 'localization' ) );
-	} // END gutenberg_active()
+					if ( version_compare( $wp_version, '5.0', '<' ) && current_user_can( 'upgrade_core' ) ) {
+						echo '<a href="' . admin_url( 'update-core.php' ) . '" class="button button-primary">' . esc_html__( 'Upgrade WordPress', '@@textdomain' ) . '</a>';
+						$primary_button_used = true;
+					}
 
-	/**
-	 * Add actions to enqueue assets.
-	 *
-	 * @access public
-	 */
-	public function register_block() {
-		// Return early if this function does not exist.
-		if ( ! function_exists( 'register_block_type' ) ) {
-			return;
-		}
+					if ( ! $primary_button_used ) $button_class = " button-primary";
 
-		// Shortcut for the slug.
-		$slug = self::$slug;
+					echo '<a href="' . esc_url( $url ) . '" class="button' . $button_class . '">' . esc_html__( 'Install Gutenberg', '@@textdomain' ) . '</a>';
 
-		register_block_type(
-			$slug . '/' . $slug, array(
-				'editor_script' => $slug . '-editor',
-				'editor_style'  => $slug . '-editor',
-				'style'         => $slug . '-frontend',
-			)
-		);
-	}
+				endif;
 
-	/**
-	 * Enqueue block assets for use to display Gutenberg block.
-	 *
-	 * @access public
-	 */
-	public function block_assets() {
-		wp_register_style(
-			self::$slug . '-frontend',
-			$this->url . '/dist/blocks.style.build.css',
-			array( 'wp-blocks' ),
-			self::$version
-		);
-	}
+				echo '</p>';
 
-	/**
-	 * Enqueue editor assets for use within Gutenberg editor.
-	 *
-	 * @access public
-	 */
-	public function editor_assets() {
-		// Style.
-		wp_register_style(
-			self::$slug . '-editor',
-			$this->url . '/dist/blocks.editor.build.css',
-			array( 'wp-edit-blocks' ),
-			self::$version
-		);
+			echo '</div>';
+		} // END gutenberg_not_installed()
 
-		// Script.
-		wp_register_script(
-			self::$slug . '-editor',
-			$this->url . '/dist/blocks.build.js',
-			array( 'wp-blocks', 'wp-i18n', 'wp-element' ),
-			self::$version
-		);
-	}
+		/**
+		 * Run these actions once Gutenberg is installed and active.
+		 *
+		 * @access  public
+		 * @since   1.0.0
+		 * @version 1.1.0
+		 * @return  void
+		 */
+		public function gutenberg_active() {
+			add_action( 'init', array( $this, 'block_assets' ) );
+			add_action( 'enqueue_block_editor_assets', array( $this, 'editor_assets' ) );
+			add_action( 'enqueue_block_editor_assets', array( $this, 'localization' ) );
+		} // END gutenberg_active()
 
-	/**
-	 * Enqueue Jed-formatted localization data.
-	 *
-	 * @access public
-	 */
-	public function localization() {
-		// Check if this function exists.
-		if ( ! function_exists( 'gutenberg_get_jed_locale_data' ) ) {
-			return;
-		}
+		/**
+		 * Registers the block.
+		 *
+		 * @access public
+		 * @since  1.0.0
+		 */
+		public function register_block() {
+			// Return early if this function does not exist.
+			if ( ! function_exists( 'register_block_type' ) ) {
+				return;
+			}
 
-		$locale  = gutenberg_get_jed_locale_data( self::$slug );
-		$content = 'wp.i18n.setLocaleData( ' . wp_json_encode( $locale ) . ' );';
+			// Shortcut for the slug.
+			$slug = $this->slug;
 
-		wp_script_add_data( self::$slug . '-editor', 'data', $content );
-	}
+			register_block_type(
+				$slug . '/' . $slug, array(
+					'editor_script' => $slug . '-editor',
+					'editor_style'  => $slug . '-editor',
+					'style'         => $slug . '-' . $slug,
+				)
+			);
+		} // END register_block()
 
-	/**
-	 * Loads the plugin language files.
-	 *
-	 * @access public
-	 * @return void
-	 */
-	public function load_textdomain() {
-		load_plugin_textdomain( '@@textdomain', false, dirname( plugin_basename( $this->dir ) ) . '/languages/' );
-	}
+		/**
+		 * Enqueue block assets for use to display Gutenberg block 
+		 * but only if the post content contains the block.
+		 *
+		 * @access  public
+		 * @since   1.0.0
+		 * @version 1.1.0
+		 */
+		public function block_assets() {
+			wp_register_style(
+				$this->slug . '-' . $this->slug,
+				$this->url . '/dist/blocks.style.build.css',
+				array( 'wp-editor' ),
+				$this->version
+			);
+		} // END block_assets()
 
-} // END class Double_Image()
+		/**
+		 * Enqueue editor assets for use within Gutenberg editor.
+		 *
+		 * @access  public
+		 * @since   1.0.0
+		 * @version 1.1.0
+		 * @uses    {wp-blocks} for block type registration & related functions.
+		 * @uses    {wp-element} for WP Element abstraction — structure of blocks.
+		 * @uses    {wp-i18n} to internationalize the block's text.
+		 * @uses    {wp-editor} for WP editor styles.
+		 */
+		public function editor_assets() {
+			// Style.
+			wp_register_style(
+				$this->slug . '-editor',
+				$this->url . '/dist/blocks.editor.build.css',
+				array( 'wp-edit-blocks' ),
+				$this->version
+			);
 
-return Double_Image::instance();
+			// Script.
+			wp_register_script(
+				$this->slug . '-editor',
+				$this->url . '/dist/blocks.build.js',
+				array( 'wp-blocks', 'wp-i18n', 'wp-element', 'wp-editor' ),
+				$this->version,
+				true
+			);
+		} // END editor_assets()
+
+		/**
+		 * Enqueue Jed-formatted localization data.
+		 *
+		 * @access  public
+		 * @since   1.0.0
+		 * @version 1.1.0
+		 */
+		public function localization() {
+			// Check if this function exists.
+			if ( ! function_exists( 'gutenberg_get_jed_locale_data' ) ) {
+				return;
+			}
+
+			$locale  = gutenberg_get_jed_locale_data( $this->slug );
+			$content = 'wp.i18n.setLocaleData( ' . wp_json_encode( $locale ) . ' );';
+
+			wp_script_add_data( $this->slug . '-editor', 'data', $content );
+
+			/*if ( function_exists( 'wp_set_script_translations' ) ) {
+				wp_set_script_translations( $this->slug . '-editor', '@@textdomain' );
+			}*/
+		} // END localization()
+
+		/**
+		 * Loads the plugin language files.
+		 *
+		 * @access public
+		 * @since  1.0.0
+		 * @return void
+		 */
+		public function load_textdomain() {
+			load_plugin_textdomain( '@@textdomain', false, dirname( plugin_basename( $this->dir ) ) . '/languages/' );
+		} // END load_textdomain()
+
+	} // END class Double_Image()
+
+	return Double_Image::instance();
+
+} // END if class exists

@@ -26,17 +26,18 @@ var translatableFiles = ['./**/*.php'];
 /**
  * Load Plugins.
  */
-var gulp	= require('gulp');
-var del		= require('del');
-var notify	= require('gulp-notify');
-var replace = require('gulp-replace-task');
-var zip		= require('gulp-zip');
-var copy	= require('gulp-copy');
-var cache	= require('gulp-cache');
-var run		= require('gulp-run-command').default;
-var open	= require("gulp-open");
-var gulpif	= require('gulp-if');
-var wpPot	= require('gulp-wp-pot');
+var gulp      = require('gulp');
+var del       = require('del');
+var notify    = require('gulp-notify');
+var replace   = require('gulp-replace-task');
+var zip       = require('gulp-zip');
+var copy      = require('gulp-copy');
+var cache     = require('gulp-cache');
+var run       = require('gulp-run-command').default;
+var open      = require("gulp-open");
+var gulpif    = require('gulp-if');
+var wpPot     = require('gulp-wp-pot');
+var jsPotFile = [ './languages/'+project+'-js.pot', './build/languages/'+project+'-js.pot' ];
 
 /**
  * Tasks.
@@ -48,6 +49,11 @@ gulp.task('clearCache', function(done) {
 
 gulp.task('clean', function(done) {
 	return del( cleanFiles );
+	done();
+});
+
+gulp.task( 'removeJSPotFile', function(done) {
+	return del( jsPotFile );
 	done();
 });
 
@@ -67,6 +73,10 @@ gulp.task( 'npmStart', run( 'npm run start' ) )
 gulp.task( 'npmBuild', run( 'npm run build' ) )
 
 gulp.task( 'npmInstall', run( 'npm install' ) )
+
+gulp.task( 'npmMakePot', run( 'npm run makepot' ) )
+
+gulp.task( 'npmMakePotPHP', run( 'npm run makepot:php' ) )
 
 gulp.task( 'copy', function(done) {
 	return gulp.src( buildFiles )
