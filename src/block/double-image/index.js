@@ -39,7 +39,7 @@ const blockAttributes = {
 	// Image Layout
 	format: {
 		type: 'string',
-		default: '1-4',
+		default: 'n-w',
 	},
 
 	// Block Alignment
@@ -119,7 +119,7 @@ const settings = {
 	title: __( 'Double Image' ),
 
 	// The description of the block.
-	description: __( 'Add two images side by side with optional overlay text.' ),
+	description: __( 'Insert two images side by side or stacked with optional overlay text.' ),
 
 	// Dashicon icon for the block.
 	icon: {
@@ -222,7 +222,7 @@ const settings = {
 			<div
 				className={ classnames(
 					className,
-					format ? `format-${ format }` : 'format-1-4',
+					format ? `format-${ format }` : 'format-n-w',
 				) }
 			>
 				<div

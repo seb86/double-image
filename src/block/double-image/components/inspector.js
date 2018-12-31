@@ -71,24 +71,24 @@ class Inspector extends Component {
 						<PanelBody title={ __( 'Image Layout' ) } className="double-image__inspector-block-settings-panel-body">
 							<SelectControl
 								key={ 'format-selector' }
-								value={ format ? format : '1-4' }
+								value={ format ? format : 'n-w' }
 								onChange={ ( value ) => setAttributes( { format: value } ) }
 								options={ [
 									{
-										label: __( '1-4' ),
-										value: '1-4',
+										label: __( 'Narrow | Wide' ),
+										value: 'n-w',
 									},
 									{
-										label: __( '4-1' ),
-										value: '4-1',
+										label: __( 'Wide | Narrow' ),
+										value: 'w-n',
 									},
 									{
 										label: __( 'Even' ),
 										value: 'even',
 									},
 									{
-										label: __( 'Full Stack' ),
-										value: 'full-stack',
+										label: __( 'Stacked' ),
+										value: 'stacked',
 									},
 								] }
 							/>

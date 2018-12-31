@@ -51,10 +51,17 @@
 
         }
     }
+    .components-button {
 
-    .components-button:hover .components-placeholder {
-        border: 6px solid #ccc;
-        padding: 6px;
+        .components-placeholder {
+            margin: 0;
+        }
+
+        &:hover .components-placeholder {
+            border: 6px solid #ccc;
+            padding: 6px;
+        }
+
     }
 
     .uploading-image {

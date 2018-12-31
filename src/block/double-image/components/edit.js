@@ -158,7 +158,7 @@ class Edit extends Component {
 				<div
 					className={ classnames(
 						className,
-						format ? `format-${ format }` : 'format-1-4',
+						format ? `format-${ format }` : 'format-n-w',
 					) }
 				>
 					<div

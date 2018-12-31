@@ -15,6 +15,8 @@
 * Improved: Image can be previewed as it is uploaded when drop zone is used.
 * Removed: A lot of white space for the script to compile better using `eslint`
 * Removed: Block wrapper file and added the wrapper directly instead.
+* Changed: The description of the block.
+* Changed: The image layout option names.
 * Changed: The block icon to a single image.
 * Changed: The export of the block when registering it.
 * Changed: Action hooks for the block for optimization.
