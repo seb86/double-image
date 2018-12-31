@@ -11,11 +11,11 @@ Allows you to add two images side by side with optional overlay text.
 
 ## Overview 🔔
 
-Double Image provides 4 image layout options. "1-4", "4-1", "Even" and "Full Stack". The first two are ratio layouts. "Even" provides the same size images with no spacing in between and Full Stack sets each image full width on top of one another.
+Double Image provides 4 image layout options. "Narrow | Wide", "Wide | Narror", "Even" and "Stacked". The first two are ratio layouts. "Even" provides the same size images with no spacing in between and Stacked sets each image full width on top of one another.
 
 Each image has it's own set of settings. You have the option to change the text overlay position, the text colour, the background opacity and set the block to a fixed background for a paralex effect. You don't have to set a text overlay so you can switch it off or leave it on with no text to use the background opacity.
 
-The second image does not show the overlay by default. The default image layout is "1-4". There are controls for each image to change or remove the image.
+The second image does not show the overlay by default. The default image layout is "Narrow | Wide". There are controls for each image to change or remove the image.
 
 You can also set the alignment to Wide Width, Full width or Center.
 
@@ -36,7 +36,7 @@ To use this plugin you will need:
 
 * PHP v5.6+ (Recommend PHP v7.0+)
 * WordPress v4.9+
-* [Gutenberg](https://wordpress.org/plugins/gutenberg/) v3.7+
+* [Gutenberg](https://wordpress.org/plugins/gutenberg/) v4.7+
 
 
 #### Installation 💽

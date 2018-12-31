@@ -17,7 +17,7 @@
 
     &.format-n-w {
         .image-block:first-child {
-            width: 40%;
+            width: 38%;
         }
 
         .image-block:last-child {
@@ -31,16 +31,12 @@
         }
 
         .image-block:last-child {
-            width: 40%;
+            width: 38%;
         }
     }
 
     &.format-even .image-block {
         width: 50%;
-    }
-
-    &:not(.format-stacked) {
-        display: inline-flex;
     }
 
     &.format-stacked .image-block {
@@ -99,7 +95,6 @@
     
         .overlay-text {
             font-size: 22pt;
-            /*font-style: italic; ** Add this to the muse theme stylesheet instead. */
             padding: 0.6em 0.8em;
             position: absolute;
             width: 100%;

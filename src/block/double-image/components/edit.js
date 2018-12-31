@@ -195,7 +195,7 @@ class Edit extends Component {
 								`${ firstTextPosition }`
 							) }
 							>
-								<div className={ 'overlay-text right' + blockSelected( isSelected ) }>
+								<div className={ 'overlay-text left' + blockSelected( isSelected ) }>
 									<RichText
 										tagName="div"
 										multiline="p"
