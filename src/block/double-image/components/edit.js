@@ -89,17 +89,19 @@ class Edit extends Component {
 			firstImageURL,
 			firstImageText,
 			firstImageTextColor,
+			firstImageTextPosition,
+			firstImageTextStyle,
 			hasFirstImageParallax,
 			dimFirstImageRatio,
-			firstImageTextPosition,
 			showSecondOverlay,
 			secondImageID,
 			secondImageURL,
 			secondImageText,
 			secondImageTextColor,
+			secondImageTextPosition,
+			secondImageTextStyle,
 			hasSecondImageParallax,
 			dimSecondImageRatio,
-			secondImageTextPosition,
 		} = attributes;
 
 		const dropZoneOne = (
@@ -202,7 +204,7 @@ class Edit extends Component {
 										placeholder={ __( 'Enter optional overlay text...' ) }
 										value={ firstImageText }
 										className={ 'overlay-text-editor' }
-										style={ { color: firstImageTextColor } }
+										style={ { color: firstImageTextColor, fontStyle: firstImageTextStyle } }
 										onChange={ ( value ) => setAttributes( { firstImageText: value } ) }
 										unstableOnFocus={ this.offFocusImage }
 										formattingControls={ [] }
@@ -253,7 +255,7 @@ class Edit extends Component {
 										placeholder={ __( 'Enter optional overlay text...' ) }
 										value={ secondImageText }
 										className={ 'overlay-text-editor' }
-										style={ { color: secondImageTextColor } }
+										style={ { color: secondImageTextColor, fontStyle: secondImageTextStyle } }
 										onChange={ ( value ) => setAttributes( { secondImageText: value } ) }
 										unstableOnFocus={ this.offFocusImage }
 										formattingControls={ [] }

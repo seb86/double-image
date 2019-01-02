@@ -48,12 +48,14 @@ class Inspector extends Component {
 		const {
 			format,
 			showFirstOverlay,
-			showSecondOverlay,
 			firstImageTextColor,
+			firstImageTextStyle,
 			hasFirstImageParallax,
 			dimFirstImageRatio,
 			firstImageTextPosition,
+			showSecondOverlay,
 			secondImageTextColor,
+			secondImageTextStyle,
 			hasSecondImageParallax,
 			dimSecondImageRatio,
 			secondImageTextPosition,
@@ -70,7 +72,6 @@ class Inspector extends Component {
 					<InspectorControls>
 						<PanelBody title={ __( 'Image Layout' ) } className="double-image__inspector-block-settings-panel-body">
 							<SelectControl
-								key={ 'format-selector' }
 								value={ format ? format : 'n-w' }
 								onChange={ ( value ) => setAttributes( { format: value } ) }
 								options={ [
@@ -109,40 +110,67 @@ class Inspector extends Component {
 								help={ __( 'Enable to add a text overlay for the first image.' ) }
 							/>
 
-							<RangeControl
-								label={ __( 'Background Opacity' ) }
-								value={ dimFirstImageRatio }
-								onChange={ setFirstDimRatio }
-								min={ 0 }
-								max={ 100 }
-								step={ 10 }
-								help={ __( 'Change the background opacity for the overlay.' ) }
-							/>
+							{ showFirstOverlay && (
+								<RangeControl
+									label={ __( 'Background Opacity' ) }
+									value={ dimFirstImageRatio }
+									onChange={ setFirstDimRatio }
+									min={ 0 }
+									max={ 100 }
+									step={ 10 }
+									help={ __( 'Change the background opacity for the overlay.' ) }
+								/>
+							) }
 
-							<label className="components-base-control__label" htmlFor="inspector-color-palette">{ __( 'Overlay Text Color' ) }</label>
-							<ColorPalette
-								label={ __( 'Overlay Text Color' ) }
-								value={ firstImageTextColor }
-								onChange={ ( colorValue ) => setAttributes( { firstImageTextColor: colorValue } ) }
-							/>
+							{ showFirstOverlay && (
+								<label className="components-base-control__label" htmlFor="inspector-color-palette">{ __( 'Overlay Text Color' ) }</label>
+							) }
+							{ showFirstOverlay && (
+								<ColorPalette
+									label={ __( 'Overlay Text Color' ) }
+									value={ firstImageTextColor }
+									onChange={ ( colorValue ) => setAttributes( { firstImageTextColor: colorValue } ) }
+								/>
+							) }
 
-							<SelectControl
-								key={ 'overlay-text-postition-selector' }
-								label={ __( 'Overlay Text Position' ) }
-								value={ firstImageTextPosition ? firstImageTextPosition : 'text-top' }
-								onChange={ ( value ) => setAttributes( { firstImageTextPosition: value } ) }
-								options={ [
-									{
-										label: __( 'Top' ),
-										value: 'top',
-									},
-									{
-										label: __( 'Bottom' ),
-										value: 'bottom',
-									},
-								] }
-								default={ 'top' }
-							/>
+							{ showFirstOverlay && (
+								<SelectControl
+									label={ __( 'Overlay Text Position' ) }
+									value={ firstImageTextPosition ? firstImageTextPosition : 'text-top' }
+									onChange={ ( value ) => setAttributes( { firstImageTextPosition: value } ) }
+									options={ [
+										{
+											label: __( 'Top' ),
+											value: 'top',
+										},
+										{
+											label: __( 'Bottom' ),
+											value: 'bottom',
+										},
+									] }
+									default={ 'top' }
+									help={ __( 'Place overlay text at the top or bottom.' ) }
+								/>
+							) }
+
+							{ showFirstOverlay && (
+								<SelectControl
+									label={ __( 'Overlay Font Style' ) }
+									value={ firstImageTextStyle ? firstImageTextStyle : 'normal' }
+									onChange={ ( value ) => setAttributes( { firstImageTextStyle: value } ) }
+									options={ [
+										{
+											label: __( 'Normal' ),
+											value: 'normal',
+										},
+										{
+											label: __( 'Italic' ),
+											value: 'italic',
+										},
+									] }
+								/>
+							) }
+
 						</PanelBody>
 
 						<PanelBody title={ __( 'Second Image' ) } initialOpen={ false }>
@@ -160,40 +188,67 @@ class Inspector extends Component {
 								help={ __( 'Enable to add a text overlay for the second image.' ) }
 							/>
 
-							<RangeControl
-								label={ __( 'Background Opacity' ) }
-								value={ dimSecondImageRatio }
-								onChange={ setSecondDimRatio }
-								min={ 0 }
-								max={ 100 }
-								step={ 10 }
-								help={ __( 'Change the background opacity for the overlay.' ) }
-							/>
+							{ showSecondOverlay && (
+								<RangeControl
+									label={ __( 'Background Opacity' ) }
+									value={ dimSecondImageRatio }
+									onChange={ setSecondDimRatio }
+									min={ 0 }
+									max={ 100 }
+									step={ 10 }
+									help={ __( 'Change the background opacity for the overlay.' ) }
+								/>
+							) }
 
-							<label className="components-base-control__label" htmlFor="inspector-color-palette">{ __( 'Overlay Text Color' ) }</label>
-							<ColorPalette
-								label={ __( 'Overlay Text Color' ) }
-								value={ secondImageTextColor }
-								onChange={ ( colorValue ) => setAttributes( { secondImageTextColor: colorValue } ) }
-							/>
+							{ showSecondOverlay && (
+								<label className="components-base-control__label" htmlFor="inspector-color-palette">{ __( 'Overlay Text Color' ) }</label>
+							) }
+							{ showSecondOverlay && (
+								<ColorPalette
+									label={ __( 'Overlay Text Color' ) }
+									value={ secondImageTextColor }
+									onChange={ ( colorValue ) => setAttributes( { secondImageTextColor: colorValue } ) }
+								/>
+							) }
 
-							<SelectControl
-								key={ 'overlay-text-postition-selector' }
-								label={ __( 'Overlay Text Position' ) }
-								value={ secondImageTextPosition ? secondImageTextPosition : 'text-top' }
-								onChange={ ( value ) => setAttributes( { secondImageTextPosition: value } ) }
-								options={ [
-									{
-										label: __( 'Top' ),
-										value: 'top',
-									},
-									{
-										label: __( 'Bottom' ),
-										value: 'bottom',
-									},
-								] }
-								default={ 'bottom' }
-							/>
+							{ showSecondOverlay && (
+								<SelectControl
+									label={ __( 'Overlay Text Position' ) }
+									value={ secondImageTextPosition ? secondImageTextPosition : 'text-top' }
+									onChange={ ( value ) => setAttributes( { secondImageTextPosition: value } ) }
+									options={ [
+										{
+											label: __( 'Top' ),
+											value: 'top',
+										},
+										{
+											label: __( 'Bottom' ),
+											value: 'bottom',
+										},
+									] }
+									default={ 'bottom' }
+									help={ __( 'Place overlay text at the top or bottom.' ) }
+								/>
+							) }
+
+							{ showSecondOverlay && (
+								<SelectControl
+									label={ __( 'Overlay Font Style' ) }
+									value={ secondImageTextStyle ? secondImageTextStyle : 'normal' }
+									onChange={ ( value ) => setAttributes( { secondImageTextStyle: value } ) }
+									options={ [
+										{
+											label: __( 'Normal' ),
+											value: 'normal',
+										},
+										{
+											label: __( 'Italic' ),
+											value: 'italic',
+										},
+									] }
+								/>
+							) }
+
 						</PanelBody>
 
 					</InspectorControls>

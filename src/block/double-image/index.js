@@ -67,6 +67,13 @@ const blockAttributes = {
 	firstImageTextColor: {
 		type: 'string',
 	},
+	firstImageTextStyle: {
+		type: 'string',
+	},
+	firstImageTextPosition: {
+		type: 'string',
+		default: 'top',
+	},
 	hasFirstImageParallax: {
 		type: 'boolean',
 		default: false,
@@ -74,10 +81,6 @@ const blockAttributes = {
 	dimFirstImageRatio: {
 		type: 'number',
 		default: 30,
-	},
-	firstImageTextPosition: {
-		type: 'string',
-		default: 'top',
 	},
 
 	// Second Image
@@ -100,6 +103,13 @@ const blockAttributes = {
 	secondImageTextColor: {
 		type: 'string',
 	},
+	secondImageTextStyle: {
+		type: 'string',
+	},
+	secondImageTextPosition: {
+		type: 'string',
+		default: 'bottom',
+	},
 	hasSecondImageParallax: {
 		type: 'boolean',
 		default: false,
@@ -107,10 +117,6 @@ const blockAttributes = {
 	dimSecondImageRatio: {
 		type: 'number',
 		default: 30,
-	},
-	secondImageTextPosition: {
-		type: 'string',
-		default: 'bottom',
 	},
 };
 
@@ -199,19 +205,21 @@ const settings = {
 			className,
 			format,
 			showFirstOverlay,
-			showSecondOverlay,
 			firstImageURL,
 			firstImageText,
 			firstImageTextColor,
+			firstImageTextStyle,
+			firstImageTextPosition,
 			hasFirstImageParallax,
 			dimFirstImageRatio,
-			firstImageTextPosition,
+			showSecondOverlay,
 			secondImageURL,
 			secondImageText,
 			secondImageTextColor,
+			secondImageTextStyle,
+			secondImageTextPosition,
 			hasSecondImageParallax,
 			dimSecondImageRatio,
-			secondImageTextPosition,
 		} = props.attributes;
 
 		if ( ! firstImageURL && ! secondImageURL ) {
@@ -232,7 +240,7 @@ const settings = {
 					{ ( showFirstOverlay ) && (
 						<div className={ 'overlay-container' + dimRatioToClass( dimFirstImageRatio ) + ' ' + textPosition( firstImageTextPosition ) }>
 							{ ( firstImageText.length > 0 ) && (
-								<div className={ 'overlay-text left' } style={ { color: firstImageTextColor } }>
+								<div className={ 'overlay-text left' } style={ { color: firstImageTextColor, fontStyle: firstImageTextStyle } }>
 									{ firstImageText }
 								</div>
 							) }
@@ -247,7 +255,7 @@ const settings = {
 					{ ( showSecondOverlay ) && (
 						<div className={ 'overlay-container' + dimRatioToClass( dimSecondImageRatio ) + ' ' + textPosition( secondImageTextPosition ) }>
 							{ ( secondImageText.length > 0 ) && (
-								<div className={ 'overlay-text right' } style={ { color: secondImageTextColor } }>
+								<div className={ 'overlay-text right' } style={ { color: secondImageTextColor, fontStyle: secondImageTextStyle } }>
 									{ secondImageText }
 								</div>
 							) }
