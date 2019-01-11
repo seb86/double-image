@@ -46,7 +46,7 @@ class Double_Image_Block_Assets {
 		$this->_url     = untrailingslashit( plugins_url( '/', dirname( __FILE__ ) ) );
 
 		add_action( 'init', array( $this, 'block_assets' ) );
-		add_action( 'enqueue_block_assets', array( $this, 'editor_assets' ) );
+		add_action( 'admin_init', array( $this, 'editor_assets' ) );
 	}
 
 	/**
