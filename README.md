@@ -9,8 +9,23 @@ A new way to insert two images side by side or stacked with optional overlay tex
 	<img src="https://raw.githubusercontent.com/seb86/double-image/master/demo.gif" alt="Double Image Demo" />
 </p>
 
+## How to Use
 
-## Block Settings
+Any 3 of these keywords will narrow down the blocks when looking for Double Image to add.
+
+* image
+* overlay
+* double
+
+You can also add the block by typing `:doubleimage` and then press enter.
+
+Both placeholders are drop zones so if you don't have the images already in your media library you can drag and drop an image. When the image is dropped you will see the image in the background and indicator showing it is currently uploading. When it is finished uploading the indicator will disappear.
+
+To select an image from the media library, simply select the first or second placeholder to set an image.
+
+Once an image is set you can then play around with the block settings.
+
+### Block Settings
 
 When the block is selected you have the option to change the following:
 
@@ -26,14 +41,16 @@ Each image has the same options.
 * Fixed Background (Enable to have a parallax scrolling effect.)
 * Show Overlay (Enable to add a text overlay.)
 
-The remaining block options do not show unless "Show Overlay" is enabled.
+The remaining block options do not show unless "Show Overlay" is enabled for either image.
 
 * Background Opacity (Change the background opacity for the overlay.)
 * Overlay text colour.
 * Overlay text position.
 
+
 #### Toolbar
 The toolbar provides buttons for each image to change or remove the image. You can also set the alignment to `Wide Width`, `Full width` or `Center`.
+
 
 #### Default Block Settings
 * The default image layout is `Narrow | Wide`.
