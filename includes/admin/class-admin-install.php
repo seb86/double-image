@@ -23,16 +23,16 @@ class Double_Image_Install {
 	 * Constructor
 	 */
 	public function __construct() {
-		register_activation_hook( DOUBLEIMAGE_PLUGIN_FILE, array( $this, 'register_defaults' ) );
+		register_activation_hook( DOUBLEIMAGE_PLUGIN_FILE, array( $this, 'register_install_date' ) );
 	}
 
 	/*
 	 * Register plugin defaults
 	 */
-	function register_defaults() {
+	public function register_install_date() {
 		if ( is_admin() ) {
-			if ( ! get_option( 'double_image_date_installed' ) ) {
-				add_option( 'double_image_date_installed', date( 'Y-m-d h:i:s' ) );
+			if ( ! get_option( 'doubleimage_date_installed' ) ) {
+				add_option( 'doubleimage_date_installed', date( 'Y-m-d h:i:s' ) );
 			}
 		}
 	}
