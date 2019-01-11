@@ -162,7 +162,7 @@ if ( ! class_exists( 'Double_Image' ) ) {
 		}
 
 		/**
-		 * Enqueue localization data for the blocks.
+		 * Enqueue localization data for the block.
 		 *
 		 * @access  public
 		 * @since   1.0.0
