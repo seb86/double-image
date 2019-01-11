@@ -1,5 +1,11 @@
 # Double Image Changelog
 
+## v1.2.0
+* New: Added install date and feedback prompt to ask users for a review of the plugin.
+* New: Added readme.txt file for WordPress.org submission.
+* Tweaked: The README.md file.
+* Tweaked: The structure of the plugin.
+
 ## v1.1.0
 
 * Compatible: Gutenberg 4.7+
@@ -29,6 +35,6 @@
 * Tweaked: Optimized the CSS for both the editor and front-end.
 * Tweaked: The overlay settings only show if overlay is enabled.
 
-## v 1.0.0
+## v1.0.0
 
 * Initial Release
