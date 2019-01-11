@@ -3,7 +3,7 @@
 [![License](https://img.shields.io/badge/license-GPL--3.0%2B-red.svg)](https://github.com/seb86/double-image/blob/master/license.txt)
 [![GitHub forks](https://img.shields.io/github/forks/seb86/double-image.svg?style=flat)](https://github.com/seb86/double-image/network)
 
-A new way to insert two images side by side or stacked with optional overlay text using Gutenberg.
+A way to insert two images side by side or stacked with optional overlay text using Gutenberg.
 
 <p align="center">
 	<img src="https://raw.githubusercontent.com/seb86/double-image/master/demo.gif" alt="Double Image Demo" />
