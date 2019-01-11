@@ -15,7 +15,23 @@ Insert two images side by side or stacked with optional overlay text.
 
 == Description ==
 
-A new way to insert two images side by side or stacked with optional overlay text using Gutenberg.
+A way to insert two images side by side or stacked with optional overlay text using Gutenberg.
+
+= How to Use =
+
+Any 3 of these keywords will narrow down the blocks when looking for Double Image to add.
+
+* image
+* overlay
+* double
+
+You can also add the block by typing `:doubleimage` and then press enter.
+
+Both placeholders are drop zones so if you don't have the images already in your media library you can drag and drop an image. When the image is dropped you will see the image in the background and indicator showing it is currently uploading. When it is finished uploading the indicator will disappear.
+
+To select an image from the media library, simply select the first or second placeholder to set an image.
+
+Once an image is set you can then play around with the block settings.
 
 ## From a trusted developer
 Double Image is built and maintained by [Sébastien Dumont](https://sebastiendumont.com/?utm_medium=wp.org&utm_source=double-image&utm_campaign=readme&utm_content=sebd86).
