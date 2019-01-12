@@ -45,8 +45,8 @@ class Double_Image_Block_Assets {
 		$this->_slug    = 'double-image';
 		$this->_url     = untrailingslashit( plugins_url( '/', dirname( __FILE__ ) ) );
 
-		add_action( 'init', array( $this, 'block_assets' ) );
-		add_action( 'admin_init', array( $this, 'editor_assets' ) );
+		add_action( 'enqueue_block_assets', array( $this, 'block_assets' ) );
+		add_action( 'enqueue_block_editor_assets', array( $this, 'editor_assets' ) );
 	}
 
 	/**
@@ -57,7 +57,7 @@ class Double_Image_Block_Assets {
 	 * @version 1.2.0
 	 */
 	public function block_assets() {
-		wp_register_style(
+		wp_enqueue_style(
 			$this->_slug . '-style',
 			$this->_url . '/dist/blocks.style.build.css',
 			array( 'wp-editor' ),
