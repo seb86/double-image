@@ -1,4 +1,3 @@
-/* eslint-disable prefer-const */
 // General.
 let pkg = require( './package.json' );
 let project = pkg.name;
@@ -16,7 +15,7 @@ let srcDirectory = './build/' + project + '/src/';
 let cleanSrcFiles = [ './build/' + project + '/src/**/*.js', './build/' + project + '/src/**/*.scss', '!build/' + project + '/src/blocks/**/*.php' ];
 
 // Translation.
-let text_domain = '@@textdomain';
+let textDomain = '@@textdomain';
 let destFile = project + '.pot';
 let packageName = pkg.title;
 let bugReport = pkg.author_uri;
@@ -81,7 +80,7 @@ gulp.task( 'copy', function( done ) {
 } );
 
 gulp.task( 'updateVersion', function( done ) {
-	return gulp.src( './*.php', '!build/' + project + '/*.php' )
+	return gulp.src( './*.php' )
 
 		.pipe( replace( {
 			patterns: [
@@ -141,6 +140,10 @@ gulp.task( 'variables', function( done ) {
 					replacement: pkg.description,
 				},
 				{
+					match: 'pkg.requires',
+					replacement: pkg.requires,
+				},
+				{
 					match: 'pkg.tested_up_to',
 					replacement: pkg.tested_up_to,
 				},
@@ -154,7 +157,7 @@ gulp.task( 'translate', function( done ) {
 	gulp.src( translatableFiles )
 
 		.pipe( wpPot( {
-			domain: text_domain,
+			domain: textDomain,
 			destFile: destFile,
 			package: project,
 			bugReport: bugReport,
