@@ -224,6 +224,7 @@ class Double_Image_Feedback {
 			line-height: 20px;
 			background: #7edbb7;
 			border-color: #65c8a1 #65c8a1 #65c8a1;
+			-webkit-box-shadow: 0 1px 0 #65c8a1;
 			box-shadow: 0 1px 0 #65c8a1;
 			text-shadow: 0 -1px 1px #3ca179, 1px 0 1px #3ca179, 0 1px 1px #3ca179, -1px 0 1px #3ca179;
 		}
