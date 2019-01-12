@@ -1,17 +1,17 @@
 {
   "name": "double-image",
   "title": "Double Image",
-  "version": "1.1.0",
-  "private": true,
+  "version": "1.2.0",
+  "private": false,
   "author": "Sébastien Dumont",
   "author_shop": "Sébastien Dumont",
   "author_uri": "https://sebastiendumont.com",
   "repository_uri": "https://github.com/seb86/double-image",
   "requires": "4.9",
-  "tested_up_to": "5.0.2",
+  "tested_up_to": "5.0.3",
   "license": "GPL-3.0",
-  "copyright": "Copyright (c) 2018, Sébastien Dumont",
-  "description": "A double image Gutenberg block with optional overlay text.",
+  "copyright": "Copyright (c) 2019, Sébastien Dumont",
+  "description": "A way to insert two images side by side or stacked with optional overlay text using Gutenberg.",
   "tags": "",
   "scripts": {
     "start": "cgb-scripts start",
@@ -19,21 +19,18 @@
     "eject": "cgb-scripts eject"
   },
   "dependencies": {
+    "@wordpress/redux-routine": "^3.0.3",
     "cgb-scripts": "1.14.0",
     "classnames": "2.2.5",
-    "memize": "^1.0.5",
+    "compose": "^0.1.2",
+    "eslint": "^4.19.1",
+    "eslint-config-wordpress": "^2.0.0",
     "lodash": "4.17.4",
-    "md5": "^2.2.1",
-    "moment": "2.21.0",
+    "memize": "^1.0.5",
     "postcss": "^6.0.19",
-    "querystringify": "1.0.0",
-    "re-resizable": "4.0.3",
-    "react": "^16.2.0",
-    "react-redux": "^5.0.7",
-    "redux": "^3.7.2",
-    "striptags": "^3.1.1",
-    "stylelint": "^9.1.1",
-    "stylelint-config-wordpress": "^13.0.0"
+    "react": "^16.6.3",
+    "redux": "^4.0.1",
+    "stylelint": "^9.1.1"
   },
   "devDependencies": {
     "@wordpress/babel-plugin-makepot": "^2.1.2",
@@ -44,24 +41,41 @@
     "babel-loader": "^7.1.4",
     "del": "^3.0.0",
     "gulp": "^4.0.0",
+    "gulp-autoprefixer": "^5.0.0",
     "gulp-cache": "^1.0.2",
     "gulp-copy": "^1.0.1",
     "gulp-if": "^2.0.2",
+    "gulp-line-ending-corrector": "^1.0.1",
     "gulp-notify": "^3.2.0",
     "gulp-open": "^2.0.0",
-    "gulp-rename": "^1.2.0",
+    "gulp-rename": "^1.4.0",
     "gulp-replace-task": "^0.11.0",
     "gulp-run-command": "0.0.9",
-    "gulp-sftp": "^0.1.5",
-    "gulp-wp-pot": "^2.3.2",
-    "gulp-zip": "^4.0.0",
-    "stylelint-config-wordpress": "^13.0.0"
+    "gulp-sass": "^3.2.1",
+    "gulp-uglify": "^1.5.3",
+    "gulp-uglifycss": "^1.0.8",
+    "gulp-wp-pot": "^2.3.3",
+    "gulp-zip": "^4.2.0",
+    "prettier-stylelint": "^0.4.2",
+    "stylelint-config-wordpress": "^13.0.0",
+    "stylelint-config-prettier": "^3.1.0",
+    "stylelint-order": "^0.8.1"
   },
   "stylelint": {
-    "extends": "stylelint-config-wordpress/scss",
+    "extends": [
+      "stylelint-config-wordpress/scss",
+      "stylelint-config-prettier"
+    ],
+    "plugins": [
+      "stylelint-order"
+    ],
     "rules": {
       "at-rule-empty-line-before": null,
-      "no-descending-specificity": null
+      "no-descending-specificity": null,
+      "order/properties-alphabetical-order": true
+    },
+    "eslintConfig": {
+      "extends": "wordpress"
     }
   }
 }
