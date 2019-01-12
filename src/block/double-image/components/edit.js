@@ -145,7 +145,6 @@ class Edit extends Component {
 		const secondTextPosition = textPosition( secondImageTextPosition );
 
 		return [
-			// eslint-disable-next-line react/jsx-key
 			<Fragment>
 				{ isSelected && (
 					<Controls

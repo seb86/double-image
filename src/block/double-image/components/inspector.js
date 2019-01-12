@@ -1,5 +1,3 @@
-/* eslint-disable no-unused-vars */
-/* eslint-disable no-useless-constructor */
 /**
  * Internal dependencies
  */
