@@ -25,12 +25,12 @@
     "compose": "^0.1.2",
     "eslint": "^4.19.1",
     "eslint-config-wordpress": "^2.0.0",
-    "lodash": "4.17.4",
+    "lodash": "^4.17.11",
     "memize": "^1.0.5",
     "postcss": "^6.0.19",
     "react": "^16.6.3",
     "redux": "^4.0.1",
-    "stylelint": "^9.1.1"
+    "stylelint": "^9.9.0"
   },
   "devDependencies": {
     "@wordpress/babel-plugin-makepot": "^2.1.2",
