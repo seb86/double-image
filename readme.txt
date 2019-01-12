@@ -25,7 +25,7 @@ Any 3 of these keywords will narrow down the blocks when looking for Double Imag
 * overlay
 * double
 
-You can also add the block by typing `:doubleimage` and then press enter.
+You can also add the block by typing `:doubleimage` and then press the spacebar.
 
 Both placeholders are drop zones so if you don't have the images already in your media library you can drag and drop an image. When the image is dropped you will see the image in the background and indicator showing it is currently uploading. When it is finished uploading the indicator will disappear.
 
