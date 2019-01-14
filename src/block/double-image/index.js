@@ -122,7 +122,7 @@ const blockAttributes = {
 
 const settings = {
 	// The title of the block.
-	title: __( 'Double Image' ),
+	title: title,
 
 	// The description of the block.
 	description: __( 'Insert two images side by side or stacked with optional overlay text.' ),
