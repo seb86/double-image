@@ -127,11 +127,6 @@ const settings = {
 	// The description of the block.
 	description: __( 'Insert two images side by side or stacked with optional overlay text.' ),
 
-	// Dashicon icon for the block.
-	icon: {
-		src: icon,
-	},
-
 	// The keywords for the block in order to search for the block. Limit to 3 keywords / phrases only.
 	keywords: keywords,
 
