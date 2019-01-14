@@ -21,8 +21,8 @@ let packageName = pkg.title;
 let bugReport = pkg.author_uri;
 let lastTranslator = pkg.author;
 let team = pkg.author_shop;
-let translatePath = './build/' + project + '/languages';
-let translatableFiles = [ './build/' + project + '/*.php' ];
+let translatePath = './languages';
+let translatableFiles = [ './**/*.php' ];
 let jsPotFile = [ './languages/' + project + '-js.pot', './build/languages/' + project + '-js.pot' ];
 
 /**
@@ -39,7 +39,7 @@ let run = require( 'gulp-run-command' ).default;
 let open = require( 'gulp-open' );
 let gulpif = require( 'gulp-if' );
 let wpPot = require( 'gulp-wp-pot' );
-let deleteEmpty = require('delete-empty');
+let deleteEmpty = require( 'delete-empty' );
 
 /**
  * Tasks.
@@ -129,8 +129,8 @@ gulp.task( 'variables', function( done ) {
 					replacement: pkg.author,
 				},
 				{
-					match: 'pkg.repository_uri',
-					replacement: pkg.repository_uri,
+					match: 'pkg.homepage',
+					replacement: pkg.homepage,
 				},
 				{
 					match: 'pkg.license',

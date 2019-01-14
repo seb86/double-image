@@ -1,7 +1,7 @@
 <?php
 /**
  * Plugin Name: Double Image
- * Plugin URI: @@pkg.repository_uri
+ * Plugin URI: @@pkg.homepage
  * Description: @@pkg.description
  * Author: @@pkg.author
  * Author URI: @@pkg.author_uri

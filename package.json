@@ -9,8 +9,11 @@
   "author": "Sébastien Dumont",
   "author_shop": "Sébastien Dumont",
   "author_uri": "https://sebastiendumont.com",
-  "homepage": "https://sebastiendumont.com",
+  "homepage": "https://github.com/seb86/double-image",
   "repository": {
+    "type": "git",
+    "url": "https://github.com/seb86/double-image.git"
+  },
   "bugs": "https://github.com/seb86/double-image/issues",
   "requires": "4.9",
   "tested_up_to": "5.0.3",
@@ -27,7 +30,7 @@
     "start": "cgb-scripts start",
     "build": "cgb-scripts build",
     "eject": "cgb-scripts eject",
-		"babel": "babel src",
+    "babel": "babel src",
     "makepot": "wp i18n make-pot . --merge=languages/double-image-js.pot --skip-js",
     "makepot:php": "npx pot-to-php languages/double-image.pot languages/double-image-translations.php double-image"
   },
@@ -77,13 +80,8 @@
     "stylelint-order": "^0.8.1"
   },
   "stylelint": {
-    "extends": [
-      "stylelint-config-wordpress/scss",
-      "stylelint-config-prettier"
-    ],
-    "plugins": [
-      "stylelint-order"
-    ],
+    "extends": [ "stylelint-config-wordpress/scss", "stylelint-config-prettier" ],
+    "plugins": [ "stylelint-order" ],
     "rules": {
       "at-rule-empty-line-before": "always",
       "no-descending-specificity": null,
