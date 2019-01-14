@@ -17,7 +17,7 @@ export function registerBlocks () {
 			return;
 		}
 
-		const { name, settings } = block;
+		const { name, icon, settings } = block;
 
 		registerBlockType( `double-image/${ name }`, { category: 'common', ...settings } );
 	} );
