@@ -3,26 +3,41 @@
   "title": "Double Image",
   "version": "1.2.0",
   "private": false,
+  "contributors": [
+    "sebd86"
+  ],
   "author": "Sébastien Dumont",
   "author_shop": "Sébastien Dumont",
   "author_uri": "https://sebastiendumont.com",
-  "repository_uri": "https://github.com/seb86/double-image",
+  "homepage": "https://sebastiendumont.com",
+  "repository": {
+  "bugs": "https://github.com/seb86/double-image/issues",
   "requires": "4.9",
   "tested_up_to": "5.0.3",
   "license": "GPL-3.0",
   "copyright": "Copyright (c) 2019, Sébastien Dumont",
   "description": "A way to insert two images side by side or stacked with optional overlay text using Gutenberg.",
   "tags": "",
+  "keywords": [
+    "block",
+    "gutenberg",
+    "image"
+  ],
   "scripts": {
     "start": "cgb-scripts start",
     "build": "cgb-scripts build",
-    "eject": "cgb-scripts eject"
+    "eject": "cgb-scripts eject",
+		"babel": "babel src",
+    "makepot": "wp i18n make-pot . --merge=languages/double-image-js.pot --skip-js",
+    "makepot:php": "npx pot-to-php languages/double-image.pot languages/double-image-translations.php double-image"
   },
   "dependencies": {
+    "@wordpress/plugins": "^1.0.4",
     "@wordpress/redux-routine": "^3.0.3",
     "cgb-scripts": "1.14.0",
     "classnames": "2.2.5",
     "compose": "^0.1.2",
+    "delete-empty": "^2.0.0",
     "eslint": "^4.19.1",
     "eslint-config-wordpress": "^2.0.0",
     "lodash": "^4.17.11",
@@ -57,8 +72,8 @@
     "gulp-wp-pot": "^2.3.3",
     "gulp-zip": "^4.2.0",
     "prettier-stylelint": "^0.4.2",
-    "stylelint-config-wordpress": "^13.0.0",
     "stylelint-config-prettier": "^3.1.0",
+    "stylelint-config-wordpress": "^13.0.0",
     "stylelint-order": "^0.8.1"
   },
   "stylelint": {
@@ -70,7 +85,7 @@
       "stylelint-order"
     ],
     "rules": {
-      "at-rule-empty-line-before": null,
+      "at-rule-empty-line-before": "always",
       "no-descending-specificity": null,
       "order/properties-alphabetical-order": true
     },

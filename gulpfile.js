@@ -21,8 +21,8 @@ let packageName = pkg.title;
 let bugReport = pkg.author_uri;
 let lastTranslator = pkg.author;
 let team = pkg.author_shop;
-let translatePath = './languages';
-let translatableFiles = [ './**/*.php' ];
+let translatePath = './build/' + project + '/languages';
+let translatableFiles = [ './build/' + project + '/*.php' ];
 let jsPotFile = [ './languages/' + project + '-js.pot', './build/languages/' + project + '-js.pot' ];
 
 /**
@@ -39,6 +39,7 @@ let run = require( 'gulp-run-command' ).default;
 let open = require( 'gulp-open' );
 let gulpif = require( 'gulp-if' );
 let wpPot = require( 'gulp-wp-pot' );
+let deleteEmpty = require('delete-empty');
 
 /**
  * Tasks.
@@ -63,11 +64,19 @@ gulp.task( 'cleanSrc', function( done ) {
 	done();
 } );
 
+gulp.task( 'deleteEmptyDirectories', function(done) {
+	deleteEmpty.sync( srcDirectory );
+	console.log(deleteEmpty.sync(srcDirectory));
+	done();
+});
+
 gulp.task( 'npmStart', run( 'npm run start' ) );
 
 gulp.task( 'npmBuild', run( 'npm run build' ) );
 
 gulp.task( 'npmInstall', run( 'npm install' ) );
+
+gulp.task( 'npmMakeBabel', run( 'npm run babel' ) )
 
 gulp.task( 'npmMakePot', run( 'npm run makepot' ) );
 
@@ -181,7 +190,7 @@ gulp.task( 'build-notice', function( done ) {
 	done();
 } );
 
-gulp.task( 'build-process', gulp.series( 'clearCache', 'clean', 'npmBuild', 'removeJSPotFile', 'updateVersion', 'copy', 'cleanSrc', 'variables', 'zip', function( done ) {
+gulp.task( 'build-process', gulp.series( 'clearCache', 'clean', 'npmMakeBabel', 'npmBuild', 'npmMakePot', 'removeJSPotFile', 'updateVersion', 'copy', 'cleanSrc', 'deleteEmptyDirectories', 'variables', 'zip', function( done ) {
 	done();
 } ) );
 
