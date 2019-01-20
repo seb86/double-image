@@ -62,9 +62,8 @@ const blockAttributes = {
 	/**
 	 * Overlay background colour
 	 */
-	showFirstOverlay: {
-		type: 'boolean',
-		default: true,
+	firstOverlayColor: {
+		type: 'string',
 	},
 	/**
 	 * Overlay text
@@ -95,15 +94,25 @@ const blockAttributes = {
 		default: 'top',
 	},
 	/**
+	 * Percentage opacity of overlay.
+	 */
+	firstOverlayRatio: {
+		type: 'number',
+		default: 30,
+	},
+	/**
 	 * Is the first image fixed to enable parallax scrolling effect.
 	 */
 	hasFirstImageParallax: {
 		type: 'boolean',
 		default: false,
 	},
-	dimFirstImageRatio: {
-		type: 'number',
-		default: 30,
+	/**
+	 * Do we show an overlay for the first image.
+	 */
+	showFirstOverlay: {
+		type: 'boolean',
+		default: true,
 	},
 
 	/**
@@ -122,6 +131,7 @@ const blockAttributes = {
 	 * Overlay background colour
 	 */
 	secondOverlayColor: {
+		type: 'string',
 	},
 	/**
 	 * Overlay text
@@ -152,15 +162,25 @@ const blockAttributes = {
 		default: 'bottom',
 	},
 	/**
+	 * Percentage opacity of overlay.
+	 */
+	secondOverlayRatio: {
+		type: 'number',
+		default: 30,
+	},
+	/**
 	 * Is the second image fixed to enable parallax scrolling effect.
 	 */
 	hasSecondImageParallax: {
 		type: 'boolean',
 		default: false,
 	},
-	dimSecondImageRatio: {
-		type: 'number',
-		default: 30,
+	/**
+	 * Do we show an overlay for the second image.
+	 */
+	showSecondOverlay: {
+		type: 'boolean',
+		default: false,
 	},
 };
 
@@ -245,20 +265,22 @@ const settings = {
 			format,
 			showFirstOverlay,
 			firstImageURL,
-			firstImageText,
-			firstImageTextColor,
-			firstImageTextStyle,
-			firstImageTextPosition,
+			firstOverlayColor,
+			firstOverlayRatio,
+			firstOverlayText,
+			firstOverlayTextColor,
+			firstOverlayTextStyle,
+			firstOverlayTextPosition,
 			hasFirstImageParallax,
-			dimFirstImageRatio,
 			showSecondOverlay,
 			secondImageURL,
-			secondImageText,
-			secondImageTextColor,
-			secondImageTextStyle,
-			secondImageTextPosition,
+			secondOverlayColor,
+			secondOverlayRatio,
+			secondOverlayText,
+			secondOverlayTextColor,
+			secondOverlayTextStyle,
+			secondOverlayTextPosition,
 			hasSecondImageParallax,
-			dimSecondImageRatio,
 		} = props.attributes;
 
 		if ( ! firstImageURL && ! secondImageURL ) {
@@ -274,13 +296,13 @@ const settings = {
 			>
 				<div
 					className={ 'image-block left' + parallax( hasFirstImageParallax ) + `${ showFirstOverlay ? ' show-overlay' : '' }` }
-					style={ backgroundImageStyles( firstImageURL ) }
+					style={ backgroundImage( firstImageURL ) }
 				>
 					{ ( showFirstOverlay ) && (
-						<div className={ 'overlay-container' + dimRatioToClass( dimFirstImageRatio ) + ' ' + textPosition( firstImageTextPosition ) }>
-							{ ( firstImageText.length > 0 ) && (
-								<div className={ 'overlay-text left' } style={ { color: firstImageTextColor, fontStyle: firstImageTextStyle } }>
-									{ firstImageText }
+						<div className={ 'overlay-container' + dimRatioToClass( firstOverlayRatio ) + ' ' + textPosition( firstOverlayTextPosition ) }>
+							{ ( firstOverlayText.length > 0 ) && (
+								<div className={ 'overlay-text left' } style={ { color: firstOverlayTextColor, fontStyle: firstOverlayTextStyle } }>
+									{ firstOverlayText }
 								</div>
 							) }
 						</div>
@@ -289,13 +311,13 @@ const settings = {
 
 				<div
 					className={ 'image-block right' + parallax( hasSecondImageParallax ) + `${ showSecondOverlay ? ' show-overlay' : '' }` }
-					style={ backgroundImageStyles( secondImageURL ) }
+					style={ backgroundImage( secondImageURL ) }
 				>
 					{ ( showSecondOverlay ) && (
-						<div className={ 'overlay-container' + dimRatioToClass( dimSecondImageRatio ) + ' ' + textPosition( secondImageTextPosition ) }>
-							{ ( secondImageText.length > 0 ) && (
-								<div className={ 'overlay-text right' } style={ { color: secondImageTextColor, fontStyle: secondImageTextStyle } }>
-									{ secondImageText }
+						<div className={ 'overlay-container' + dimRatioToClass( secondOverlayRatio ) + ' ' + textPosition( secondOverlayTextPosition ) }>
+							{ ( secondOverlayText.length > 0 ) && (
+								<div className={ 'overlay-text right' } style={ { color: secondOverlayTextColor, fontStyle: secondOverlayTextStyle } }>
+									{ secondOverlayText }
 								</div>
 							) }
 						</div>
@@ -325,6 +347,7 @@ function backgroundImage( url ) {
  * @return {string} The class name, if applicable.
  */
 function dimRatioToClass( ratio ) {
+	return ratio ? ` has-background-dim-${ 10 * Math.round( ratio / 10 ) }` : '';
 }
 
 /**
