@@ -272,22 +272,51 @@ class Edit extends Component {
 
 export default Edit;
 
-function backgroundImageStyles( url ) {
+/**
+ * Sets the background image and returns with a style variable, if applicable.
+ * 
+ * @param {string} url Set the image url.
+ * @return {string} The style variable.
+ */
+function backgroundImage( url ) {
 	return url ? { backgroundImage: `url(${ url })` } : undefined;
 }
 
+/**
+ * Sets the postition of the overlay text.
+ * 
+ * @param {string} position
+ */
 function textPosition( position ) {
 	return position ? 'text-' + `${ position }` : 'text-top';
 }
 
-function dimRatioToClass( dimRatio ) {
-	return dimRatio ? ' has-background-dim-' + dimRatio : '';
+/**
+ * Convert the selected ratio to the correct background class.
+ *
+ * @param {number} ratio Selected opacity from 0 to 100.
+ * @return {string} The class name, if applicable.
+ */
+function dimRatioToClass( ratio ) {
 }
 
+/**
+ * Returns a class name if the background image is 
+ * fixed to enable parallax scrolling effect.
+ *
+ * @param {string} isSelected 
+ * @return {string} The class name, if applicable.
+ */
 function parallax( hasParallax ) {
 	return hasParallax ? ' has-parallax' : '';
 }
 
+/**
+ * Returns a class name if the block was selected.
+ *
+ * @param {string} isSelected 
+ * @return {string} The class name, if applicable.
+ */
 function blockSelected( isSelected ) {
 	return isSelected ? ' selected' : '';
 }

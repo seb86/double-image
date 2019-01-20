@@ -47,33 +47,56 @@ const blockAttributes = {
 		type: 'string',
 	},
 
-	// First Image
+	/**
+	 * ID for the first image.
+	 */
 	firstImageID: {
 		type: 'number',
 	},
+	/**
+	 * URL for the first image.
+	 */
 	firstImageURL: {
 		type: 'string',
 	},
+	/**
+	 * Overlay background colour
+	 */
 	showFirstOverlay: {
 		type: 'boolean',
 		default: true,
 	},
-	firstImageText: {
+	/**
+	 * Overlay text
+	 */
+	firstOverlayText: {
 		type: 'array',
 		source: 'children',
 		selector: 'div.overlay-text.left',
 		default: [],
 	},
-	firstImageTextColor: {
+	/**
+	 * Overlay text colour
+	 */
+	firstOverlayTextColor: {
 		type: 'string',
 	},
-	firstImageTextStyle: {
+	/**
+	 * Overlay text style
+	 */
+	firstOverlayTextStyle: {
 		type: 'string',
 	},
-	firstImageTextPosition: {
+	/**
+	 * Overlay text position
+	 */
+	firstOverlayTextPosition: {
 		type: 'string',
 		default: 'top',
 	},
+	/**
+	 * Is the first image fixed to enable parallax scrolling effect.
+	 */
 	hasFirstImageParallax: {
 		type: 'boolean',
 		default: false,
@@ -83,33 +106,54 @@ const blockAttributes = {
 		default: 30,
 	},
 
-	// Second Image
+	/**
+	 * ID for the second image.
+	 */
 	secondImageID: {
 		type: 'number',
 	},
+	/**
+	 * URL for the second image.
+	 */
 	secondImageURL: {
 		type: 'string',
 	},
-	showSecondOverlay: {
-		type: 'boolean',
-		default: false,
+	/**
+	 * Overlay background colour
+	 */
+	secondOverlayColor: {
 	},
-	secondImageText: {
+	/**
+	 * Overlay text
+	 */
+	secondOverlayText: {
 		type: 'array',
 		source: 'children',
 		selector: 'div.overlay-text.right',
 		default: [],
 	},
-	secondImageTextColor: {
+	/**
+	 * Overlay text colour
+	 */
+	secondOverlayTextColor: {
 		type: 'string',
 	},
-	secondImageTextStyle: {
+	/**
+	 * Overlay text style
+	 */
+	secondOverlayTextStyle: {
 		type: 'string',
 	},
-	secondImageTextPosition: {
+	/**
+	 * Overlay text position
+	 */
+	secondOverlayTextPosition: {
 		type: 'string',
 		default: 'bottom',
 	},
+	/**
+	 * Is the second image fixed to enable parallax scrolling effect.
+	 */
 	hasSecondImageParallax: {
 		type: 'boolean',
 		default: false,
@@ -264,18 +308,41 @@ const settings = {
 
 export { name, title, icon, settings };
 
-function backgroundImageStyles( url ) {
+/**
+ * Sets the background image and returns with a style variable, if applicable.
+ * 
+ * @param {string} url Set the image url.
+ * @return {string} The style variable.
+ */
+function backgroundImage( url ) {
 	return url ? { backgroundImage: `url(${ url })` } : undefined;
 }
 
-function dimRatioToClass( dimRatio ) {
-	return dimRatio ? ' has-background-dim-' + dimRatio : '';
+/**
+ * Convert the selected ratio to the correct background class.
+ *
+ * @param {number} ratio Selected opacity from 0 to 100.
+ * @return {string} The class name, if applicable.
+ */
+function dimRatioToClass( ratio ) {
 }
 
+/**
+ * Returns a class name if the background image is 
+ * fixed to enable parallax scrolling effect.
+ *
+ * @param {string} isSelected 
+ * @return {string} The class name, if applicable.
+ */
 function parallax( hasParallax ) {
 	return hasParallax ? ' has-parallax' : '';
 }
 
+/**
+ * Sets the postition of the overlay text.
+ * 
+ * @param {string} position
+ */
 function textPosition( position ) {
 	return position ? 'text-' + `${ position }` : 'text-top';
 }
