@@ -11,7 +11,7 @@
 * Tweaked: The README.md file.
 * Tweaked: The structure of the plugin.
 * Dev: Added inline documentation.
-* Dev: Renamed constants to be more consistant.
+* Dev: Renamed constants to be more consistent.
 * Dev: Updated package.json file.
 * Dev: Updated gulpfile.js file.
 
