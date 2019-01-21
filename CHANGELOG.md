@@ -5,6 +5,8 @@
 * New: Added install date and feedback prompt to ask users for a review of the plugin.
 * New: Added readme.txt file for WordPress.org submission.
 * New: Added: Background Overlay Colour setting.
+* Fixed: Layout display in the editor to match the front-end again.
+* Tweaked: The CSS so the block looks the same after adding the background overlay option.
 * Tweaked: The inspector settings to show only the panel per image once an image has been set.
 * Tweaked: blocks.js to allow the icon to be passed via export of the block.
 * Tweaked: blocks.js to apply a foreground colour to the icon.
