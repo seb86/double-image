@@ -4,13 +4,18 @@
 * Compatible: Gutenberg 4.8
 * New: Added install date and feedback prompt to ask users for a review of the plugin.
 * New: Added readme.txt file for WordPress.org submission.
+* New: Added: Background Overlay Colour setting.
 * Tweaked: The inspector settings to show only the panel per image once an image has been set.
 * Tweaked: blocks.js to allow the icon to be passed via export of the block.
 * Tweaked: blocks.js to apply a foreground colour to the icon.
 * Tweaked: The README.md file.
 * Tweaked: The structure of the plugin.
+* Dev: Added inline documentation.
+* Dev: Renamed constants to be more consistant.
 * Dev: Updated package.json file.
 * Dev: Updated gulpfile.js file.
+
+> Requires previous blocks to be re-created due to structure improvements.
 
 ## v1.1.0
 
