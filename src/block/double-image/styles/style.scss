@@ -63,6 +63,14 @@
         min-height: 320px;
         position: relative;
 
+        &.left {
+            float: left;
+        }
+
+        &.right {
+            float: right;
+        }
+
         &.has-parallax {
             background-attachment: fixed;
         }
