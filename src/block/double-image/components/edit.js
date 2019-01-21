@@ -168,12 +168,12 @@ class Edit extends Component {
 		);
 
 		const firstInnerStyles = {
-			backgroundColor: firstOverlayColor ? `${ firstOverlayColor }` : undefined,
+			backgroundColor: firstImageURL && firstOverlayColor ? `${ firstOverlayColor }` : undefined,
 			backgroundImage: firstImageURL ? `url(${ firstImageURL })` : undefined,
 		};
 
 		const secondInnerStyles = {
-			backgroundColor: secondOverlayColor ? `${ secondOverlayColor }` : undefined,
+			backgroundColor: secondImageURL && secondOverlayColor ? `${ secondOverlayColor }` : undefined,
 			backgroundImage: secondImageURL ? `url(${ secondImageURL })` : undefined,
 		};
 
