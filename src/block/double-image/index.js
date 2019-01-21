@@ -287,6 +287,46 @@ const settings = {
 			return null;
 		}
 
+		const firstInnerClasses = classnames(
+			'image-block left',
+			parallax( hasFirstImageParallax ),
+			`${ showFirstOverlay ? ' show-overlay' : '' }`,
+			{
+				'has-background-dim': firstOverlayRatio !== 0,
+			},
+			dimRatioToClass( firstOverlayRatio ),
+		);
+
+		const secondInnerClasses = classnames(
+			'image-block right',
+			parallax( hasSecondImageParallax ),
+			`${ showSecondOverlay ? ' show-overlay' : '' }`,
+			{
+				'has-background-dim': secondOverlayRatio !== 0,
+			},
+			dimRatioToClass( secondOverlayRatio ),
+		);
+
+		const firstInnerStyles = {
+			backgroundColor: firstOverlayColor ? `${ firstOverlayColor }` : undefined,
+			backgroundImage: firstImageURL ? `url(${ firstImageURL })` : undefined,
+		};
+
+		const secondInnerStyles = {
+			backgroundColor: secondOverlayColor ? `${ secondOverlayColor }` : undefined,
+			backgroundImage: secondImageURL ? `url(${ secondImageURL })` : undefined,
+		};
+
+		const firstOverlayClasses = classnames(
+			'overlay-container',
+			textPosition( firstOverlayTextPosition ),
+		);
+
+		const secondOverlayClasses = classnames(
+			'overlay-container',
+			textPosition( secondOverlayTextPosition ),
+		);
+
 		return (
 			<div
 				className={ classnames(
@@ -294,12 +334,9 @@ const settings = {
 					format ? `format-${ format }` : 'format-n-w',
 				) }
 			>
-				<div
-					className={ 'image-block left' + parallax( hasFirstImageParallax ) + `${ showFirstOverlay ? ' show-overlay' : '' }` }
-					style={ backgroundImage( firstImageURL ) }
-				>
+				<div className={ firstInnerClasses } style={ firstInnerStyles }>
 					{ ( showFirstOverlay ) && (
-						<div className={ 'overlay-container' + dimRatioToClass( firstOverlayRatio ) + ' ' + textPosition( firstOverlayTextPosition ) }>
+						<div className={ firstOverlayClasses }>
 							{ ( firstOverlayText.length > 0 ) && (
 								<div className={ 'overlay-text left' } style={ { color: firstOverlayTextColor, fontStyle: firstOverlayTextStyle } }>
 									{ firstOverlayText }
@@ -309,12 +346,9 @@ const settings = {
 					) }
 				</div>
 
-				<div
-					className={ 'image-block right' + parallax( hasSecondImageParallax ) + `${ showSecondOverlay ? ' show-overlay' : '' }` }
-					style={ backgroundImage( secondImageURL ) }
-				>
+				<div className={ secondInnerClasses } style={ secondInnerStyles }>
 					{ ( showSecondOverlay ) && (
-						<div className={ 'overlay-container' + dimRatioToClass( secondOverlayRatio ) + ' ' + textPosition( secondOverlayTextPosition ) }>
+						<div className={ secondOverlayClasses }>
 							{ ( secondOverlayText.length > 0 ) && (
 								<div className={ 'overlay-text right' } style={ { color: secondOverlayTextColor, fontStyle: secondOverlayTextStyle } }>
 									{ secondOverlayText }
@@ -329,16 +363,6 @@ const settings = {
 };
 
 export { name, title, icon, settings };
-
-/**
- * Sets the background image and returns with a style variable, if applicable.
- * 
- * @param {string} url Set the image url.
- * @return {string} The style variable.
- */
-function backgroundImage( url ) {
-	return url ? { backgroundImage: `url(${ url })` } : undefined;
-}
 
 /**
  * Convert the selected ratio to the correct background class.

@@ -140,12 +140,42 @@ class Edit extends Component {
 		const onUploadImageOne = ( media ) => setAttributes( { firstImageURL: media.sizes.full.url, firstImageID: media.id } );
 		const onUploadImageTwo = ( media ) => setAttributes( { secondImageURL: media.sizes.full.url, secondImageID: media.id } );
 
-		const setFirstBackgroundColor = backgroundColor( firstOverlayColor );
-		const setSecondBackgroundColor = backgroundColor( secondOverlayColor );
-		const setFirstImage = backgroundImage( firstImageURL );
-		const setSecondImage = backgroundImage( secondImageURL );
 		const firstTextPosition = textPosition( firstOverlayTextPosition );
 		const secondTextPosition = textPosition( secondOverlayTextPosition );
+
+		const firstInnerClasses = classnames(
+			'image-block left',
+			parallax( hasFirstImageParallax ),
+			`${ showFirstOverlay ? ' show-overlay' : '' }`,
+			{
+				'has-background-dim': firstOverlayRatio !== 0,
+			},
+			dimRatioToClass( firstOverlayRatio ),
+			`${ firstImageURL ? ' has-image-set' : '' }`,
+			`${ isBlobURL( firstImageURL ) ? 'uploading' : '' }`
+		);
+
+		const secondInnerClasses = classnames(
+			'image-block right',
+			parallax( hasSecondImageParallax ),
+			`${ showSecondOverlay ? ' show-overlay' : '' }`,
+			{
+				'has-background-dim': secondOverlayRatio !== 0,
+			},
+			dimRatioToClass( secondOverlayRatio ),
+			`${ secondImageURL ? ' has-image-set' : '' }`,
+			`${ isBlobURL( secondImageURL ) ? 'uploading' : '' }`
+		);
+
+		const firstInnerStyles = {
+			backgroundColor: firstOverlayColor ? `${ firstOverlayColor }` : undefined,
+			backgroundImage: firstImageURL ? `url(${ firstImageURL })` : undefined,
+		};
+
+		const secondInnerStyles = {
+			backgroundColor: secondOverlayColor ? `${ secondOverlayColor }` : undefined,
+			backgroundImage: secondImageURL ? `url(${ secondImageURL })` : undefined,
+		};
 
 		return [
 			<Fragment>
@@ -165,16 +195,7 @@ class Edit extends Component {
 						format ? `format-${ format }` : 'format-n-w',
 					) }
 				>
-					<div
-						className={ classnames(
-							'image-block left',
-							parallax( hasFirstImageParallax ),
-							`${ showFirstOverlay ? ' show-overlay' : '' }`,
-							`${ firstImageURL ? ' has-image-set' : '' }`,
-							`${ isBlobURL( firstImageURL ) ? 'uploading' : '' }`
-						) }
-						style={ setFirstImage }
-					>
+					<div className={ firstInnerClasses } style={ firstInnerStyles }>
 						<MediaUploadCheck>
 							{ dropZoneOne }
 							<MediaUpload
@@ -195,7 +216,6 @@ class Edit extends Component {
 							<div className={ classnames(
 								className,
 								'overlay-container',
-								dimRatioToClass( firstOverlayRatio ),
 								`${ firstTextPosition }`
 							) }
 							>
@@ -216,16 +236,7 @@ class Edit extends Component {
 							</div>
 						}
 					</div>
-					<div
-						className={ classnames(
-							'image-block right',
-							parallax( hasSecondImageParallax ),
-							`${ showSecondOverlay ? ' show-overlay' : '' }`,
-							`${ secondImageURL ? ' has-image-set' : '' }`,
-							`${ isBlobURL( secondImageURL ) ? 'uploading' : '' }`
-						) }
-						style={ setSecondImage }
-					>
+					<div className={ secondInnerClasses } style={ secondInnerStyles }>
 						<MediaUploadCheck>
 							{ dropZoneTwo }
 							<MediaUpload
@@ -246,7 +257,6 @@ class Edit extends Component {
 							<div className={ classnames(
 								className,
 								'overlay-container',
-								dimRatioToClass( secondOverlayRatio ),
 								`${ secondTextPosition }`
 							) }
 							>
@@ -274,26 +284,6 @@ class Edit extends Component {
 }
 
 export default Edit;
-
-/**
- * Sets the background colour for the overlay and returns with a style variable, if applicable.
- * 
- * @param {string} color Set the background color.
- * @return {string} The style variable.
- */
-function backgroundColor( color ) {
-	return color ? { backgroundColor: `${ color }` } : undefined;
-}
-
-/**
- * Sets the background image and returns with a style variable, if applicable.
- * 
- * @param {string} url Set the image url.
- * @return {string} The style variable.
- */
-function backgroundImage( url ) {
-	return url ? { backgroundImage: `url(${ url })` } : undefined;
-}
 
 /**
  * Sets the postition of the overlay text.
