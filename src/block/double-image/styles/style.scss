@@ -63,12 +63,41 @@
         min-height: 320px;
         position: relative;
 
+        &.left {
+            float: left;
+        }
+
+        &.right {
+            float: right;
+        }
+
         &.has-parallax {
             background-attachment: fixed;
         }
 
         &.show-overlay .overlay-container {
-            opacity: 1;
+                opacity: 1;
+        }
+
+        &.show-overlay {
+
+            &:before {
+                bottom: 0;
+                content: "";
+                left: 0;
+                background-color: inherit;
+                opacity: 0;
+                position: absolute;
+                right: 0;
+                top: 0;
+            }
+
+            @for $i from 1 through 10 {
+                &.has-background-dim.has-background-dim-#{ $i * 10 }::before {
+                    opacity: $i * 0.1;
+                }
+            }
+
         }
 
         @media (max-width: 600px) {
@@ -87,12 +116,6 @@
         position: absolute;
         opacity: 0;
         top: 0;
-
-        @for $i from 1 through 10 {
-            &.has-background-dim-#{ $i * 10 } {
-                background-color: rgba($black, $i * 0.1);
-            }
-        }
 
         &.text-top .overlay-text {
             top: 0;

@@ -87,21 +87,23 @@ class Edit extends Component {
 			showFirstOverlay,
 			firstImageID,
 			firstImageURL,
-			firstImageText,
-			firstImageTextColor,
-			firstImageTextPosition,
-			firstImageTextStyle,
+			firstOverlayColor,
+			firstOverlayRatio,
+			firstOverlayText,
+			firstOverlayTextColor,
+			firstOverlayTextPosition,
+			firstOverlayTextStyle,
 			hasFirstImageParallax,
-			dimFirstImageRatio,
 			showSecondOverlay,
 			secondImageID,
 			secondImageURL,
-			secondImageText,
-			secondImageTextColor,
-			secondImageTextPosition,
-			secondImageTextStyle,
+			secondOverlayColor,
+			secondOverlayRatio,
+			secondOverlayText,
+			secondOverlayTextColor,
+			secondOverlayTextPosition,
+			secondOverlayTextStyle,
 			hasSecondImageParallax,
-			dimSecondImageRatio,
 		} = attributes;
 
 		const dropZoneOne = (
@@ -138,14 +140,44 @@ class Edit extends Component {
 		const onUploadImageOne = ( media ) => setAttributes( { firstImageURL: media.sizes.full.url, firstImageID: media.id } );
 		const onUploadImageTwo = ( media ) => setAttributes( { secondImageURL: media.sizes.full.url, secondImageID: media.id } );
 
-		const styleFirstImage = backgroundImageStyles( firstImageURL );
-		const styleSecondImage = backgroundImageStyles( secondImageURL );
+		const firstTextPosition = textPosition( firstOverlayTextPosition );
+		const secondTextPosition = textPosition( secondOverlayTextPosition );
 
-		const firstTextPosition = textPosition( firstImageTextPosition );
-		const secondTextPosition = textPosition( secondImageTextPosition );
+		const firstInnerClasses = classnames(
+			'image-block left',
+			parallax( hasFirstImageParallax ),
+			`${ showFirstOverlay ? ' show-overlay' : '' }`,
+			{
+				'has-background-dim': firstOverlayRatio !== 0,
+			},
+			dimRatioToClass( firstOverlayRatio ),
+			`${ firstImageURL ? ' has-image-set' : '' }`,
+			`${ isBlobURL( firstImageURL ) ? 'uploading' : '' }`
+		);
+
+		const secondInnerClasses = classnames(
+			'image-block right',
+			parallax( hasSecondImageParallax ),
+			`${ showSecondOverlay ? ' show-overlay' : '' }`,
+			{
+				'has-background-dim': secondOverlayRatio !== 0,
+			},
+			dimRatioToClass( secondOverlayRatio ),
+			`${ secondImageURL ? ' has-image-set' : '' }`,
+			`${ isBlobURL( secondImageURL ) ? 'uploading' : '' }`
+		);
+
+		const firstInnerStyles = {
+			backgroundColor: firstImageURL && firstOverlayColor ? `${ firstOverlayColor }` : undefined,
+			backgroundImage: firstImageURL ? `url(${ firstImageURL })` : undefined,
+		};
+
+		const secondInnerStyles = {
+			backgroundColor: secondImageURL && secondOverlayColor ? `${ secondOverlayColor }` : undefined,
+			backgroundImage: secondImageURL ? `url(${ secondImageURL })` : undefined,
+		};
 
 		return [
-			// eslint-disable-next-line react/jsx-key
 			<Fragment>
 				{ isSelected && (
 					<Controls
@@ -163,16 +195,7 @@ class Edit extends Component {
 						format ? `format-${ format }` : 'format-n-w',
 					) }
 				>
-					<div
-						className={ classnames(
-							'image-block left',
-							parallax( hasFirstImageParallax ),
-							`${ showFirstOverlay ? ' show-overlay' : '' }`,
-							`${ firstImageURL ? ' has-image-set' : '' }`,
-							`${ isBlobURL( firstImageURL ) ? 'uploading' : '' }`
-						) }
-						style={ styleFirstImage }
-					>
+					<div className={ firstInnerClasses } style={ firstInnerStyles }>
 						<MediaUploadCheck>
 							{ dropZoneOne }
 							<MediaUpload
@@ -193,7 +216,6 @@ class Edit extends Component {
 							<div className={ classnames(
 								className,
 								'overlay-container',
-								dimRatioToClass( dimFirstImageRatio ),
 								`${ firstTextPosition }`
 							) }
 							>
@@ -202,10 +224,10 @@ class Edit extends Component {
 										tagName="div"
 										multiline="p"
 										placeholder={ __( 'Enter optional overlay text...' ) }
-										value={ firstImageText }
+										value={ firstOverlayText }
 										className={ 'overlay-text-editor' }
-										style={ { color: firstImageTextColor, fontStyle: firstImageTextStyle } }
-										onChange={ ( value ) => setAttributes( { firstImageText: value } ) }
+										style={ { color: firstOverlayTextColor, fontStyle: firstOverlayTextStyle } }
+										onChange={ ( value ) => setAttributes( { firstOverlayText: value } ) }
 										unstableOnFocus={ this.offFocusImage }
 										formattingControls={ [] }
 										keepPlaceholderOnFocus
@@ -214,16 +236,7 @@ class Edit extends Component {
 							</div>
 						}
 					</div>
-					<div
-						className={ classnames(
-							'image-block right',
-							parallax( hasSecondImageParallax ),
-							`${ showSecondOverlay ? ' show-overlay' : '' }`,
-							`${ secondImageURL ? ' has-image-set' : '' }`,
-							`${ isBlobURL( secondImageURL ) ? 'uploading' : '' }`
-						) }
-						style={ styleSecondImage }
-					>
+					<div className={ secondInnerClasses } style={ secondInnerStyles }>
 						<MediaUploadCheck>
 							{ dropZoneTwo }
 							<MediaUpload
@@ -244,7 +257,6 @@ class Edit extends Component {
 							<div className={ classnames(
 								className,
 								'overlay-container',
-								dimRatioToClass( dimSecondImageRatio ),
 								`${ secondTextPosition }`
 							) }
 							>
@@ -253,10 +265,10 @@ class Edit extends Component {
 										tagName="div"
 										multiline="p"
 										placeholder={ __( 'Enter optional overlay text...' ) }
-										value={ secondImageText }
+										value={ secondOverlayText }
 										className={ 'overlay-text-editor' }
-										style={ { color: secondImageTextColor, fontStyle: secondImageTextStyle } }
-										onChange={ ( value ) => setAttributes( { secondImageText: value } ) }
+										style={ { color: secondOverlayTextColor, fontStyle: secondOverlayTextStyle } }
+										onChange={ ( value ) => setAttributes( { secondOverlayText: value } ) }
 										unstableOnFocus={ this.offFocusImage }
 										formattingControls={ [] }
 										keepPlaceholderOnFocus
@@ -273,22 +285,42 @@ class Edit extends Component {
 
 export default Edit;
 
-function backgroundImageStyles( url ) {
-	return url ? { backgroundImage: `url(${ url })` } : undefined;
-}
-
+/**
+ * Sets the postition of the overlay text.
+ * 
+ * @param {string} position
+ */
 function textPosition( position ) {
 	return position ? 'text-' + `${ position }` : 'text-top';
 }
 
-function dimRatioToClass( dimRatio ) {
-	return dimRatio ? ' has-background-dim-' + dimRatio : '';
+/**
+ * Convert the selected ratio to the correct background class.
+ *
+ * @param {number} ratio Selected opacity from 0 to 100.
+ * @return {string} The class name, if applicable.
+ */
+function dimRatioToClass( ratio ) {
+	return ratio ? ` has-background-dim-${ 10 * Math.round( ratio / 10 ) }` : '';
 }
 
+/**
+ * Returns a class name if the background image is 
+ * fixed to enable parallax scrolling effect.
+ *
+ * @param {string} isSelected 
+ * @return {string} The class name, if applicable.
+ */
 function parallax( hasParallax ) {
 	return hasParallax ? ' has-parallax' : '';
 }
 
+/**
+ * Returns a class name if the block was selected.
+ *
+ * @param {string} isSelected 
+ * @return {string} The class name, if applicable.
+ */
 function blockSelected( isSelected ) {
 	return isSelected ? ' selected' : '';
 }

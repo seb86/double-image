@@ -1,5 +1,3 @@
-/* eslint-disable no-unused-vars */
-/* eslint-disable no-useless-constructor */
 /**
  * Internal dependencies
  */
@@ -47,24 +45,32 @@ class Inspector extends Component {
 
 		const {
 			format,
-			showFirstOverlay,
-			firstImageTextColor,
-			firstImageTextStyle,
+			firstImageID,
+			firstOverlayColor,
+			firstOverlayRatio,
+			firstOverlayTextColor,
+			firstOverlayTextPosition,
+			firstOverlayTextStyle,
 			hasFirstImageParallax,
-			dimFirstImageRatio,
-			firstImageTextPosition,
-			showSecondOverlay,
-			secondImageTextColor,
-			secondImageTextStyle,
+			showFirstOverlay,
 			hasSecondImageParallax,
-			dimSecondImageRatio,
-			secondImageTextPosition,
+			secondImageID,
+			secondOverlayTextColor,
+			secondOverlayTextPosition,
+			secondOverlayTextStyle,
+			secondOverlayColor,
+			secondOverlayRatio,
+			showSecondOverlay,
 		} = attributes;
 
 		const toggleFirstParallax = () => setAttributes( { hasFirstImageParallax: ! hasFirstImageParallax } );
 		const toggleSecondParallax = () => setAttributes( { hasSecondImageParallax: ! hasSecondImageParallax } );
-		const setFirstDimRatio = ( ratio ) => setAttributes( { dimFirstImageRatio: ratio } );
-		const setSecondDimRatio = ( ratio ) => setAttributes( { dimSecondImageRatio: ratio } );
+		const setFirstOverlayBG = ( color ) => setAttributes( { firstOverlayColor: color } );
+		const setFirstOverlayColor = ( color ) => setAttributes( { firstOverlayTextColor: color } );
+		const setFirstDimRatio = ( ratio ) => setAttributes( { firstOverlayRatio: ratio } );
+		const setSecondOverlayBG = ( color ) => setAttributes( { secondOverlayColor: color } );
+		const setSecondOverlayColor = ( color ) => setAttributes( { secondOverlayTextColor: color } );
+		const setSecondDimRatio = ( ratio ) => setAttributes( { secondOverlayRatio: ratio } );
 
 		return (
 			isSelected && (
@@ -95,161 +101,169 @@ class Inspector extends Component {
 							/>
 						</PanelBody>
 
-						<PanelBody title={ __( 'First Image' ) } initialOpen={ false }>
-							<ToggleControl
-								label={ __( 'Fixed Background' ) }
-								checked={ !! hasFirstImageParallax }
-								onChange={ toggleFirstParallax }
-								help={ __( 'Enable to have a parallax scrolling effect.' ) }
-							/>
-
-							<ToggleControl
-								label={ __( 'Show Overlay' ) }
-								checked={ !! showFirstOverlay }
-								onChange={ () => setAttributes( { showFirstOverlay: ! showFirstOverlay } ) }
-								help={ __( 'Enable to add a text overlay for the first image.' ) }
-							/>
-
-							{ showFirstOverlay && (
-								<RangeControl
-									label={ __( 'Background Opacity' ) }
-									value={ dimFirstImageRatio }
-									onChange={ setFirstDimRatio }
-									min={ 0 }
-									max={ 100 }
-									step={ 10 }
-									help={ __( 'Change the background opacity for the overlay.' ) }
+						{ firstImageID && (
+							<PanelBody title={ __( 'First Image' ) } initialOpen={ false }>
+								<ToggleControl
+									label={ __( 'Fixed Background' ) }
+									checked={ !! hasFirstImageParallax }
+									onChange={ toggleFirstParallax }
+									help={ __( 'Enable to have a parallax scrolling effect.' ) }
 								/>
-							) }
 
-							{ showFirstOverlay && (
-								<label className="components-base-control__label" htmlFor="inspector-color-palette">{ __( 'Overlay Text Color' ) }</label>
-							) }
-							{ showFirstOverlay && (
-								<ColorPalette
-									label={ __( 'Overlay Text Color' ) }
-									value={ firstImageTextColor }
-									onChange={ ( colorValue ) => setAttributes( { firstImageTextColor: colorValue } ) }
+								<ToggleControl
+									label={ __( 'Show Overlay' ) }
+									checked={ !! showFirstOverlay }
+									onChange={ () => setAttributes( { showFirstOverlay: ! showFirstOverlay } ) }
+									help={ __( 'Enable to add a text overlay.' ) }
 								/>
-							) }
 
-							{ showFirstOverlay && (
-								<SelectControl
-									label={ __( 'Overlay Text Position' ) }
-									value={ firstImageTextPosition ? firstImageTextPosition : 'text-top' }
-									onChange={ ( value ) => setAttributes( { firstImageTextPosition: value } ) }
-									options={ [
-										{
-											label: __( 'Top' ),
-											value: 'top',
-										},
-										{
-											label: __( 'Bottom' ),
-											value: 'bottom',
-										},
-									] }
-									default={ 'top' }
-									help={ __( 'Place overlay text at the top or bottom.' ) }
+								{ showFirstOverlay && (
+									<PanelColorSettings
+										title={ __( 'Overlay Settings' ) }
+										colorSettings={ [
+											{
+												value: firstOverlayColor,
+												onChange: setFirstOverlayBG,
+												label: __( 'Background Color' ),
+											},
+											{
+												value: firstOverlayTextColor,
+												onChange: setFirstOverlayColor,
+												label: __( 'Text Color' ),
+											},
+										] }
+									>
+										<RangeControl
+											label={ __( 'Background Opacity' ) }
+											value={ firstOverlayRatio }
+											onChange={ setFirstDimRatio }
+											min={ 0 }
+											max={ 100 }
+											step={ 10 }
+											help={ __( 'Change the background opacity for the overlay.' ) }
+										/>
+
+										<SelectControl
+											label={ __( 'Text Position' ) }
+											value={ firstOverlayTextPosition ? firstOverlayTextPosition : 'text-top' }
+											onChange={ ( value ) => setAttributes( { firstOverlayTextPosition: value } ) }
+											options={ [
+												{
+													label: __( 'Top' ),
+													value: 'top',
+												},
+												{
+													label: __( 'Bottom' ),
+													value: 'bottom',
+												},
+											] }
+											default={ 'top' }
+											help={ __( 'Place overlay text at the top or bottom.' ) }
+										/>
+
+										<SelectControl
+											label={ __( 'Font Style' ) }
+											value={ firstOverlayTextStyle ? firstOverlayTextStyle : 'normal' }
+											onChange={ ( value ) => setAttributes( { firstOverlayTextStyle: value } ) }
+											options={ [
+												{
+													label: __( 'Normal' ),
+													value: 'normal',
+												},
+												{
+													label: __( 'Italic' ),
+													value: 'italic',
+												},
+											] }
+										/>
+
+									</PanelColorSettings>
+								) }
+
+							</PanelBody>
+						) }
+
+						{ secondImageID && (
+							<PanelBody title={ __( 'Second Image' ) } initialOpen={ false }>
+								<ToggleControl
+									label={ __( 'Fixed Background' ) }
+									checked={ !! hasSecondImageParallax }
+									onChange={ toggleSecondParallax }
+									help={ __( 'Enable to have a parallax scrolling effect.' ) }
 								/>
-							) }
 
-							{ showFirstOverlay && (
-								<SelectControl
-									label={ __( 'Overlay Font Style' ) }
-									value={ firstImageTextStyle ? firstImageTextStyle : 'normal' }
-									onChange={ ( value ) => setAttributes( { firstImageTextStyle: value } ) }
-									options={ [
-										{
-											label: __( 'Normal' ),
-											value: 'normal',
-										},
-										{
-											label: __( 'Italic' ),
-											value: 'italic',
-										},
-									] }
+								<ToggleControl
+									label={ __( 'Show Overlay' ) }
+									checked={ !! showSecondOverlay }
+									onChange={ () => setAttributes( { showSecondOverlay: ! showSecondOverlay } ) }
+									help={ __( 'Enable to add a text overlay.' ) }
 								/>
-							) }
 
-						</PanelBody>
+								{ showSecondOverlay && (
+									<PanelColorSettings
+										title={ __( 'Overlay Settings' ) }
+										colorSettings={ [
+											{
+												value: secondOverlayColor,
+												onChange: setSecondOverlayBG,
+												label: __( 'Background Color' ),
+											},
+											{
+												value: secondOverlayTextColor,
+												onChange: setSecondOverlayColor,
+												label: __( 'Text Color' ),
+											},
+										] }
+									>
+										<RangeControl
+											label={ __( 'Background Opacity' ) }
+											value={ secondOverlayRatio }
+											onChange={ setSecondDimRatio }
+											min={ 0 }
+											max={ 100 }
+											step={ 10 }
+											help={ __( 'Change the background opacity for the overlay.' ) }
+										/>
 
-						<PanelBody title={ __( 'Second Image' ) } initialOpen={ false }>
-							<ToggleControl
-								label={ __( 'Fixed Background' ) }
-								checked={ !! hasSecondImageParallax }
-								onChange={ toggleSecondParallax }
-								help={ __( 'Enable to have a parallax scrolling effect.' ) }
-							/>
+										<SelectControl
+											label={ __( 'Text Position' ) }
+											value={ secondOverlayTextPosition ? secondOverlayTextPosition : 'text-top' }
+											onChange={ ( value ) => setAttributes( { secondOverlayTextPosition: value } ) }
+											options={ [
+												{
+													label: __( 'Top' ),
+													value: 'top',
+												},
+												{
+													label: __( 'Bottom' ),
+													value: 'bottom',
+												},
+											] }
+											default={ 'bottom' }
+											help={ __( 'Place overlay text at the top or bottom.' ) }
+										/>
 
-							<ToggleControl
-								label={ __( 'Show Overlay' ) }
-								checked={ !! showSecondOverlay }
-								onChange={ () => setAttributes( { showSecondOverlay: ! showSecondOverlay } ) }
-								help={ __( 'Enable to add a text overlay for the second image.' ) }
-							/>
+										<SelectControl
+											label={ __( 'Font Style' ) }
+											value={ secondOverlayTextStyle ? secondOverlayTextStyle : 'normal' }
+											onChange={ ( value ) => setAttributes( { secondOverlayTextStyle: value } ) }
+											options={ [
+												{
+													label: __( 'Normal' ),
+													value: 'normal',
+												},
+												{
+													label: __( 'Italic' ),
+													value: 'italic',
+												},
+											] }
+										/>
 
-							{ showSecondOverlay && (
-								<RangeControl
-									label={ __( 'Background Opacity' ) }
-									value={ dimSecondImageRatio }
-									onChange={ setSecondDimRatio }
-									min={ 0 }
-									max={ 100 }
-									step={ 10 }
-									help={ __( 'Change the background opacity for the overlay.' ) }
-								/>
-							) }
+									</PanelColorSettings>
+								) }
 
-							{ showSecondOverlay && (
-								<label className="components-base-control__label" htmlFor="inspector-color-palette">{ __( 'Overlay Text Color' ) }</label>
-							) }
-							{ showSecondOverlay && (
-								<ColorPalette
-									label={ __( 'Overlay Text Color' ) }
-									value={ secondImageTextColor }
-									onChange={ ( colorValue ) => setAttributes( { secondImageTextColor: colorValue } ) }
-								/>
-							) }
-
-							{ showSecondOverlay && (
-								<SelectControl
-									label={ __( 'Overlay Text Position' ) }
-									value={ secondImageTextPosition ? secondImageTextPosition : 'text-top' }
-									onChange={ ( value ) => setAttributes( { secondImageTextPosition: value } ) }
-									options={ [
-										{
-											label: __( 'Top' ),
-											value: 'top',
-										},
-										{
-											label: __( 'Bottom' ),
-											value: 'bottom',
-										},
-									] }
-									default={ 'bottom' }
-									help={ __( 'Place overlay text at the top or bottom.' ) }
-								/>
-							) }
-
-							{ showSecondOverlay && (
-								<SelectControl
-									label={ __( 'Overlay Font Style' ) }
-									value={ secondImageTextStyle ? secondImageTextStyle : 'normal' }
-									onChange={ ( value ) => setAttributes( { secondImageTextStyle: value } ) }
-									options={ [
-										{
-											label: __( 'Normal' ),
-											value: 'normal',
-										},
-										{
-											label: __( 'Italic' ),
-											value: 'italic',
-										},
-									] }
-								/>
-							) }
-
-						</PanelBody>
+							</PanelBody>
+						) }
 
 					</InspectorControls>
 				</Fragment>

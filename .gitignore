@@ -5,12 +5,15 @@
 **/dist/blocks.editor.build.css
 **/dist/blocks.style.build.css
 **/build/**
-**/languages/double-image.pot
+**/languages/**
+.github/
+.github/issue_template.md
+.vscode/
 build
 node_modules
 .DS_Store
+includes/.DS_Store
 src/.DS_Store
-.vscode/
 dist/blocks.build.js
 dist/blocks.editor.build.css
 dist/blocks.style.build.css

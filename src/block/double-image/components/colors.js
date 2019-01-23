@@ -8,8 +8,10 @@ const { withColors } = wp.editor;
  */
 const Colors = withColors(
 	'color',
-	{ firstImageTextColor: 'color' },
-	{ secondImageTextColor: 'color' },
+	{ firstOverlayColor: 'background-color' },
+	{ firstOverlayTextColor: 'color' },
+	{ secondOverlayTextColor: 'color' },
+	{ secondOverlayColor: 'background-color' },
 );
 
 export default Colors;

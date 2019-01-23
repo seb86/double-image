@@ -1,8 +1,27 @@
 # Double Image Changelog
 
+## v1.2.0
+* Compatible: Gutenberg 4.8
+* New: Added install date and feedback prompt to ask users for a review of the plugin.
+* New: Added readme.txt file for WordPress.org submission.
+* New: Added: Background Overlay Colour setting.
+* Fixed: Layout display in the editor to match the front-end again.
+* Tweaked: The CSS so the block looks the same after adding the background overlay option.
+* Tweaked: The inspector settings to show only the panel per image once an image has been set.
+* Tweaked: blocks.js to allow the icon to be passed via export of the block.
+* Tweaked: blocks.js to apply a foreground colour to the icon.
+* Tweaked: The README.md file.
+* Tweaked: The structure of the plugin.
+* Dev: Added inline documentation.
+* Dev: Renamed constants to be more consistent.
+* Dev: Updated package.json file.
+* Dev: Updated gulpfile.js file.
+
+> Requires previous blocks to be re-created due to structure improvements.
+
 ## v1.1.0
 
-* Compatible: Gutenberg 4.7+
+* Compatible: Gutenberg 4.7
 * Compatible: WordPress 5+
 * New: Overlay font style option per image.
 * New: Prefix support so you can write the block using the prefix `:doubleimage`
@@ -11,7 +30,6 @@
 * Added: Help for each of the inspector settings.
 * Added: Missing label for overlay text setting.
 * Added: A spinner to indicate that the image is uploading when drop zone is used so the user know it is doing something.
-* Added: Language POT file.
 * Removed: A lot of white space for the script to compile better using `eslint`
 * Removed: Block wrapper file and added the wrapper directly instead.
 * Changed: The image layout option names.
@@ -29,6 +47,6 @@
 * Tweaked: Optimized the CSS for both the editor and front-end.
 * Tweaked: The overlay settings only show if overlay is enabled.
 
-## v 1.0.0
+## v1.0.0
 
 * Initial Release

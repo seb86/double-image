@@ -1,4 +1,3 @@
-/* eslint-disable prefer-const */
 // General.
 let pkg = require( './package.json' );
 let project = pkg.name;
@@ -16,7 +15,7 @@ let srcDirectory = './build/' + project + '/src/';
 let cleanSrcFiles = [ './build/' + project + '/src/**/*.js', './build/' + project + '/src/**/*.scss', '!build/' + project + '/src/blocks/**/*.php' ];
 
 // Translation.
-let text_domain = '@@textdomain';
+let textDomain = '@@textdomain';
 let destFile = project + '.pot';
 let packageName = pkg.title;
 let bugReport = pkg.author_uri;
@@ -40,6 +39,7 @@ let run = require( 'gulp-run-command' ).default;
 let open = require( 'gulp-open' );
 let gulpif = require( 'gulp-if' );
 let wpPot = require( 'gulp-wp-pot' );
+let deleteEmpty = require( 'delete-empty' );
 
 /**
  * Tasks.
@@ -64,11 +64,19 @@ gulp.task( 'cleanSrc', function( done ) {
 	done();
 } );
 
+gulp.task( 'deleteEmptyDirectories', function(done) {
+	deleteEmpty.sync( srcDirectory );
+	console.log(deleteEmpty.sync(srcDirectory));
+	done();
+});
+
 gulp.task( 'npmStart', run( 'npm run start' ) );
 
 gulp.task( 'npmBuild', run( 'npm run build' ) );
 
 gulp.task( 'npmInstall', run( 'npm install' ) );
+
+gulp.task( 'npmMakeBabel', run( 'npm run babel' ) )
 
 gulp.task( 'npmMakePot', run( 'npm run makepot' ) );
 
@@ -81,7 +89,7 @@ gulp.task( 'copy', function( done ) {
 } );
 
 gulp.task( 'updateVersion', function( done ) {
-	return gulp.src( './*.php', '!build/' + project + '/*.php' )
+	return gulp.src( './*.php' )
 
 		.pipe( replace( {
 			patterns: [
@@ -121,8 +129,8 @@ gulp.task( 'variables', function( done ) {
 					replacement: pkg.author,
 				},
 				{
-					match: 'pkg.repository_uri',
-					replacement: pkg.repository_uri,
+					match: 'pkg.homepage',
+					replacement: pkg.homepage,
 				},
 				{
 					match: 'pkg.license',
@@ -141,6 +149,10 @@ gulp.task( 'variables', function( done ) {
 					replacement: pkg.description,
 				},
 				{
+					match: 'pkg.requires',
+					replacement: pkg.requires,
+				},
+				{
 					match: 'pkg.tested_up_to',
 					replacement: pkg.tested_up_to,
 				},
@@ -154,7 +166,7 @@ gulp.task( 'translate', function( done ) {
 	gulp.src( translatableFiles )
 
 		.pipe( wpPot( {
-			domain: text_domain,
+			domain: textDomain,
 			destFile: destFile,
 			package: project,
 			bugReport: bugReport,
@@ -178,7 +190,7 @@ gulp.task( 'build-notice', function( done ) {
 	done();
 } );
 
-gulp.task( 'build-process', gulp.series( 'clearCache', 'clean', 'npmBuild', 'removeJSPotFile', 'updateVersion', 'copy', 'cleanSrc', 'variables', 'zip', function( done ) {
+gulp.task( 'build-process', gulp.series( 'clearCache', 'clean', 'npmMakeBabel', 'npmBuild', 'npmMakePot', 'removeJSPotFile', 'updateVersion', 'copy', 'cleanSrc', 'deleteEmptyDirectories', 'variables', 'zip', function( done ) {
 	done();
 } ) );
 

@@ -47,90 +47,149 @@ const blockAttributes = {
 		type: 'string',
 	},
 
-	// First Image
+	/**
+	 * ID for the first image.
+	 */
 	firstImageID: {
 		type: 'number',
 	},
+	/**
+	 * URL for the first image.
+	 */
 	firstImageURL: {
 		type: 'string',
 	},
-	showFirstOverlay: {
-		type: 'boolean',
-		default: true,
+	/**
+	 * Overlay background colour
+	 */
+	firstOverlayColor: {
+		type: 'string',
 	},
-	firstImageText: {
+	/**
+	 * Overlay text
+	 */
+	firstOverlayText: {
 		type: 'array',
 		source: 'children',
 		selector: 'div.overlay-text.left',
 		default: [],
 	},
-	firstImageTextColor: {
+	/**
+	 * Overlay text colour
+	 */
+	firstOverlayTextColor: {
 		type: 'string',
 	},
-	firstImageTextStyle: {
+	/**
+	 * Overlay text style
+	 */
+	firstOverlayTextStyle: {
 		type: 'string',
 	},
-	firstImageTextPosition: {
+	/**
+	 * Overlay text position
+	 */
+	firstOverlayTextPosition: {
 		type: 'string',
 		default: 'top',
 	},
+	/**
+	 * Percentage opacity of overlay.
+	 */
+	firstOverlayRatio: {
+		type: 'number',
+		default: 30,
+	},
+	/**
+	 * Is the first image fixed to enable parallax scrolling effect.
+	 */
 	hasFirstImageParallax: {
 		type: 'boolean',
 		default: false,
 	},
-	dimFirstImageRatio: {
-		type: 'number',
-		default: 30,
+	/**
+	 * Do we show an overlay for the first image.
+	 */
+	showFirstOverlay: {
+		type: 'boolean',
+		default: true,
 	},
 
-	// Second Image
+	/**
+	 * ID for the second image.
+	 */
 	secondImageID: {
 		type: 'number',
 	},
+	/**
+	 * URL for the second image.
+	 */
 	secondImageURL: {
 		type: 'string',
 	},
-	showSecondOverlay: {
-		type: 'boolean',
-		default: false,
+	/**
+	 * Overlay background colour
+	 */
+	secondOverlayColor: {
+		type: 'string',
 	},
-	secondImageText: {
+	/**
+	 * Overlay text
+	 */
+	secondOverlayText: {
 		type: 'array',
 		source: 'children',
 		selector: 'div.overlay-text.right',
 		default: [],
 	},
-	secondImageTextColor: {
+	/**
+	 * Overlay text colour
+	 */
+	secondOverlayTextColor: {
 		type: 'string',
 	},
-	secondImageTextStyle: {
+	/**
+	 * Overlay text style
+	 */
+	secondOverlayTextStyle: {
 		type: 'string',
 	},
-	secondImageTextPosition: {
+	/**
+	 * Overlay text position
+	 */
+	secondOverlayTextPosition: {
 		type: 'string',
 		default: 'bottom',
 	},
+	/**
+	 * Percentage opacity of overlay.
+	 */
+	secondOverlayRatio: {
+		type: 'number',
+		default: 30,
+	},
+	/**
+	 * Is the second image fixed to enable parallax scrolling effect.
+	 */
 	hasSecondImageParallax: {
 		type: 'boolean',
 		default: false,
 	},
-	dimSecondImageRatio: {
-		type: 'number',
-		default: 30,
+	/**
+	 * Do we show an overlay for the second image.
+	 */
+	showSecondOverlay: {
+		type: 'boolean',
+		default: false,
 	},
 };
 
 const settings = {
 	// The title of the block.
-	title: __( 'Double Image' ),
+	title: title,
 
 	// The description of the block.
 	description: __( 'Insert two images side by side or stacked with optional overlay text.' ),
-
-	// Dashicon icon for the block.
-	icon: {
-		src: icon,
-	},
 
 	// The keywords for the block in order to search for the block. Limit to 3 keywords / phrases only.
 	keywords: keywords,
@@ -206,25 +265,67 @@ const settings = {
 			format,
 			showFirstOverlay,
 			firstImageURL,
-			firstImageText,
-			firstImageTextColor,
-			firstImageTextStyle,
-			firstImageTextPosition,
+			firstOverlayColor,
+			firstOverlayRatio,
+			firstOverlayText,
+			firstOverlayTextColor,
+			firstOverlayTextStyle,
+			firstOverlayTextPosition,
 			hasFirstImageParallax,
-			dimFirstImageRatio,
 			showSecondOverlay,
 			secondImageURL,
-			secondImageText,
-			secondImageTextColor,
-			secondImageTextStyle,
-			secondImageTextPosition,
+			secondOverlayColor,
+			secondOverlayRatio,
+			secondOverlayText,
+			secondOverlayTextColor,
+			secondOverlayTextStyle,
+			secondOverlayTextPosition,
 			hasSecondImageParallax,
-			dimSecondImageRatio,
 		} = props.attributes;
 
 		if ( ! firstImageURL && ! secondImageURL ) {
 			return null;
 		}
+
+		const firstInnerClasses = classnames(
+			'image-block left',
+			parallax( hasFirstImageParallax ),
+			`${ showFirstOverlay ? ' show-overlay' : '' }`,
+			{
+				'has-background-dim': firstOverlayRatio !== 0,
+			},
+			dimRatioToClass( firstOverlayRatio ),
+		);
+
+		const secondInnerClasses = classnames(
+			'image-block right',
+			parallax( hasSecondImageParallax ),
+			`${ showSecondOverlay ? ' show-overlay' : '' }`,
+			{
+				'has-background-dim': secondOverlayRatio !== 0,
+			},
+			dimRatioToClass( secondOverlayRatio ),
+		);
+
+		const firstInnerStyles = {
+			backgroundColor: firstOverlayColor ? `${ firstOverlayColor }` : undefined,
+			backgroundImage: firstImageURL ? `url(${ firstImageURL })` : undefined,
+		};
+
+		const secondInnerStyles = {
+			backgroundColor: secondOverlayColor ? `${ secondOverlayColor }` : undefined,
+			backgroundImage: secondImageURL ? `url(${ secondImageURL })` : undefined,
+		};
+
+		const firstOverlayClasses = classnames(
+			'overlay-container',
+			textPosition( firstOverlayTextPosition ),
+		);
+
+		const secondOverlayClasses = classnames(
+			'overlay-container',
+			textPosition( secondOverlayTextPosition ),
+		);
 
 		return (
 			<div
@@ -233,30 +334,24 @@ const settings = {
 					format ? `format-${ format }` : 'format-n-w',
 				) }
 			>
-				<div
-					className={ 'image-block left' + parallax( hasFirstImageParallax ) + `${ showFirstOverlay ? ' show-overlay' : '' }` }
-					style={ backgroundImageStyles( firstImageURL ) }
-				>
+				<div className={ firstInnerClasses } style={ firstInnerStyles }>
 					{ ( showFirstOverlay ) && (
-						<div className={ 'overlay-container' + dimRatioToClass( dimFirstImageRatio ) + ' ' + textPosition( firstImageTextPosition ) }>
-							{ ( firstImageText.length > 0 ) && (
-								<div className={ 'overlay-text left' } style={ { color: firstImageTextColor, fontStyle: firstImageTextStyle } }>
-									{ firstImageText }
+						<div className={ firstOverlayClasses }>
+							{ ( firstOverlayText.length > 0 ) && (
+								<div className={ 'overlay-text left' } style={ { color: firstOverlayTextColor, fontStyle: firstOverlayTextStyle } }>
+									{ firstOverlayText }
 								</div>
 							) }
 						</div>
 					) }
 				</div>
 
-				<div
-					className={ 'image-block right' + parallax( hasSecondImageParallax ) + `${ showSecondOverlay ? ' show-overlay' : '' }` }
-					style={ backgroundImageStyles( secondImageURL ) }
-				>
+				<div className={ secondInnerClasses } style={ secondInnerStyles }>
 					{ ( showSecondOverlay ) && (
-						<div className={ 'overlay-container' + dimRatioToClass( dimSecondImageRatio ) + ' ' + textPosition( secondImageTextPosition ) }>
-							{ ( secondImageText.length > 0 ) && (
-								<div className={ 'overlay-text right' } style={ { color: secondImageTextColor, fontStyle: secondImageTextStyle } }>
-									{ secondImageText }
+						<div className={ secondOverlayClasses }>
+							{ ( secondOverlayText.length > 0 ) && (
+								<div className={ 'overlay-text right' } style={ { color: secondOverlayTextColor, fontStyle: secondOverlayTextStyle } }>
+									{ secondOverlayText }
 								</div>
 							) }
 						</div>
@@ -269,18 +364,32 @@ const settings = {
 
 export { name, title, icon, settings };
 
-function backgroundImageStyles( url ) {
-	return url ? { backgroundImage: `url(${ url })` } : undefined;
+/**
+ * Convert the selected ratio to the correct background class.
+ *
+ * @param {number} ratio Selected opacity from 0 to 100.
+ * @return {string} The class name, if applicable.
+ */
+function dimRatioToClass( ratio ) {
+	return ratio ? ` has-background-dim-${ 10 * Math.round( ratio / 10 ) }` : '';
 }
 
-function dimRatioToClass( dimRatio ) {
-	return dimRatio ? ' has-background-dim-' + dimRatio : '';
-}
-
+/**
+ * Returns a class name if the background image is 
+ * fixed to enable parallax scrolling effect.
+ *
+ * @param {string} isSelected 
+ * @return {string} The class name, if applicable.
+ */
 function parallax( hasParallax ) {
 	return hasParallax ? ' has-parallax' : '';
 }
 
+/**
+ * Sets the postition of the overlay text.
+ * 
+ * @param {string} position
+ */
 function textPosition( position ) {
 	return position ? 'text-' + `${ position }` : 'text-top';
 }
