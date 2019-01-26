@@ -5,14 +5,18 @@ let title = pkg.title;
 
 // Build.
 let buildZipDestination = './build/';
-let buildFiles = [ './**', '!build', '!build/**', '!node_modules/**', '!*.json', '!*.map', '!*.xml', '!gulpfile.js', '!*.sublime-project', '!*.sublime-workspace', '!*.sublime-gulp.cache', '!*.log', '!*.DS_Store', '!*.gitignore', '!TODO', '!*.git', '!*.ftppass', '!*.DS_Store', '!sftp.json', '!yarn.lock', '!*.md', '!package.lock' ];
+let buildFiles = [ './**', '!.github', '!.wordpress-org', '!build', '!build/**', '!node_modules/**', '!*.json', '!*.map', '!*.xml', '!gulpfile.js', '!*.sublime-project', '!*.sublime-workspace', '!*.sublime-gulp.cache', '!*.log', '!*.DS_Store', '!*.gitignore', '!TODO', '!*.git', '!*.ftppass', '!*.DS_Store', '!sftp.json', '!yarn.lock', '!*.md', '!package.lock' ];
 let cleanFiles = [ './build/' + project + '/', './build/' + project + ' 2/', './build/' + project + '.zip' ];
 let buildDestination = './build/' + project + '/';
 let buildDestinationFiles = './build/' + project + '/**/*';
 
 // Release.
 let srcDirectory = './build/' + project + '/src/';
-let cleanSrcFiles = [ './build/' + project + '/src/**/*.js', './build/' + project + '/src/**/*.scss', '!build/' + project + '/src/blocks/**/*.php' ];
+let cleanSrcFiles = [ './build/' + project + '/src/**/*.js', './build/' + project + '/src/**/*.scss', '!build/' + project + '/src/blocks/**/*.php', './build/' + project + '/dist/*.js', './build/' + project + '/dist/*.css' ];
+
+// Assets.
+let styleDestination = './assets/css';
+let scriptDestination = './assets/js';
 
 // Translation.
 let textDomain = '@@textdomain';
@@ -40,10 +44,53 @@ let open = require( 'gulp-open' );
 let gulpif = require( 'gulp-if' );
 let wpPot = require( 'gulp-wp-pot' );
 let deleteEmpty = require( 'delete-empty' );
+let rename = require( 'gulp-rename' );
 
 /**
  * Tasks.
  */
+
+gulp.task( 'rename-assets', function(done) {
+	gulp.src( './dist/blocks.build.js' )
+	.pipe( rename( {
+		basename: 'double-image',
+		suffix: '.min'
+	}))
+	.pipe( uglify() )
+	.pipe( lineec() )
+	.pipe( gulp.dest( scriptDestination ) );
+
+	gulp.src( './dist/blocks.style.build.css' )
+	.pipe( sass( {
+		errLogToConsole: true,
+		outputStyle: 'expanded',
+		precision: 10
+	} ) )
+	.on( 'error', console.error.bind( console ) )
+	.pipe( rename( {
+		basename: 'double-image',
+		suffix: '.min'
+	}))
+	.pipe( minifycss() )
+	.pipe( gulp.dest( styleDestination ) );
+
+	gulp.src( './dist/blocks.editor.build.css' )
+	.pipe( sass( {
+		errLogToConsole: true,
+		outputStyle: 'expanded',
+		precision: 10
+	} ) )
+	.on( 'error', console.error.bind( console ) )
+	.pipe( rename( {
+		basename: 'double-image-editor',
+		suffix: '.min'
+	}))
+	.pipe( minifycss() )
+	.pipe( gulp.dest( styleDestination ) );
+
+	done();
+} );
+
 gulp.task( 'clearCache', function( done ) {
 	cache.clearAll();
 	done();
@@ -190,7 +237,7 @@ gulp.task( 'build-notice', function( done ) {
 	done();
 } );
 
-gulp.task( 'build-process', gulp.series( 'clearCache', 'clean', 'npmMakeBabel', 'npmBuild', 'npmMakePot', 'removeJSPotFile', 'updateVersion', 'copy', 'cleanSrc', 'deleteEmptyDirectories', 'variables', 'zip', function( done ) {
+gulp.task( 'build-process', gulp.series( 'clearCache', 'clean', 'npmMakeBabel', 'npmBuild', 'npmMakePot', 'removeJSPotFile', 'updateVersion', 'copy', 'rename-assets', 'cleanSrc', 'deleteEmptyDirectories', 'variables', 'zip', function( done ) {
 	done();
 } ) );
 
