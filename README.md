@@ -27,10 +27,16 @@ Apply an overlay with or without a background colour and adjust the opacity of t
 
 Text can be added on either image at the top or bottom.
 
-## 📹 Preview
-<p align="center">
-	<img src="https://raw.githubusercontent.com/seb86/double-image/master/demo.gif" alt="Double Image Demo" />
-</p>
+## 💻 Screenshots
+
+![Double Image Block](https://raw.githubusercontent.com/seb86/double-image/master/.wordpress-org/assets/screenshot-1.png)
+
+![Two images set](https://raw.githubusercontent.com/seb86/double-image/master/.wordpress-org/assets/screenshot-2.png)
+
+![Both images with overlay colour and overlay text](https://raw.githubusercontent.com/seb86/double-image/master/.wordpress-org/assets/screenshot-3.png)
+
+![Inspector showing the settings for the first image](https://raw.githubusercontent.com/seb86/double-image/master/.wordpress-org/assets/screenshot-4.png)
+
 
 ## How to Use
 
