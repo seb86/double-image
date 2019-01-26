@@ -1,10 +1,33 @@
 # Double Image for Gutenberg
 
+[![WP Plugin Page](https://img.shields.io/badge/WordPress-%E2%86%92-lightgrey.svg?style=flat-square)](https://wordpress.org/plugins/double-image/)
 [![License](https://img.shields.io/badge/license-GPL--3.0%2B-red.svg)](https://github.com/seb86/double-image/blob/master/license.txt)
+[![WordPress plugin](https://img.shields.io/wordpress/plugin/v/double-image.svg?style=flat)](https://wordpress.org/plugins/double-image/)
+[![WordPress](https://img.shields.io/wordpress/v/double-image.svg?style=flat)]()
 [![GitHub forks](https://img.shields.io/github/forks/seb86/double-image.svg?style=flat)](https://github.com/seb86/double-image/network)
+[![WordPress.org downloads](https://img.shields.io/wordpress/plugin/dt/double-image.svg)](https://wordpress.org/plugins/double-image/)
 
-A way to insert two images side by side or stacked with optional overlay text using Gutenberg.
+**Contributors:** sebd86  
+**Tags:** blocks, gutenberg, editor, page builder, gutenberg blocks  
+**Requires at least:** 4.9  
+**Tested up to:** 5.0.3  
+**Requires PHP:** 5.6+  
+**Stable tag:** 1.2.0  
+**License:** GPL v2 or later  
 
+A custom block designed to insert two images side by side or stacked with optional overlay text.
+
+## 🔔 Overview
+
+Double Image is designed for the Gutenberg editor. This custom block design allows you to display two images side by side or stacked.
+
+Images can be either selected via the media library or simply drag and drop an image to either drop zones.
+
+Apply an overlay with or without a background colour and adjust the opacity of the background.
+
+Text can be added on either image at the top or bottom.
+
+## 📹 Preview
 <p align="center">
 	<img src="https://raw.githubusercontent.com/seb86/double-image/master/demo.gif" alt="Double Image Demo" />
 </p>
@@ -25,6 +48,7 @@ To select an image from the media library, simply select the first or second pla
 
 Once an image is set you can then play around with the block settings.
 
+
 ### Block Settings
 
 When the block is selected you have the option to change the following:
@@ -43,9 +67,10 @@ Each image has the same options.
 
 The remaining block options do not show unless "Show Overlay" is enabled for either image.
 
-* Background Opacity (Change the background opacity for the overlay.)
-* Overlay text colour.
-* Overlay text position.
+* Background Colour
+* Background Opacity
+* Text Colour.
+* Text Position.
 
 
 #### Toolbar
@@ -78,7 +103,7 @@ To use this plugin you will need:
 #### Installation 💽
 
 1. If you are not running WordPress 5.0+, install [Gutenberg](https://wordpress.org/plugins/gutenberg/) plugin.
-2. Download the [latest release](https://github.com/seb86/double-image/releases) `.zip` file.
+2. [Download the latest release of Double Image](https://github.com/seb86/double-image/releases) from the GitHub repository, or..
 3. Go to **WordPress Admin > Plugins > Add New**.
 4. Click **Upload Plugin** at the top.
 5. **Choose File** and select the `.zip` file you downloaded in **Step 1**.
@@ -88,6 +113,10 @@ To use this plugin you will need:
 #### Reporting Issues 📝
 
 If you think you have found a bug in the plugin or want to see a new feature added, please [open a new issue](https://github.com/seb86/double-image/issues/new) and I will do my best to help you out.
+
+
+## Support
+Need help? This is a developer's portal for Double Image and should not be used for general support and queries. Please reach visit the Double Image support forum on WordPress.org.
 
 
 ## Contribute

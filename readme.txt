@@ -11,27 +11,28 @@ Stable tag: @@pkg.version
 License: GPL-3.0
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
-Insert two images side by side or stacked with optional overlay text.
+A custom block designed to insert two images side by side or stacked with optional overlay text.
 
 == Description ==
 
-A way to insert two images side by side or stacked with optional overlay text using Gutenberg.
+Double Image is designed for the Gutenberg editor. This custom block design allows you to display two images side by side or stacked.
 
-= How to Use =
+Images can be either selected via the media library or simply drag and drop an image to either drop zones.
 
-Any 3 of these keywords will narrow down the blocks when looking for Double Image to add.
+Apply an overlay with or without a background colour and adjust the opacity of the background.
 
-* image
-* overlay
-* double
+Text can be added on either image at the top or bottom.
 
-You can also add the block by typing `:doubleimage` and then press the spacebar.
+## Want more blocks?
 
-Both placeholders are drop zones so if you don't have the images already in your media library you can drag and drop an image. When the image is dropped you will see the image in the background and indicator showing it is currently uploading. When it is finished uploading the indicator will disappear.
+<strong>Join me</strong> in developing a suite of blocks for Gutenberg.
 
-To select an image from the media library, simply select the first or second placeholder to set an image.
-
-Once an image is set you can then play around with the block settings.
+* 
+* [Visit the BlockSuite website](https://blocksuite.xyz?utm_medium=wp.org&utm_source=wordpressorg&utm_campaign=readme&utm_content=double-image)
+* [Join the ideas board](https://trello.com/invite/b/VoKuFa36/60be3c8f5967ec4377b8b9e101dd79e2/block-suite)
+* [Subscribe to updates](http://eepurl.com/gffDvT)
+* [Follow on Twitter](https://twitter.com/block_suite)
+* [Follow on Instagram](https://www.instagram.com/blocksuitewp/)
 
 ## From a trusted developer
 Double Image is built and maintained by [Sébastien Dumont](https://sebastiendumont.com/?utm_medium=wp.org&utm_source=double-image&utm_campaign=readme&utm_content=sebd86).
@@ -58,14 +59,28 @@ Your ratings make a big difference. If you like Double Image, please consider sp
 
 == Frequently Asked Questions ==
 
+= Is Double Image free? =
+Yes! Double Image is absolutely free.
+
 = How do I start using Gutenberg? =
 To get the full experience of the next-generation WordPress block editor,  you'll need a Gutenberg-ready WordPress theme, like [CoBlocks](https://wordpress.org/themes/coblocks/). Then install the either WordPress 5.0+, or the [Gutenberg WordPress plugin](https://wordpress.org/plugins/gutenberg/). That's it! 💥
 
 = What WordPress themes work with Double Image? =
 Any properly developed WordPress theme will work with Double Image, though if you're looking for an exceptional theme, check out [CoBlocks](https://wordpress.org/themes/coblocks/). Developers are also able to apply minor style touch-ups to themes, to make the block fit in better with existing themes.
 
-= Is Double Image free? =
-Yes! Double Image is absolutely free.
+= How do I add or find the block? =
+Search for any of these keywords to narrow down the blocks when looking for Double Image, `image`, `overlay`, `double`.
+
+You can also add the block by typing `:doubleimage` and then press the spacebar.
+
+= Can I drag and drop images in place? =
+Yes you can. When you add the block to the editor you will be given two drop zones. So if you don't have the images already in your media library you can drag and drop an image to either slot.
+
+= How do I know if the image is uploading once dropped? =
+When the image is dropped you will see the image in the background and an indicator showing it is currently uploading. When it is finished uploading the indicator will disappear.
+
+= How do I select an image from the media library? =
+When you add the block to the editor you can press on either placeholder. This will open the media library to allow you to select an image.
 
 = Where can I ask for help? =
 Please reach out via the official [support forum on WordPress.org](https://wordpress.org/support/plugin/double-image/).
@@ -73,8 +88,7 @@ Please reach out via the official [support forum on WordPress.org](https://wordp
 == Screenshots ==
 
 1. Double Image (Blank)
-2. Inserting Double Image using prefix.
-3. Block Settings
+2. Block Settings
 
 == Changelog ==
 
