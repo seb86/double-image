@@ -116,7 +116,7 @@ If you think you have found a bug in the plugin or want to see a new feature add
 
 
 ## Support
-Need help? This is a developer's portal for Double Image and should not be used for general support and queries. Please reach visit the Double Image support forum on WordPress.org.
+Need help? This is a developer's portal for Double Image and should not be used for general support and queries. Please reach visit the [Double Image support forum on WordPress.org](https://wordpress.org/support/plugin/double-image/).
 
 
 ## Contribute
