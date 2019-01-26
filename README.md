@@ -12,7 +12,7 @@
 **Requires at least:** 4.9  
 **Tested up to:** 5.0.3  
 **Requires PHP:** 5.6+  
-**Stable tag:** 1.2.0 
+**Stable tag:** 1.2.0  
 **License:** GPL v2 or later  
 
 A custom block designed to insert two images side by side or stacked with optional overlay text.
