@@ -19,7 +19,7 @@ Double Image is designed for the Gutenberg editor. This custom block design allo
 
 Images can be either selected via the media library or simply drag and drop an image to either drop zones.
 
-Apply an overlay with or without a background colour and adjust the opacity of the background.
+Apply an overlay with or without a background color and adjust the opacity of the background.
 
 Text can be added on either image at the top or bottom.
 
@@ -88,7 +88,9 @@ Please reach out via the official [support forum on WordPress.org](https://wordp
 == Screenshots ==
 
 1. Double Image (Blank)
-2. Block Settings
+2. Two images set
+3. Both images with overlay color and overlay text
+4. Inspector showing the settings for the first image
 
 == Changelog ==
 
