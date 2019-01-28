@@ -318,7 +318,7 @@ class Double_Image_Feedback {
 new Double_Image_Feedback(
 	array(
 		'slug'       => 'doubleimage_plugin_feedback',
-		'name'       => __( 'Double_Image', 'double-image' ),
+		'name'       => __( 'Double Image', 'double-image' ),
 		'time_limit' => WEEK_IN_SECONDS,
 	)
 );
