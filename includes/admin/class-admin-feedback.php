@@ -181,11 +181,11 @@ class Double_Image_Feedback {
 
 		<style>
 		.notice.double-image-notice {
-			border-left-color: #7edbb7 !important;
+			border-left-color: #61d8aa !important;
 			padding: 20px;
 		}
 		.rtl .notice.double-image-notice {
-			border-right-color: #7edbb7 !important;
+			border-right-color: #61d8aa !important;
 		}
 		.notice.notice.double-image-notice .double-image-notice-inner {
 			display: table;
@@ -222,7 +222,7 @@ class Double_Image_Feedback {
 			padding: 6px 50px;
 			height: auto;
 			line-height: 20px;
-			background: #7edbb7;
+			background: #61d8aa;
 			border-color: #65c8a1 #65c8a1 #65c8a1;
 			-webkit-box-shadow: 0 1px 0 #65c8a1;
 			box-shadow: 0 1px 0 #65c8a1;
