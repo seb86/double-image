@@ -1,17 +1,18 @@
 # Double Image for Gutenberg
 
-[![WP Plugin Page](https://img.shields.io/badge/WordPress-%E2%86%92-lightgrey.svg?style=flat-square)](https://wordpress.org/plugins/double-image/)
+[![WordPress Plugin Page](https://img.shields.io/badge/WordPress-%E2%86%92-lightgrey.svg?style=flat-square)](https://wordpress.org/plugins/double-image/)
+[![WordPress Plugin Version](https://img.shields.io/wordpress/plugin/v/double-image.svg?style=flat)](https://wordpress.org/plugins/double-image/)
+[![WordPress Tested Up To](https://img.shields.io/wordpress/v/double-image.svg?style=flat)](https://wordpress.org/plugins/double-image/)
+[![WordPress Plugin Downloads](https://img.shields.io/wordpress/plugin/dt/double-image.svg)](https://wordpress.org/plugins/double-image/)
 [![License](https://img.shields.io/badge/license-GPL--3.0%2B-red.svg)](https://github.com/seb86/double-image/blob/master/license.txt)
-[![WordPress plugin](https://img.shields.io/wordpress/plugin/v/double-image.svg?style=flat)](https://wordpress.org/plugins/double-image/)
-[![WordPress](https://img.shields.io/wordpress/v/double-image.svg?style=flat)]()
 [![GitHub forks](https://img.shields.io/github/forks/seb86/double-image.svg?style=flat)](https://github.com/seb86/double-image/network)
-[![WordPress.org downloads](https://img.shields.io/wordpress/plugin/dt/double-image.svg)](https://wordpress.org/plugins/double-image/)
 
 **Contributors:** sebd86  
+**Donate link:** https://sebdumont.xyz/donate/  
 **Tags:** blocks, gutenberg, editor, page builder, gutenberg blocks  
 **Requires at least:** 4.9  
-**Tested up to:** 5.0.3  
 **Requires PHP:** 5.6+  
+**Tested up to:** 5.0.3  
 **Stable tag:** 1.2.0  
 **License:** GPL v2 or later  
 
@@ -127,15 +128,18 @@ Need help? This is a developer's portal for Double Image and should not be used 
 
 ## Contribute
 
-If you or your company use Double Image or appreciate the work I’m doing in open source, please consider supporting me directly so I can continue maintaining it and keep evolving the project. It's pretty clear that software actually costs something, and even though it may be offered freely, somebody is paying the cost.
+If you or your company use Double Image or appreciate the work I’m doing in open source, please consider supporting me directly so I can continue maintaining it and keep evolving the project.
 
 You'll be helping to ensure I can spend the time not just fixing bugs, adding features, releasing new versions, but also keeping the project afloat. Any contribution you make is a big help and is greatly appreciated.
 
-Please also consider starring ✨ and sharing 👍 the repo! This helps the project getting known and grow with the community. 🙏
+Please also consider starring ✨ and sharing 👍 the project repo! This helps the project getting known and grow with the community. 🙏
 
-If you want to do a one-time donation, you can donate to:
+I accept one-time donations and monthly via [BuyMeACoffee.com](https://www.buymeacoffee.com/sebastien)
 - [My PayPal](https://www.paypal.me/codebreaker)
 - [BuyMeACoffee.com](https://www.buymeacoffee.com/sebastien)
+- Bitcoin (BTC): `3L4cU7VJsXBFckstfJdP2moaNhTHzVDkKQ`
+- Ethereum (ETH): `0xc6a3C18cf11f5307bFa11F8BCBD51F355b6431cB`
+- Litecoin (LTC): `MNNy3xBK8sM8t1YUA2iAwdi9wRvZp9yRoi`
 
 Thank you for your support! 🙌
 
