@@ -2,7 +2,7 @@
 Author URI: https://sebastiendumont.com
 Plugin URI: https://sebastiendumont.com
 Contributors: sebd86
-Donate Link: https://www.paypal.me/codebreaker
+Donate Link: https://sebdumont.xyz/donate/
 Tags: blocks, gutenberg, editor, page builder, gutenberg blocks
 Requires at least: 4.9
 Requires PHP: 5.6+
