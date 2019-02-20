@@ -3,7 +3,7 @@ Author URI: https://sebastiendumont.com
 Plugin URI: https://sebastiendumont.com
 Contributors: sebd86
 Donate Link: https://sebdumont.xyz/donate/
-Tags: blocks, gutenberg, editor, page builder, gutenberg blocks
+Tags: blocks, gutenberg, gallery, page builder, gutenberg blocks, editor, photo gallery
 Requires at least: 4.9
 Requires PHP: 5.6+
 Tested up to: @@pkg.tested_up_to

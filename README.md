@@ -9,7 +9,7 @@
 
 **Contributors:** sebd86  
 **Donate link:** https://sebdumont.xyz/donate/  
-**Tags:** blocks, gutenberg, editor, page builder, gutenberg blocks  
+**Tags:** blocks, gutenberg, gallery, page builder, gutenberg blocks, editor, photo gallery  
 **Requires at least:** 4.9  
 **Requires PHP:** 5.6+  
 **Tested up to:** 5.0.3  
