@@ -94,9 +94,14 @@ Please reach out via the official [support forum on WordPress.org](https://wordp
 == Changelog ==
 
 = 1.2.1 =
+* Compatible: Gutenberg 5.1.1
 * Changed: Tags used to help find the plugin.
 * Changed: Donation link.
 * Corrected: Plugin feedback image from not loading correctly.
+* Tweaked: Block colors to stand out more from the rest of the blocks.
+* Tweaked: Enqueued the block instead of registering the block.
+* Tweaked: Background Opacity option only shows if a background color is set.
+* Dev: Dependencies updated.
 
 = 1.2.0 =
 * Initial release on WordPress.org. Enjoy!
