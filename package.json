@@ -47,7 +47,7 @@
     "lodash": "^4.17.11",
     "memize": "^1.0.5",
     "postcss": "^6.0.19",
-    "react": "^16.6.3",
+    "react": "^16.8.2",
     "redux": "^4.0.1",
     "stylelint": "^9.9.0"
   },
@@ -73,7 +73,7 @@
     "gulp-sass": "^3.2.1",
     "gulp-uglify": "^1.5.3",
     "gulp-uglifycss": "^1.0.8",
-    "gulp-wp-pot": "^2.3.3",
+    "gulp-wp-pot": "^2.3.4",
     "gulp-zip": "^4.2.0",
     "prettier-stylelint": "^0.4.2",
     "stylelint-config-prettier": "^3.1.0",
