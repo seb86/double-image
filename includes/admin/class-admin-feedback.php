@@ -277,7 +277,7 @@ class Double_Image_Feedback {
 			<div class="double-image-notice-inner">
 				<div class="double-image-notice-icon">
 					<?php /* translators: 1. Name */ ?>
-					<img src="https://ps.w.org/double-image/assets/icon-256x256.jpg" alt="<?php printf( esc_attr__( '%1$s WordPress Plugin', 'double-image' ), esc_attr( $this->name ) ); ?>" />
+					<img src="https://ps.w.org/double-image/assets/icon-256x256.png" alt="<?php printf( esc_attr__( '%1$s WordPress Plugin', 'double-image' ), esc_attr( $this->name ) ); ?>" />
 				</div>
 				<div class="double-image-notice-content">
 					<?php /* translators: 1. Name */ ?>

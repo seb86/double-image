@@ -5,7 +5,7 @@
  * Description: A way to insert two images side by side or stacked with optional overlay text using Gutenberg.
  * Author: Sébastien Dumont
  * Author URI: https://sebastiendumont.com
- * Version: 1.2.0
+ * Version: 1.2.1
  * Text Domain: double-image
  * Domain Path: languages
  * Requires at least: 4.9
@@ -72,7 +72,7 @@ if ( ! class_exists( 'Double_Image' ) ) {
 		 */
 		public function __clone() {
 			// Cloning instances of the class is forbidden
-			_doing_it_wrong( __FUNCTION__, __( 'Cloning this object is forbidden.', 'double-image' ), '1.2.0' );
+			_doing_it_wrong( __FUNCTION__, __( 'Cloning this object is forbidden.', 'double-image' ), '1.2.1' );
 		} // END __clone()
 
 		/**
@@ -82,7 +82,7 @@ if ( ! class_exists( 'Double_Image' ) ) {
 		 * @return void
 		 */
 		public function __wakeup() {
-			_doing_it_wrong( __FUNCTION__, __( 'Unserializing instances of this class is forbidden.', 'double-image' ), '1.2.0' );
+			_doing_it_wrong( __FUNCTION__, __( 'Unserializing instances of this class is forbidden.', 'double-image' ), '1.2.1' );
 		} // END __wakeup()
 
 		/**
@@ -108,7 +108,7 @@ if ( ! class_exists( 'Double_Image' ) ) {
 		 * @return void
 		 */
 		private function constants() {
-			$this->define( 'DOUBLEIMAGE_VERSION', '1.2.0' );
+			$this->define( 'DOUBLEIMAGE_VERSION', '1.2.1' );
 			$this->define( 'DOUBLEIMAGE_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
 			$this->define( 'DOUBLEIMAGE_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
 			$this->define( 'DOUBLEIMAGE_PLUGIN_FILE', __FILE__ );

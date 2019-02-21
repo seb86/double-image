@@ -3,6 +3,7 @@
  * Load assets for the block.
  *
  * @since   1.2.0
+ * @version 1.2.1
  * @package Double Image
  * @author  Sébastien Dumont
  * @link    https://sebastiendumont.com
@@ -70,7 +71,7 @@ class Double_Image_Block_Assets {
 	 *
 	 * @access  public
 	 * @since   1.0.0
-	 * @version 1.2.0
+	 * @version 1.2.1
 	 * @uses    {wp-blocks} for block type registration & related functions.
 	 * @uses    {wp-element} for WP Element abstraction — structure of blocks.
 	 * @uses    {wp-i18n} to internationalize the block's text.
@@ -86,11 +87,11 @@ class Double_Image_Block_Assets {
 		);
 
 		// Script.
-		wp_register_script(
+		wp_enqueue_script(
 			$this->_slug . '-editor',
 			$this->_url . '/dist/blocks.build.js',
 			array( 'wp-blocks', 'wp-i18n', 'wp-element', 'wp-editor' ),
-			$this->_version,
+			time(),
 			true
 		);
 	}

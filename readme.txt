@@ -2,12 +2,12 @@
 Author URI: https://sebastiendumont.com
 Plugin URI: https://sebastiendumont.com
 Contributors: sebd86
-Donate Link: https://www.paypal.me/codebreaker
-Tags: blocks, gutenberg, editor, page builder, gutenberg blocks
+Donate Link: https://sebdumont.xyz/donate/
+Tags: blocks, gutenberg, gallery, page builder, gutenberg blocks, editor, photo gallery
 Requires at least: 4.9
-Requires PHP: 5.6+
+Requires PHP: 5.6
 Tested up to: 5.0.3
-Stable tag: 1.2.0
+Stable tag: 1.2.1
 License: GPL-3.0
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -27,7 +27,6 @@ Text can be added on either image at the top or bottom.
 
 <strong>Join me</strong> in developing a suite of blocks for Gutenberg.
 
-* 
 * [Visit the BlockSuite website](https://blocksuite.xyz?utm_medium=wp.org&utm_source=wordpressorg&utm_campaign=readme&utm_content=double-image)
 * [Join the ideas board](https://trello.com/invite/b/VoKuFa36/60be3c8f5967ec4377b8b9e101dd79e2/block-suite)
 * [Subscribe to updates](http://eepurl.com/gffDvT)
@@ -39,7 +38,7 @@ Double Image is built and maintained by [Sébastien Dumont](https://sebastiendum
 
 
 = Support =
-Use the WordPress.org forums for [community support](https://wordpress.org/support/plugin/double-image). If you spot a bug, you can of course log it on [Github](https://github.com/seb86/double-image/issues) instead where I can act upon it more efficiently.
+Use the WordPress.org forums for [community support](https://wordpress.org/support/plugin/double-image). If you spot a bug, you can of course log it on [GitHub](https://github.com/seb86/double-image/issues) instead where I can act upon it more efficiently.
 
 = Please Leave a Review =
 Your ratings make a big difference. If you like Double Image, please consider spending a minute or two [leaving a review](https://wordpress.org/support/plugin/double-image/reviews/?rate=5#postform) and tell me what you think about the plugin.
@@ -69,7 +68,7 @@ To get the full experience of the next-generation WordPress block editor,  you'l
 Any properly developed WordPress theme will work with Double Image, though if you're looking for an exceptional theme, check out [CoBlocks](https://wordpress.org/themes/coblocks/). Developers are also able to apply minor style touch-ups to themes, to make the block fit in better with existing themes.
 
 = How do I add or find the block? =
-Search for any of these keywords to narrow down the blocks when looking for Double Image, `image`, `overlay`, `double`.
+Search for any of these keywords to narrow down the blocks when looking for Double Image. `image`, `overlay`, `double`.
 
 You can also add the block by typing `:doubleimage` and then press the spacebar.
 
@@ -93,6 +92,16 @@ Please reach out via the official [support forum on WordPress.org](https://wordp
 4. Inspector showing the settings for the first image
 
 == Changelog ==
+
+= 1.2.1 =
+* Compatible: Gutenberg 5.1.1
+* Changed: Tags used to help find the plugin.
+* Changed: Donation link.
+* Corrected: Plugin feedback image from not loading correctly.
+* Tweaked: Block colors to stand out more from the rest of the blocks.
+* Tweaked: Enqueued the block instead of registering the block.
+* Tweaked: Background Opacity option only shows if a background color is set.
+* Dev: Dependencies updated.
 
 = 1.2.0 =
 * Initial release on WordPress.org. Enjoy!
