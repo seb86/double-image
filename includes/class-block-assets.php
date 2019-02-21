@@ -86,11 +86,11 @@ class Double_Image_Block_Assets {
 		);
 
 		// Script.
-		wp_register_script(
+		wp_enqueue_script(
 			$this->_slug . '-editor',
 			$this->_url . '/dist/blocks.build.js',
 			array( 'wp-blocks', 'wp-i18n', 'wp-element', 'wp-editor' ),
-			$this->_version,
+			time(),
 			true
 		);
 	}
