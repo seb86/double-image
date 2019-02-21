@@ -133,15 +133,17 @@ class Inspector extends Component {
 											},
 										] }
 									>
-										<RangeControl
-											label={ __( 'Background Opacity' ) }
-											value={ firstOverlayRatio }
-											onChange={ setFirstDimRatio }
-											min={ 0 }
-											max={ 100 }
-											step={ 10 }
-											help={ __( 'Change the background opacity for the overlay.' ) }
-										/>
+										{ firstOverlayColor && (
+											<RangeControl
+												label={ __( 'Background Opacity' ) }
+												value={ firstOverlayRatio }
+												onChange={ setFirstDimRatio }
+												min={ 0 }
+												max={ 100 }
+												step={ 10 }
+												help={ __( 'Change the background opacity for the background color.' ) }
+											/>
+										) }
 
 										<SelectControl
 											label={ __( 'Text Position' ) }
@@ -215,15 +217,17 @@ class Inspector extends Component {
 											},
 										] }
 									>
-										<RangeControl
-											label={ __( 'Background Opacity' ) }
-											value={ secondOverlayRatio }
-											onChange={ setSecondDimRatio }
-											min={ 0 }
-											max={ 100 }
-											step={ 10 }
-											help={ __( 'Change the background opacity for the overlay.' ) }
-										/>
+										{ secondOverlayColor && (
+											<RangeControl
+												label={ __( 'Background Opacity' ) }
+												value={ secondOverlayRatio }
+												onChange={ setSecondDimRatio }
+												min={ 0 }
+												max={ 100 }
+												step={ 10 }
+												help={ __( 'Change the background opacity for the background color.' ) }
+											/>
+										) }
 
 										<SelectControl
 											label={ __( 'Text Position' ) }
