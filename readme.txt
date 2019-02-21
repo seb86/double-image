@@ -4,8 +4,8 @@ Plugin URI: https://sebastiendumont.com
 Contributors: sebd86
 Donate Link: https://sebdumont.xyz/donate/
 Tags: blocks, gutenberg, gallery, page builder, gutenberg blocks, editor, photo gallery
-Requires at least: 4.9
-Requires PHP: 5.6+
+Requires at least: @@pkg.requires
+Requires PHP: @@pkg.requires_php
 Tested up to: @@pkg.tested_up_to
 Stable tag: @@pkg.version
 License: GPL-3.0
@@ -92,6 +92,11 @@ Please reach out via the official [support forum on WordPress.org](https://wordp
 4. Inspector showing the settings for the first image
 
 == Changelog ==
+
+= 1.2.1 =
+* Changed: Tags used to help find the plugin.
+* Changed: Donation link.
+* Corrected: Plugin feedback image from not loading correctly.
 
 = 1.2.0 =
 * Initial release on WordPress.org. Enjoy!

@@ -16,6 +16,7 @@
   },
   "bugs": "https://github.com/seb86/double-image/issues",
   "requires": "4.9",
+  "requires_php": "5.6",
   "tested_up_to": "5.0.3",
   "license": "GPL-3.0",
   "copyright": "Copyright (c) 2019, Sébastien Dumont",

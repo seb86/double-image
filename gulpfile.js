@@ -153,6 +153,10 @@ gulp.task( 'variables', function( done ) {
 					replacement: pkg.requires,
 				},
 				{
+					match: 'pkg.requires_php',
+					replacement: pkg.requires_php,
+				},
+				{
 					match: 'pkg.tested_up_to',
 					replacement: pkg.tested_up_to,
 				},

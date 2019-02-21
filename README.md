@@ -11,9 +11,9 @@
 **Donate link:** https://sebdumont.xyz/donate/  
 **Tags:** blocks, gutenberg, gallery, page builder, gutenberg blocks, editor, photo gallery  
 **Requires at least:** 4.9  
-**Requires PHP:** 5.6+  
+**Requires PHP:** 5.6  
 **Tested up to:** 5.0.3  
-**Stable tag:** 1.2.0  
+**Stable tag:** 1.2.1  
 **License:** GPL v2 or later  
 
 A custom block designed to insert two images side by side or stacked with optional overlay text.

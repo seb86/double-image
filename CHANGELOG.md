@@ -1,4 +1,9 @@
-# Double Image Changelog
+# Double Image for Gutenberg Changelog
+
+## v1.2.1
+* Changed: Tags used to help find the plugin.
+* Changed: Donation link.
+* Corrected: Plugin feedback image from not loading correctly.
 
 ## v1.2.0
 * Compatible: Gutenberg 4.8
